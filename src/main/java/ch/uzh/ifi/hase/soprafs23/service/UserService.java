@@ -75,6 +75,5 @@ public class UserService {
     } else if (userByName != null) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format(baseErrorMessage, "name", "is"));
     }
-
   }
 }

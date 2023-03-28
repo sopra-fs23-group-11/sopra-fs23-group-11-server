@@ -1,4 +1,4 @@
-package ch.uzh.ifi.hase.soprafs23.ships;
+package ch.uzh.ifi.hase.soprafs23.entity.ships;
 
 public class Position {
     private int x;

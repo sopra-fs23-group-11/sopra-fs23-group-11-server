@@ -1,6 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.Grid;
+import ch.uzh.ifi.hase.soprafs23.entity.ships.Position;
 
-import ch.uzh.ifi.hase.soprafs23.ships.Position;
 
 public class Grid {
     public Cell[][] grid;

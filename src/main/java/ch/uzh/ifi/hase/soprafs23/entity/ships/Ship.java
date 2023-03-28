@@ -1,10 +1,24 @@
-package ch.uzh.ifi.hase.soprafs23.ships;
+package ch.uzh.ifi.hase.soprafs23.entity.ships;
+
+import ch.uzh.ifi.hase.soprafs23.entity.Player;
+import org.hibernate.annotations.ManyToAny;
+
+import javax.persistence.ManyToOne;
 
 public class Ship {
     private int length;
     private String type;
     private boolean isSunk;
+    // It is evtl. easier to define start and end position. Pay attention we need to change
+    //the getter and setter accordingly
     private Position[] position;
+    @ManyToOne
+    public Player player;
+
+    public Ship(String type, int length) {
+        this.type = type;
+        this.length=length;
+    }
 
     public boolean isSunk() {
         return isSunk;

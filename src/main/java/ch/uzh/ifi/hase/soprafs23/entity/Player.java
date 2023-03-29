@@ -13,6 +13,9 @@ public class Player {
     public Long getId() {
         return id;
     }
+    public void setId(Long id) {
+        this.id = id;
+    }
     @Column(nullable = false, unique = true)
     private String name;
     @Column(nullable = false)

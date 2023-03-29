@@ -22,9 +22,10 @@ import java.util.Optional;
  * UserService and finally return the result.
  */
 
-/*
+
 @RestController
 public class UserController {
+    /*
 
     private final UserService userService;
 
@@ -108,5 +109,7 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, String.format("Can't touch this."));
         }
     }
+
+     */
 }
- */
+

@@ -18,6 +18,9 @@ public class Player {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false, unique = true)
+    private String token;
+
     private int shipsRemaining;
     public boolean isAlive;
     @Column
@@ -71,6 +74,14 @@ public class Player {
 
     public void setShipsRemaining(int shipsRemaining) {
         this.shipsRemaining = shipsRemaining;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
 

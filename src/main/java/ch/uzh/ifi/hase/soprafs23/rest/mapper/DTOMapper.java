@@ -1,9 +1,10 @@
 package ch.uzh.ifi.hase.soprafs23.rest.mapper;
 
 import ch.uzh.ifi.hase.soprafs23.entity.User;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.UserGetDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPutDTO;
+import ch.uzh.ifi.hase.soprafs23.entity.Player;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.PlayerGetDTO;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.PlayerPostDTO;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.PlayerPutDTO;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
@@ -23,24 +24,21 @@ public interface DTOMapper {
 
     DTOMapper INSTANCE = Mappers.getMapper(DTOMapper.class);
 
+    @Mapping(source = "password", target = "password")
     @Mapping(source = "name", target = "name")
-    @Mapping(source = "username", target = "username")
-    User convertUserPostDTOtoEntity(UserPostDTO userPostDTO);
+    Player convertPlayerPostDTOtoEntity(PlayerPostDTO playerPostDTO);
 
     @Mapping(source = "id", target = "id")
+    @Mapping(source = "password", target = "password")
     @Mapping(source = "name", target = "name")
-    @Mapping(source = "username", target = "username")
     @Mapping(source = "status", target = "status")
-    @Mapping(source = "birthDate", target = "birthDate")
-    @Mapping(source = "voldemort", target = "voldemort")
     @Mapping(source = "token", target = "token")
-    UserGetDTO convertEntityToUserGetDTO(User user);
+    PlayerGetDTO convertEntityToPlayerGetDTO(Player player);
 
+    @Mapping(source = "password", target = "password")
     @Mapping(source = "name", target = "name")
-    @Mapping(source = "username", target = "username")
     @Mapping(source = "token", target = "token")
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "birthDate", target = "birthDate")
-    User convertUserPutDTOtoEntity(UserPutDTO userPutDTO);
+    Player convertPlayerPutDTOtoEntity(PlayerPutDTO playerPutDTO);
 
 }

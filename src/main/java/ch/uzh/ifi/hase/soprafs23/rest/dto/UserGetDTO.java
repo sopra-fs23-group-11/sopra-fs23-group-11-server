@@ -10,21 +10,11 @@ public class UserGetDTO {
     private String name;
     private String username;
     private UserStatus status;
-    private String birthDate;
     private String token;
-    private String voldemort;
 
     public void setToken(String token){this.token = token;};
 
     public String getToken(){return token;}
-
-    public void setVoldemort(String voldemort){this.voldemort = voldemort;}
-
-    public String getVoldemort() {return voldemort;}
-
-    public String getBirthDate() {return birthDate;};
-
-    public void setBirthDate(String birthDate){this.birthDate = birthDate;};
 
     public Long getId() {
         return id;

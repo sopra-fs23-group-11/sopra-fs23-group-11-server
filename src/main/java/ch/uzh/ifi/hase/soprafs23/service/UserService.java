@@ -44,8 +44,8 @@ public class UserService {
     public User createUser(User newUser) {
         newUser.setToken(UUID.randomUUID().toString());
         newUser.setStatus(UserStatus.ONLINE);
-        newUser.setVoldemort(String.valueOf(java.time.LocalDate.now()));
-
+        newUser.setTotalWins(0);
+        //newUser.setVoldemort(String.valueOf(java.time.LocalDate.now()));
         checkIfUserExists(newUser);
         // saves the given entity but data is only persisted in the database once
         // flush() is called
@@ -54,12 +54,6 @@ public class UserService {
 
         log.debug("Created Information for User: {}", newUser);
         return newUser;
-    }
-
-    public void setBDay(User user){
-        User bdUser = userRepository.getOne(user.getId());
-        bdUser.setBirthDate(user.getBirthDate());
-        userRepository.flush();
     }
 
     public User setNewName(User user){
@@ -83,11 +77,8 @@ public class UserService {
 
     public boolean checkAuth(User user){
         User userById = userRepository.getOne(user.getId());
-        if (Objects.equals(userById.getToken(),user.getToken())){
-            return true;
-        }else{
-            return false;
-        }
+        if (Objects.equals(userById.getToken(),user.getToken())){return true;}
+        else{return false;}
     }
 
     public User loginUser(User user){
@@ -111,9 +102,10 @@ public class UserService {
      */
     private void checkIfUserExists(User userToBeCreated) {
         User userByUsername = userRepository.findByUsername(userToBeCreated.getUsername());
-        User userByName = userRepository.findByName(userToBeCreated.getName());
+        //User userByName = userRepository.findByName(userToBeCreated.getName());
 
         String baseErrorMessage = "The %s provided %s not unique. Therefore, the user could not be created!";
+        /*
         if (userByUsername != null && userByName != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     String.format(baseErrorMessage, "username and the name", "are"));
@@ -121,17 +113,17 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format(baseErrorMessage, "username", "is"));
         } else if (userByName != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format(baseErrorMessage, "name", "is"));
+        }*/
+        if (userByUsername != null ) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    String.format(baseErrorMessage, "username", "is"));
         }
     }
 
     public User findUserById(long id) {
         User userById = userRepository.getOne(id);
-        if (userById != null) {
-            return userById;
-        }
-        else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+        if (userById != null) {return userById;}
+        else {throw new ResponseStatusException(HttpStatus.NOT_FOUND);}
     }
 
     private void checkIfUserExistsLogin(User userToBeCreated) {
@@ -140,9 +132,13 @@ public class UserService {
         if (userByUsername == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     String.format(baseErrorMessage, "Username does not exist"));
-        } else if (!Objects.equals(userByUsername.getName(), userToBeCreated.getName())){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    String.format(baseErrorMessage, "Wrong Password"));
         }
+    }
+
+    public User getUserByUsername(String username){
+        User user = userRepository.findByUsername(username);
+        user.setToken(UUID.randomUUID().toString());
+        user.setStatus(UserStatus.ONLINE);
+        return userRepository.findByUsername(username);
     }
 }

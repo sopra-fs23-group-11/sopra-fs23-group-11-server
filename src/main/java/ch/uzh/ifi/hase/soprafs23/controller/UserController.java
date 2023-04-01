@@ -25,7 +25,7 @@ import java.util.Optional;
 
 @RestController
 public class UserController {
-    /*
+
 
     private final UserService userService;
 
@@ -63,6 +63,8 @@ public class UserController {
     public UserGetDTO createUser(@RequestBody UserPostDTO userPostDTO) {
         // convert API user to internal representation
         User userInput = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
+        System.out.println(userPostDTO.getUsername());
+        System.out.println(userPostDTO.getPassword());
 
         // create user
         User createdUser = userService.createUser(userInput);
@@ -77,7 +79,7 @@ public class UserController {
         User userInput = DTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
         userService.logoutUser(userInput);
     }
-
+/*
     @PutMapping("/users/edit")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -90,6 +92,8 @@ public class UserController {
             userService.setNewName(userInput);
         }
     }
+
+ */
 
     @PutMapping("/users")
     @ResponseStatus(HttpStatus.ACCEPTED)
@@ -110,6 +114,6 @@ public class UserController {
         }
     }
 
-     */
+
 }
 

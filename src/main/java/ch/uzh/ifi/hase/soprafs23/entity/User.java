@@ -23,11 +23,16 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    private Lobby lobby;
     @Column(nullable = false)
-    private String name;
+    private String password;
+
+    @Column
+    private int totalWins;
 
     @Column(nullable = false, unique = true)
     private String username;
@@ -38,35 +43,35 @@ public class User implements Serializable {
     @Column(nullable = false)
     private UserStatus status;
 
-    @Column(nullable = true)
-    private String birthDate;
+    public String getPassword() {
+        return password;
+    }
 
-    @Column(nullable = true)
-    private String voldemort;
+    public Lobby getLobby() {
+        return lobby;
+    }
 
-    public void setVoldemort(String voldemort){this.voldemort = voldemort;};
+    public void setLobby(Lobby lobby) {
+        this.lobby = lobby;
+    }
 
-    public String getVoldemort(){return voldemort;}
 
-    public String getBirthDate(){return birthDate;};
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public void setBirthDate(String birthDate){this.birthDate = birthDate;}
+    public int getTotalWins() {
+        return totalWins;
+    }
+
+    public void setTotalWins(int totalWins) {
+        this.totalWins = totalWins;
+    }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getUsername() {
         return username;

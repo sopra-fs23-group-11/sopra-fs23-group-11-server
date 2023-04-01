@@ -10,12 +10,6 @@ public class Player {
     @Id
     @GeneratedValue
     private Long id;
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
     @Column(nullable = false, unique = true)
     private String name;
     @Column(nullable = false)
@@ -28,8 +22,16 @@ public class Player {
     public boolean isAlive;
     @Column
     public int nrTotalWins;
+    /*
     @OneToMany(mappedBy = "player")
-    public Ship[] ships;
+    public Ship[] ships;*/
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public boolean isAlive() {
         return isAlive;
@@ -46,14 +48,14 @@ public class Player {
     public void setNrTotalWins(int nrTotalWins) {
         this.nrTotalWins = nrTotalWins;
     }
-
+/*
     public Ship[] getShips() {
         return ships;
     }
 
     public void setShips(Ship[] ships) {
         this.ships = ships;
-    }
+    } */
 
     public String getName() {
         return name;

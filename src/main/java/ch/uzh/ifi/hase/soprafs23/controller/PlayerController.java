@@ -31,6 +31,7 @@ public class PlayerController {
   PlayerController(PlayerService playerService) {
     this.playerService = playerService;
   }
+  /*
     @GetMapping("/players")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -60,4 +61,6 @@ public class PlayerController {
         Player player = playerService.loginPlayer(userInput);
         return DTOMapper.INSTANCE.convertEntityToPlayerGetDTO(player);
     }
+
+   */
 }

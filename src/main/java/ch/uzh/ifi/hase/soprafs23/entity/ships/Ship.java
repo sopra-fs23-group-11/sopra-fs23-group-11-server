@@ -3,14 +3,20 @@ package ch.uzh.ifi.hase.soprafs23.entity.ships;
 import ch.uzh.ifi.hase.soprafs23.entity.Player;
 import org.hibernate.annotations.ManyToAny;
 
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "ships")
 public class Ship {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false)
     private int length;
+    @Column(nullable = false, unique = true)
     private String type;
     private boolean isSunk;
-    // It is evtl. easier to define start and end position. Pay attention we need to change
-    //the getter and setter accordingly
+
     private Position[] position;
     @ManyToOne
     public Player player;

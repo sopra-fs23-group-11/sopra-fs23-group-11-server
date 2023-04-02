@@ -17,7 +17,8 @@ import org.mapstruct.factory.Mappers;
  * Always created one mapper for getting information (GET) and one mapper for
  * creating information (POST).
  */
-@Mapper
+
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface DTOMapper {
 
     DTOMapper INSTANCE = Mappers.getMapper(DTOMapper.class);
@@ -27,15 +28,12 @@ public interface DTOMapper {
     User convertUserPostDTOtoEntity(UserPostDTO userPostDTO);
 
     @Mapping(source = "id", target = "id")
-    //@Mapping(source = "password", target = "password")
     @Mapping(source = "username", target = "username")
     @Mapping(source = "token", target = "token")
     UserGetDTO convertEntityToUserGetDTO(User user);
 
-   // @Mapping(source = "password", target = "password")
+  
     @Mapping(source = "username", target = "username")
-    //@Mapping(source = "token", target = "token")
-    //@Mapping(source = "id", target = "id")
     User convertUserPutDTOtoEntity(UserPutDTO userPutDTO);
 
 }

@@ -34,7 +34,11 @@ public class LobbyService {
             User host= optionalUser.get();
             Lobby newLobby= new Lobby();
             newLobby.setHost(host);
-            newLobby.setLobbyCode(UUID.randomUUID().toString());
+            String lobbyCode;
+            do {
+                lobbyCode=UUID.randomUUID().toString();
+            }while (lobbyRepository.findByLobbyCode(lobbyCode)!= null);
+            newLobby.setLobbyCode(lobbyCode);
             Lobby lobby= lobbyRepository.save(newLobby);
             host.setLobbyForHost(lobby);
             userRepository.save(host);

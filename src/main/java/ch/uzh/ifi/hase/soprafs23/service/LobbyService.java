@@ -36,7 +36,7 @@ public class LobbyService {
             newLobby.setHost(host);
             newLobby.setLobbyCode(UUID.randomUUID().toString());
             Lobby lobby= lobbyRepository.save(newLobby);
-            host.setLobby(lobby);
+            host.setLobbyForHost(lobby);
             userRepository.save(host);
             return lobby;
         }
@@ -51,7 +51,7 @@ public class LobbyService {
         Optional <User> optionalUser= userRepository.findById(userId);
         if (lobby != null && optionalUser.isPresent()){
             User user= optionalUser.get();
-            user.setLobby(lobby);
+            user.setLobbyForJoiner(lobby);
             User newuser= userRepository.save(user);
             lobby.setJoiner(newuser);
             lobbyRepository.save(lobby);
@@ -60,5 +60,9 @@ public class LobbyService {
         else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("lobby or user not found"));
         }
+    }
+
+    public Lobby findByLobbyCode(String lobbyCode){
+        return lobbyRepository.findByLobbyCode(lobbyCode);
     }
 }

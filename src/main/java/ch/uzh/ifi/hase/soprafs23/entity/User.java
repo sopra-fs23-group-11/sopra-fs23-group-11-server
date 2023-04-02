@@ -27,7 +27,10 @@ public class User implements Serializable {
     private Long id;
 
     @OneToOne
-    private Lobby lobby;
+    private Lobby lobbyForHost;
+
+    @OneToOne
+    private Lobby lobbyForJoiner;
     @Column(nullable = false)
     private String password;
 
@@ -47,14 +50,6 @@ public class User implements Serializable {
         return password;
     }
 
-    public Lobby getLobby() {
-        return lobby;
-    }
-
-    public void setLobby(Lobby lobby) {
-        this.lobby = lobby;
-    }
-
 
     public void setPassword(String password) {
         this.password = password;
@@ -72,6 +67,21 @@ public class User implements Serializable {
         return id;
     }
 
+    public Lobby getLobbyForHost() {
+        return lobbyForHost;
+    }
+
+    public void setLobbyForHost(Lobby lobbyForHost) {
+        this.lobbyForHost = lobbyForHost;
+    }
+
+    public Lobby getLobbyForJoiner() {
+        return lobbyForJoiner;
+    }
+
+    public void setLobbyForJoiner(Lobby lobbyForJoiner) {
+        this.lobbyForJoiner = lobbyForJoiner;
+    }
 
     public String getUsername() {
         return username;

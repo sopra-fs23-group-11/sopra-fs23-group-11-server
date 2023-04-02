@@ -13,10 +13,10 @@ public class Lobby {
     @Column
     private String lobbyCode;
 
-    @OneToOne (mappedBy = "lobby")
+    @OneToOne (mappedBy = "lobbyForHost")
     private User host;
 
-    @OneToOne (mappedBy = "lobby")
+    @OneToOne (mappedBy = "lobbyForJoiner")
     private User joiner;
 
     public long getLobbyId() {

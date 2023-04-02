@@ -65,4 +65,6 @@ public class Ship {
         return false;
     }
 
+    public void decrementSize() {this.length -= 1;}
+
 }

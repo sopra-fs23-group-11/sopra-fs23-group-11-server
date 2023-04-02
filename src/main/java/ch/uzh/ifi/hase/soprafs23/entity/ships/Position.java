@@ -25,12 +25,14 @@ public class Position {
     }
 
     public Position(String str) { // Position p = new Position("C2");
-        this.x = chartoint(str.substring(0, 1));
-        this.y = chartoint(str.substring(1, 2));
+        this.x = charToInt(str.substring(0, 1));
+        this.y = charToInt(str.substring(1, 2));
     }
+    
 
 
-    private int chartoint(String str) {
+
+    private int charToInt(String str) {
         return switch (str) {
             case "A", "0" -> 0;
             case "B", "1" -> 1;
@@ -47,8 +49,10 @@ public class Position {
         };
     }
 
-
-
+    public int length() {
+        String posStr = Integer.toString(x) + Integer.toString(y);
+        return posStr.length();
+    }
 
 
 }

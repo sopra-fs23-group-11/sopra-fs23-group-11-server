@@ -38,6 +38,4 @@ public class Grid {
         cell.setIsOccupied(occupied);
     }
 
-
-    
 }

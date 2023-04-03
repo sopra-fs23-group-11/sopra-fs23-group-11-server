@@ -1,8 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
-import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
 import ch.uzh.ifi.hase.soprafs23.entity.Player;
-import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.repository.PlayerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import ch.uzh.ifi.hase.soprafs23.entity.Helper;
 
 @Service
 @Transactional
@@ -22,9 +21,12 @@ public class PlayerService {
     private final Logger log = LoggerFactory.getLogger(UserService.class);
     private final PlayerRepository playerRepository;
 
+    private  final Helper helper;
+
     @Autowired
-    public PlayerService(PlayerRepository playerRepository) {
+    public PlayerService(PlayerRepository playerRepository, Helper helper) {
         this.playerRepository = playerRepository;
+        this.helper = helper;
     }
 
     public List<Player> getPlayers() {
@@ -66,5 +68,18 @@ public class PlayerService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     String.format(baseErrorMessage, "Wrong Password"));
         }
+    }
+    public void validateInput(Player player){
+        String input = player.getShips();
+        String ships = convertInputToUsableString(input);
+        String baseErrorMessage = "Submit failed: %s";
+        //TODO: adjust null values to proper method input
+        if (!(helper.isInsideGrid(null) && helper.isValidPosition(null, null) && helper.isValidPositionForShip(null, null))){
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, String.format(baseErrorMessage, "Input does not comply with game rules"));
+        }
+    }
+    public String convertInputToUsableString(String input){
+        //TODO: convert input to usable String that works with helper methods
+        return null;
     }
 }

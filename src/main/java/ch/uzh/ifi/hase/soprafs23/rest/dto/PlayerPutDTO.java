@@ -5,7 +5,9 @@ public class PlayerPutDTO {
     private String password;
     private String token;
     private Long id;
-
+    private String ships;
+    public String getShips(){return ships;}
+    public void setShips(String ships){this.ships = ships;}
     public String getName() {
         return name;
     }

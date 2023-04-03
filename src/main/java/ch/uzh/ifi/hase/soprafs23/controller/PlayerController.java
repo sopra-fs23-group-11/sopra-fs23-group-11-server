@@ -1,12 +1,10 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
+import ch.uzh.ifi.hase.soprafs23.Grid.Grid;
 import ch.uzh.ifi.hase.soprafs23.entity.Player;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.UserGetDTO;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.PlayerGetDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.PlayerPostDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.PlayerPutDTO;
 import ch.uzh.ifi.hase.soprafs23.service.PlayerService;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -63,4 +61,19 @@ public class PlayerController {
     }
 
    */
+
+    @PutMapping("/submit/ships")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public void submitShips(@RequestBody PlayerPutDTO playerPutDTO){
+        Player userInput = DTOMapper.INSTANCE.convertPlayerPutDTOtoEntity(playerPutDTO);
+        playerService.validateInput(userInput);
+    }
+
+    @GetMapping("/board")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Grid getUserGrid(@RequestBody GridGetDTO gridGetDTO){
+        return null;
+    }
 }

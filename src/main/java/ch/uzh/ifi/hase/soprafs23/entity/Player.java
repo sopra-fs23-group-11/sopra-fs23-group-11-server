@@ -26,6 +26,17 @@ public class Player {
     @OneToMany(mappedBy = "player")
     public Ship[] ships;*/
 
+    @Column
+    private String ships;
+
+    public String getShips(){
+        return ships;
+    }
+
+    public void setShips(String ships){
+        this.ships = ships;
+    }
+
     public Long getId() {
         return id;
     }

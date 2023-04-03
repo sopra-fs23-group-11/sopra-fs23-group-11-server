@@ -68,7 +68,6 @@ public class PlayerController {
     public void submitShips(@RequestBody PlayerPutDTO playerPutDTO){
         Player userInput = DTOMapper.INSTANCE.convertPlayerPutDTOtoEntity(playerPutDTO);
         playerService.validateInput(userInput);
-
     }
 
     @GetMapping("/board")

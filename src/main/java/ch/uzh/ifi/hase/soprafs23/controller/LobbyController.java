@@ -2,11 +2,11 @@ package ch.uzh.ifi.hase.soprafs23.controller;
 
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.JoinLobbyPostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.LobbyGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.LobbyPostDTO;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.LobbyPutDTO;
+import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.service.LobbyService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,32 +21,29 @@ public class LobbyController {
     }
 
     //Create lobby
-    // ToDo getDTO LobbyCode
     @PostMapping("/host")
     @ResponseStatus(HttpStatus.CREATED)
-    public LobbyGetDTO createLobby(@RequestBody LobbyPostDTO lobbyPostDTO) {
-        long hostId=lobbyPostDTO.getHostId();
-        Lobby lobby= lobbyService.createLobby(hostId);
-        return new LobbyGetDTO(lobby.getLobbyCode());
+    @ResponseBody
+    public LobbyGetDTO host(@RequestBody LobbyPostDTO lobbyPostDTO) {
+        Lobby lobby = DTOMapper.INSTANCE.convertLobbyPostDTOtoEntity(lobbyPostDTO);
+        User host = lobby.getHost();
+        Lobby createdLobby= lobbyService.createLobby(host.getId());
+        return DTOMapper.INSTANCE.convertEntityToLobbyGetDTO(createdLobby);
     }
-   // ToDO change to put
     @PutMapping("/join")
     @ResponseStatus(HttpStatus.OK)
-    public void joinLobby(@RequestBody JoinLobbyPostDTO joinLobby){
-        String lobbyCode= joinLobby.getLobbyCode();
+    @ResponseBody
+    public void join(@RequestBody LobbyPutDTO lobbyPutDTO){
+        Lobby userInput = DTOMapper.INSTANCE.convertLobbyPutDTOtoEntity(lobbyPutDTO);
+        String lobbyCode = userInput.getLobbyCode();
         Lobby lobby= lobbyService.findByLobbyCode(lobbyCode);
         if (lobby.getJoiner() != null) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Lobby already has a joiner");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The lobby you're trying to join is full");
         }
-        long userId= joinLobby.getUserId();
+        long userId = userInput.getJoiner().getId();
         if ((lobby.getHost().getId() == userId)){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, String.format("Host and Joiner cannot be the same"));
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, String.format("You cannot join your own game"));
         }
-
-        lobbyService.joinLobby(joinLobby.getLobbyCode(), joinLobby.getUserId());
+        lobbyService.joinLobby(userInput.getLobbyCode(), userInput.getJoiner().getId());
     }
-
-
-
-
 }

@@ -2,9 +2,9 @@ package ch.uzh.ifi.hase.soprafs23.rest.dto;
 
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 
-public class JoinLobbyPostDTO {
+public class LobbyPutDTO {
     private String lobbyCode;
-    private long userId;
+    private User joiner;
 
 
     public String getLobbyCode() {
@@ -15,12 +15,11 @@ public class JoinLobbyPostDTO {
         this.lobbyCode = lobbyCode;
     }
 
-    public long getUserId() {
-        return userId;
+    public User getJoiner() {
+        return joiner;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setJoiner(User joiner) {
+        this.joiner = joiner;
     }
-
 }

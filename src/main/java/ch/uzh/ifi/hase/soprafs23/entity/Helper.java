@@ -26,8 +26,8 @@ public class Helper {
         return false;
     }
 
-    public static boolean isInsideGrid(int[] position){
-        return position[0] <10 && position[1] < 10 && position[0] >=0 && position[1] >=0;
+    public static boolean isInsideGrid(int x, int y){
+        return x <10 && y < 10 && x >=0 && y >=0;
     }
 
     public static boolean isValidAttackPosition(Position pos){
@@ -41,19 +41,31 @@ public class Helper {
         return true;
     }
 
-    public static boolean isValidPositionForShip(Ship ship, String[] positions){
-        int[] start = convertToPos(positions[0]);
-        int[] end = convertToPos(positions[1]);
+    public static boolean isValidLengthForShip(Ship ship){
+        Position[] positions = ship.getPosition();
+        Position start = positions[0];
+        Position end = positions[1];
+
         int length = 0;
-        if(start[0] == end[0]){// horizontal ship
-            length = Math.abs(start[1] - end[1]);
-        } else if(start[1] == end[1]){ // vertical ship
-            length = Math.abs(start[0] - end[0]);
+        if(start.getX() == end.getX()){// horizontal ship
+            length = Math.abs(start.getY() - end.getY());
+        } else{ // vertical ship
+            length = Math.abs(start.getX() - end.getX());
         }
 
         if(length != ship.getLength()-1){
             System.out.println("Invalid positions for a "+ ship.getType());
             return false;
+        }
+        return true;
+    }
+
+    public static boolean shipIsWithinBoundary(Ship ship){
+        Position[] positions = ship.getPosition();
+        for(Position position : positions){
+            if(!isInsideGrid(position.getX(), position.getY())){
+                return false;
+            }
         }
         return true;
     }

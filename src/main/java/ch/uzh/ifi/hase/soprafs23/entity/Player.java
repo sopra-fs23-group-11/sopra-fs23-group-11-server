@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.Ship;
 import javax.persistence.*;
+import java.util.List;
 
 // We may not need all getter & setter. We also may not need to save all the attributes in the DB
 //
@@ -27,13 +28,13 @@ public class Player {
     public Ship[] ships;*/
 
     @Column
-    private String ships;
+    private List<Ship> ships;
 
-    public String getShips(){
+    public List<Ship> getShips(){
         return ships;
     }
 
-    public void setShips(String ships){
+    public void setShips(List<Ship> ships){
         this.ships = ships;
     }
 

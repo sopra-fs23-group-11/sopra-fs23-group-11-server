@@ -1,13 +1,10 @@
 package ch.uzh.ifi.hase.soprafs23.rest.dto;
 
+import ch.uzh.ifi.hase.soprafs23.entity.User;
+
 public class LobbyPostDTO {
-    private long hostId;
+    private User host;
 
-    public long getHostId() {
-        return hostId;
-    }
-
-    public void setHostId(long hostId) {
-        this.hostId = hostId;
-    }
+    public void setHost(User host){this.host = host;}
+    public User getHost(){return host;}
 }

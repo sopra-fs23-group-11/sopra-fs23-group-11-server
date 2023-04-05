@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
 import ch.uzh.ifi.hase.soprafs23.entity.Player;
+import ch.uzh.ifi.hase.soprafs23.entity.ships.Ship;
 import ch.uzh.ifi.hase.soprafs23.repository.PlayerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,15 +71,19 @@ public class PlayerService {
         }
     }
     public void validateInput(Player player){
-        String input = player.getShips();
-        String ships = convertInputToUsableString(input);
+        List<Ship> ships = player.getShips();
         String baseErrorMessage = "Submit failed: %s";
         //TODO: adjust null values to proper method input
-        if (!(helper.isInsideGrid(null) && helper.isValidPosition(null, null) && helper.isValidPositionForShip(null, null))){
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, String.format(baseErrorMessage, "Input does not comply with game rules"));
+        for(Ship ship : ships) {
+            if (!helper.isValidLengthForShip(ship)) {
+                throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, String.format(baseErrorMessage, "Illegal Ship length"));
+            }
+            if (!helper.shipIsWithinBoundary(ship)) {
+                throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, String.format(baseErrorMessage, "Illegal Ship position"));
+            }
         }
     }
-    public String convertInputToUsableString(String input){
+    public String convertInputToUsableString(List<Ship> input){
         //TODO: convert input to usable String that works with helper methods
         return null;
     }

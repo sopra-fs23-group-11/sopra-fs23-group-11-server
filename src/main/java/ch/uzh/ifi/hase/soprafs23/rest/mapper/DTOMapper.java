@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.rest.mapper;
 
 import ch.uzh.ifi.hase.soprafs23.Grid.Grid;
+import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.entity.Player;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
@@ -23,6 +24,16 @@ import org.mapstruct.factory.Mappers;
 public interface DTOMapper {
 
     DTOMapper INSTANCE = Mappers.getMapper(DTOMapper.class);
+
+    @Mapping(source = "lobbyCode", target = "lobbyCode")
+    @Mapping(source = "joiner", target = "joiner")
+    Lobby convertLobbyPutDTOtoEntity(LobbyPutDTO lobbyPutDTO);
+
+    @Mapping(source = "lobbyCode", target = "lobbyCode")
+    LobbyGetDTO convertEntityToLobbyGetDTO(Lobby lobby);
+
+    @Mapping(source = "host", target = "host")
+    Lobby convertLobbyPostDTOtoEntity(LobbyPostDTO lobbyPostDTO);
 
     @Mapping(source = "password", target = "password")
     @Mapping(source = "username", target = "username")

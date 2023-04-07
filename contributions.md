@@ -23,5 +23,5 @@
 - [ ] 
 
 -Louis Zürcher
-- [ ] #62 CHeck if the entered position represents a vald length
-- [ ] #66 Check if the coordinates are within boundaries
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/62  Check if the entered position represents a vald length
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/66  Check if the coordinates are within boundaries

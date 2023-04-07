@@ -22,3 +22,6 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/68 Create grid in backend
 - [ ] 
 
+-Louis Zürcher
+- [ ] #62 CHeck if the entered position represents a vald length
+- [ ] #66 Check if the coordinates are within boundaries

@@ -20,7 +20,7 @@
 - Qing Dai
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/85 check if input is valid
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/68 Create grid in backend
-- [ ] 
+- [ ] create helper class to validate user input during ship placement and game itself.
 
 -Louis Zürcher
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/62  Check if the entered position represents a vald length

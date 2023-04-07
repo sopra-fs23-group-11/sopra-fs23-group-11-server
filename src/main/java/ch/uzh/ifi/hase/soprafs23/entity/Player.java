@@ -27,7 +27,7 @@ public class Player {
     @OneToMany(mappedBy = "player")
     public Ship[] ships;*/
 
-    @Column
+    @OneToMany
     private List<Ship> ships;
 
     public List<Ship> getShips(){

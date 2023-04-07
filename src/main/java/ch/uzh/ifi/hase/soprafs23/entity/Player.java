@@ -3,8 +3,7 @@ import ch.uzh.ifi.hase.soprafs23.entity.ships.Ship;
 import javax.persistence.*;
 import java.util.List;
 
-// We may not need all getter & setter. We also may not need to save all the attributes in the DB
-//
+
 @Entity
 @Table(name = "players")
 public class Player {
@@ -27,7 +26,7 @@ public class Player {
     @OneToMany(mappedBy = "player")
     public Ship[] ships;*/
 
-    @Column
+    @OneToMany(mappedBy = "player") // with only @Column there was a problem caused by javax.persistence.PersistenceException
     private List<Ship> ships;
 
     public List<Ship> getShips(){

@@ -17,3 +17,8 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/74 create room code generator
 - [ ] implement the main classes as defined in the class diagram 
 
+- Qing Dai
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/85 check if input is valid
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/68 Create grid in backend
+- [ ] 
+

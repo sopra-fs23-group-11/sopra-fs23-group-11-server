@@ -3,12 +3,13 @@ package ch.uzh.ifi.hase.soprafs23.entity;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.Position;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.Ship;
 import org.mapstruct.Mapping;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
 import java.util.HashSet;
 import java.util.Set;
-
+@Component
 public class Helper {
 
     static Set<Character> numbers = new HashSet<>(Arrays.asList('0', '1', '2','3','4','5','6','7','8','9'));

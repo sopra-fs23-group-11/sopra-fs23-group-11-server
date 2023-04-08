@@ -70,7 +70,7 @@ public class PlayerService {
                     String.format(baseErrorMessage, "Wrong Password"));
         }
     }
-    public void validateInput(Player player){
+ /*   public void validateInput(Player player){
         List<Ship> ships = player.getShips();
         String baseErrorMessage = "Submit failed: %s";
         //TODO: adjust null values to proper method input
@@ -83,6 +83,8 @@ public class PlayerService {
             }
         }
     }
+
+  */
     public String convertInputToUsableString(List<Ship> input){
         //TODO: convert input to usable String that works with helper methods
         return null;

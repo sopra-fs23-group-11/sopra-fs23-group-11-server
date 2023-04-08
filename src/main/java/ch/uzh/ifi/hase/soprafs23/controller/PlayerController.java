@@ -58,10 +58,10 @@ public class PlayerController {
         Player userInput = DTOMapper.INSTANCE.convertPlayerPutDTOtoEntity(playerPutDTO);
         Player player = playerService.loginPlayer(userInput);
         return DTOMapper.INSTANCE.convertEntityToPlayerGetDTO(player);
-    }
+    } */
 
-   */
 
+/*
     @PutMapping("/submit/ships")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -69,7 +69,7 @@ public class PlayerController {
         Player userInput = DTOMapper.INSTANCE.convertPlayerPutDTOtoEntity(playerPutDTO);
         playerService.validateInput(userInput);
     }
-
+*/
     @GetMapping("/board")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

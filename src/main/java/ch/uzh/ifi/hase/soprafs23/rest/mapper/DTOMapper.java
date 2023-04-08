@@ -44,10 +44,12 @@ public interface DTOMapper {
     @Mapping(source = "token", target = "token")
     UserGetDTO convertEntityToUserGetDTO(User user);
 
-  
+
     @Mapping(source = "username", target = "username")
     User convertUserPutDTOtoEntity(UserPutDTO userPutDTO);
 
-    @Mapping(source = "ships", target = "ships")
-    Player convertPlayerPutDTOtoEntity(PlayerPutDTO playerPutDTO);
+
+    //@Mapping(source = "ships", target = "ships")
+    //Player convertPlayerPutDTOtoEntity(PlayerPutDTO playerPutDTO);
+
 }

@@ -41,6 +41,7 @@ public class Helper {
         }
         return true;
     }
+    /*
 
     public static boolean isValidLengthForShip(Ship ship){
         Position[] positions = ship.getPosition();
@@ -70,6 +71,8 @@ public class Helper {
         }
         return true;
     }
+
+     */
 
     public static int[] convertToPos(String pos){
         int[] res = new int[2];

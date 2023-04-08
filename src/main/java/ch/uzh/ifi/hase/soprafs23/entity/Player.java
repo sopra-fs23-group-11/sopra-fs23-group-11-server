@@ -1,5 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.Ship;
+import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipsPlayer;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,6 +12,9 @@ public class Player {
     @Id
     @GeneratedValue
     private Long id;
+
+    @OneToMany(mappedBy = "player")
+    private List<ShipsPlayer> shipPlayers;
     @Column(nullable = false, unique = true)
     private String name;
     @Column(nullable = false)
@@ -24,7 +29,7 @@ public class Player {
     public int nrTotalWins;
     /*
     @OneToMany(mappedBy = "player")
-    public Ship[] ships;*/
+    public Ship[] ships;
 
     @OneToMany(mappedBy = "player") // with only @Column there was a problem caused by javax.persistence.PersistenceException
     private List<Ship> ships;
@@ -35,7 +40,7 @@ public class Player {
 
     public void setShips(List<Ship> ships){
         this.ships = ships;
-    }
+    } */
 
     public Long getId() {
         return id;

@@ -25,3 +25,11 @@
 -Louis Zürcher
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/62  Check if the entered position represents a vald length
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/66  Check if the coordinates are within boundaries
+
+Contributions Week 2 / 13.4:
+- Nazek Olabi
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/100 Create Destroyer
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/99 Create Submarine
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/98 Create Cruiser
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/97 Create Battleship
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/96 Create Carrier

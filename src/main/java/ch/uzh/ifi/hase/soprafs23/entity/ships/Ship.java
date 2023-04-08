@@ -1,10 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.entity.ships;
 
-import ch.uzh.ifi.hase.soprafs23.entity.Player;
-import org.hibernate.annotations.ManyToAny;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,7 +15,7 @@ public class Ship {
     private String type;
 
     @OneToMany(mappedBy = "ship")
-    private List<ShipsPlayer> shipPlayers;
+    private List<ShipPlayer> shipPlayers;
 
     //private Position[] position;
     public Ship(String type, int length) {
@@ -63,11 +59,11 @@ public class Ship {
         this.length = length;
     }
 
-    public List<ShipsPlayer> getShipPlayers() {
+    public List<ShipPlayer> getShipPlayers() {
         return shipPlayers;
     }
 
-    public void setShipPlayers(List<ShipsPlayer> shipPlayers) {
+    public void setShipPlayers(List<ShipPlayer> shipPlayers) {
         this.shipPlayers = shipPlayers;
     }
     /*

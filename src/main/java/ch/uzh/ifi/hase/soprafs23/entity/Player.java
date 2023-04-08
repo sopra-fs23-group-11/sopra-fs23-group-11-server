@@ -1,6 +1,5 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
-import ch.uzh.ifi.hase.soprafs23.entity.ships.Ship;
-import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipsPlayer;
+import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,7 +13,7 @@ public class Player {
     private Long id;
 
     @OneToMany(mappedBy = "player")
-    private List<ShipsPlayer> shipPlayers;
+    private List<ShipPlayer> shipPlayers;
     @Column(nullable = false, unique = true)
     private String name;
     @Column(nullable = false)
@@ -104,6 +103,4 @@ public class Player {
     public void setToken(String token) {
         this.token = token;
     }
-
-
 }

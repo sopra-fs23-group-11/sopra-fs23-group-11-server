@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "ship_players")
-public class ShipsPlayer {
+public class ShipPlayer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,7 +19,11 @@ public class ShipsPlayer {
     private Player player;
 
     @Column
-    private Position[] positionOfShips;
+    private String startPosition;
+
+    @Column
+    private String endPosition;
+
 
     @Column(nullable = false)
     private boolean isSunk;
@@ -44,12 +48,20 @@ public class ShipsPlayer {
         this.player = player;
     }
 
-    public Position[] getPositionOfShips() {
-        return positionOfShips;
+    public String getStartPosition() {
+        return startPosition;
     }
 
-    public void setPositionOfShips(Position[] positionOfShips) {
-        this.positionOfShips = positionOfShips;
+    public void setStartPosition(String startPosition) {
+        this.startPosition = startPosition;
+    }
+
+    public String getEndPosition() {
+        return endPosition;
+    }
+
+    public void setEndPosition(String endPosition) {
+        this.endPosition = endPosition;
     }
 
     public boolean isSunk() {
@@ -59,4 +71,11 @@ public class ShipsPlayer {
     public void setSunk(boolean sunk) {
         isSunk = sunk;
     }
+
+    //TODO move to the ShipsPlayerService
+    public boolean isContained (String shoot){
+
+    return false; }
+
+
 }

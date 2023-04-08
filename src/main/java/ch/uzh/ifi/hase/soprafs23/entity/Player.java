@@ -14,6 +14,10 @@ public class Player {
 
     @OneToMany(mappedBy = "player")
     private List<ShipPlayer> shipPlayers;
+
+    @ManyToOne
+    private User user;
+
     @Column(nullable = false, unique = true)
     private String name;
     @Column(nullable = false)

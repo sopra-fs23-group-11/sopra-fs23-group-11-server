@@ -47,6 +47,7 @@ public class User implements Serializable {
     @Column(nullable = false)
     private UserStatus status;
 
+
     public String getPassword() {
         return password;
     }

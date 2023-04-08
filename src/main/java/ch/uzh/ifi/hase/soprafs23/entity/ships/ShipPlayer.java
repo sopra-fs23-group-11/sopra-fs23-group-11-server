@@ -72,10 +72,6 @@ public class ShipPlayer {
         isSunk = sunk;
     }
 
-    //TODO move to the ShipsPlayerService
-    public boolean isContained (String shoot){
-
-    return false; }
 
 
 }

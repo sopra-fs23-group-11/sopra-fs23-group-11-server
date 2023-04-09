@@ -3,7 +3,10 @@ import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 
 import javax.persistence.*;
 import java.util.List;
-
+/* To avoid redundancy we defined the classes player and user. whenever a user enters a game he "turns into a player"
+   in the player we will keep track of the needed information "during" a game e.g ships, shots. After the game the players
+   information is not needed anymore and we will just update the totalWinse of him as a "User" if he won.
+* */
 
 @Entity
 @Table(name = "players")

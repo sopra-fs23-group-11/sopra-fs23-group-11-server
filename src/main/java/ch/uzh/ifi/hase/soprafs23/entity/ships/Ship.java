@@ -3,6 +3,8 @@ package ch.uzh.ifi.hase.soprafs23.entity.ships;
 import javax.persistence.*;
 import java.util.List;
 
+/*To avoid redundancy we will join the information of player & ships using ShipPlayer
+* The initial values of the ships will be created using data.sql*/
 @Entity
 @Table(name = "ships")
 public class Ship {

@@ -26,8 +26,7 @@ public class Player {
     @Column(nullable = false, unique = true)
     private String token;
 
-    private int shipsRemaining;
-    public boolean isAlive;
+    private int shipsRemaining; // shipsRemaining ==0 <-> isAlive == true
     @Column
     public int nrTotalWins;
     /*
@@ -50,14 +49,6 @@ public class Player {
     }
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public boolean isAlive() {
-        return isAlive;
-    }
-
-    public void setAlive(boolean alive) {
-        isAlive = alive;
     }
 
     public int getNrTotalWins() {

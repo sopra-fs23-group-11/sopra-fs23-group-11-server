@@ -33,7 +33,7 @@ public class PlayerService {
     public List<Player> getPlayers() {
         return this.playerRepository.findAll();
     }
-
+/*
     public Player createPlayer(Player newPlayer) {
         newPlayer.setToken(UUID.randomUUID().toString());
         checkIfPlayerExistsRegister(newPlayer);
@@ -70,7 +70,12 @@ public class PlayerService {
                     String.format(baseErrorMessage, "Wrong Password"));
         }
     }
- /*   public void validateInput(Player player){
+
+ */
+
+    //ToDo: needed to be modified so that inheritance works
+/*
+   public void validateInput(Player player){
         List<Ship> ships = player.getShips();
         String baseErrorMessage = "Submit failed: %s";
         //TODO: adjust null values to proper method input
@@ -83,10 +88,12 @@ public class PlayerService {
             }
         }
     }
+
+ */
     public String convertInputToUsableString(List<Ship> input){
         //TODO: convert input to usable String that works with helper methods
         return null;
     }
 
-  */
+
 }

@@ -49,7 +49,12 @@ public interface DTOMapper {
     User convertUserPutDTOtoEntity(UserPutDTO userPutDTO);
 
 
-    //@Mapping(source = "ships", target = "ships")
-    //Player convertPlayerPutDTOtoEntity(PlayerPutDTO playerPutDTO);
+    @Mapping(source = "ships", target = "ships")
+    Player convertPlayerPutDTOtoEntity(PlayerPutDTO playerPutDTO);
+
+
+    @Mapping(source = "id", target = "id")
+    PlayerGetDTO convertEntityToPlayerGetDTO(Player player);
+
 
 }

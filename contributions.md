@@ -33,3 +33,4 @@ Contributions Week 2 / 13.4:
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/98 Create Cruiser
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/97 Create Battleship
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/96 Create Carrier
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/69 Create ship representation

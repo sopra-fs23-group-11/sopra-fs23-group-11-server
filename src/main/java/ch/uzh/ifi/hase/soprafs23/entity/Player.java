@@ -11,24 +11,20 @@ public class Player {
     @Id
     @GeneratedValue
     private Long id;
-
-    @OneToMany(mappedBy = "player")
-    private List<ShipPlayer> shipPlayers;
-
-    @ManyToOne
-    private User user;
-
     @Column(nullable = false, unique = true)
     private String name;
-    @Column(nullable = false)
-    private String password;
+    @OneToMany(mappedBy = "player")
+    private List<ShipPlayer> shipPlayers;
+    @ManyToOne
+    private User user;
+    @OneToOne(mappedBy = "player1")
+    private Game gamePlayer1;
 
-    @Column(nullable = false, unique = true)
-    private String token;
+    @OneToOne(mappedBy = "player2")
+    private Game gamePlayer2;
 
     private int shipsRemaining; // shipsRemaining ==0 <-> isAlive == true
-    @Column
-    public int nrTotalWins;
+
     /*
     @OneToMany(mappedBy = "player")
     public Ship[] ships;
@@ -51,13 +47,6 @@ public class Player {
         this.id = id;
     }
 
-    public int getNrTotalWins() {
-        return nrTotalWins;
-    }
-
-    public void setNrTotalWins(int nrTotalWins) {
-        this.nrTotalWins = nrTotalWins;
-    }
 /*
     public Ship[] getShips() {
         return ships;
@@ -75,14 +64,6 @@ public class Player {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public int getShipsRemaining() {
         return shipsRemaining;
     }
@@ -90,12 +71,35 @@ public class Player {
     public void setShipsRemaining(int shipsRemaining) {
         this.shipsRemaining = shipsRemaining;
     }
-
-    public String getToken() {
-        return token;
+    public List<ShipPlayer> getShipPlayers() {
+        return shipPlayers;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setShipPlayers(List<ShipPlayer> shipPlayers) {
+        this.shipPlayers = shipPlayers;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Game getGamePlayer1() {
+        return gamePlayer1;
+    }
+
+    public void setGamePlayer1(Game gamePlayer1) {
+        this.gamePlayer1 = gamePlayer1;
+    }
+
+    public Game getGamePlayer2() {
+        return gamePlayer2;
+    }
+
+    public void setGamePlayer2(Game gamePlayer2) {
+        this.gamePlayer2 = gamePlayer2;
     }
 }

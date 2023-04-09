@@ -1,5 +1,5 @@
-INSERT INTO SHIPS VALUES (1L, 2, 'Destroyer');
-INSERT INTO SHIPS VALUES (2L, 3, 'Cruiser');
-INSERT INTO SHIPS VALUES (3L, 3, 'Submarine');
-INSERT INTO SHIPS VALUES (4L, 4, 'BattleShip');
-INSERT INTO SHIPS VALUES (5L, 5, 'Carrier');
+INSERT INTO SHIPS (id, length, type) VALUES (1, 2, 'Destroyer');
+INSERT INTO SHIPS (id, length, type) VALUES (2, 3, 'Cruiser');
+INSERT INTO SHIPS (id, length, type) VALUES (3, 3, 'Submarine');
+INSERT INTO SHIPS (id, length, type) VALUES (4, 4, 'BattleShip');
+INSERT INTO SHIPS (id, length, type) VALUES (5, 5, 'Carrier');

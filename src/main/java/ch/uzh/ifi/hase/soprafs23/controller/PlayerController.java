@@ -60,10 +60,9 @@ public class PlayerController {
         return DTOMapper.INSTANCE.convertEntityToPlayerGetDTO(player);
     }
 
+*/
 
- */
-
-
+ /*
     @PutMapping("/submit/ships")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -72,6 +71,8 @@ public class PlayerController {
         playerService.validateInput(userInput);
     }
 
+
+  */
     @GetMapping("/board")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

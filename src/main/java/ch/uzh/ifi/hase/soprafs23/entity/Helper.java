@@ -76,7 +76,6 @@ public class Helper {
     }
 
 
-
     public static int[] convertToPos(String pos){
         int[] res = new int[2];
         res[0] = Character.getNumericValue(pos.charAt(1));

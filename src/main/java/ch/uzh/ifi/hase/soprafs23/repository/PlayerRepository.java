@@ -9,5 +9,4 @@ import org.springframework.stereotype.Repository;
 public interface PlayerRepository extends JpaRepository<Player, Long> {
   Player findByName(String name);
 
-  //Player findByPassword(String password);
 }

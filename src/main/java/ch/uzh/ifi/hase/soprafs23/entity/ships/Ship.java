@@ -19,11 +19,7 @@ public class Ship {
     @OneToMany(mappedBy = "ship")
     private List<ShipPlayer> shipPlayers;
 
-    //private Position[] position;
-    public Ship(String type, int length) {
-        this.type = type;
-        this.length=length;
-    }
+
     /*
     private boolean isSunk;
 

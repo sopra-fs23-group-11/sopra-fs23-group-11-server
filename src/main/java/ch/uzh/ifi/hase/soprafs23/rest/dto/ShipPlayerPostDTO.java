@@ -1,37 +1,15 @@
-package ch.uzh.ifi.hase.soprafs23.entity.ships;
+package ch.uzh.ifi.hase.soprafs23.rest.dto;
+
 import ch.uzh.ifi.hase.soprafs23.entity.Player;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import ch.uzh.ifi.hase.soprafs23.entity.ships.Ship;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "ship_players")
-public class ShipPlayer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ShipPlayerPostDTO {
     private Long id;
-
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "ship_id")
     private Ship ship;
-
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "player_id")
     private Player player;
-
-    @Column
     private String startPosition;
-
-    @Column
     private String endPosition;
-
-
-    @Column(nullable = false)
     private boolean isSunk;
-
-    public ShipPlayer(){}
 
     public Long getId() {
         return id;
@@ -76,7 +54,4 @@ public class ShipPlayer {
     public void setSunk(boolean sunk) {
         isSunk = sunk;
     }
-
-
-
 }

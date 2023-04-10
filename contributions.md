@@ -36,5 +36,5 @@ Contributions Week 2 / 13.4:
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/69 Create ship representation
 
 - Qing Dai
-- [ ] https://github.com/orgs/sopra-fs23-group-11/projects/1/views/1?pane=issue&itemId=25269038 Create table of input for ship placements
-- [ ] https://github.com/orgs/sopra-fs23-group-11/projects/1/views/1?pane=issue&itemId=25269039 Shipment input verification 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/61 Create table of input for ship placements
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/60 Shipment input verification 

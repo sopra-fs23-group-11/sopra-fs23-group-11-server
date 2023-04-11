@@ -104,4 +104,18 @@ public class Helper {
         return start[1] == end[1];
     }
 
+    public static boolean isContained(String shoot, ShipPlayer shipPlayer) {
+        Position shootPos = new Position(shoot);
+        Position start = new Position(shipPlayer.getStartPosition());
+        Position end = new Position(shipPlayer.getEndPosition());
+
+        if (shootPos.getX() >= start.getX() && shootPos.getX() <= end.getX() &&
+                shootPos.getY() >= start.getY() && shootPos.getY() <= end.getY()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 }

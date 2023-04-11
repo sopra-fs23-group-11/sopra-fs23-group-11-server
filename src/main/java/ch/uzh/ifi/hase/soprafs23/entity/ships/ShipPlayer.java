@@ -31,6 +31,9 @@ public class ShipPlayer {
     @Column(nullable = false)
     private boolean isSunk;
 
+    @Column
+    private int hitParts=0;
+
     public ShipPlayer(){}
 
     public Long getId() {
@@ -77,6 +80,11 @@ public class ShipPlayer {
         isSunk = sunk;
     }
 
+    public int getHitParts() {
+        return hitParts;
+    }
 
-
+    public void setHitParts(int hitParts) {
+        this.hitParts = hitParts;
+    }
 }

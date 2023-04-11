@@ -16,7 +16,6 @@ import java.util.UUID;
 
 
 @Service
-@Transactional
 public class LobbyService {
     private final Logger log = LoggerFactory.getLogger(LobbyService.class);
     private final LobbyRepository lobbyRepository;

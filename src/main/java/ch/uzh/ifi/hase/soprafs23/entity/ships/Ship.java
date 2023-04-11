@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 /*To avoid redundancy we will join the information of player & ships using ShipPlayer
-* The initial values of the ships will be created using data.sql*/
+ * The initial values of the ships will be created using data.sql*/
 @Entity
 @Table(name = "ships")
 public class Ship {
@@ -13,14 +13,24 @@ public class Ship {
     private Long id;
     @Column(nullable = false)
     private int length;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String type;
 
     @OneToMany(mappedBy = "ship")
     private List<ShipPlayer> shipPlayers;
 
+    public Ship() {
 
-    /*
+    }
+
+    public Ship(Long id, int length, String type) {
+        this.id = id;
+        this.length = length;
+        this.type = type;
+
+    }
+
+/*
     private boolean isSunk;
 
     @ManyToOne
@@ -80,7 +90,9 @@ public class Ship {
         return false;
     }*/
 
-    public void decrementSize() {this.length -= 1;}
+    public void decrementSize() {
+        this.length -= 1;
+    }
 
     /*
     public Position[] getPosition() {

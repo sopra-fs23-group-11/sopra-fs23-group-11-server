@@ -32,21 +32,6 @@ public class ShipPlayerService {
         this.playerRepository = playerRepository;
     }
 
-    //ToDo
-    // check if position of a shot is between the start and end position
-    public boolean isContained(String shoot, String shipStart, String shipEnd) {
-        Position shootPos = new Position(shoot);
-        Position start = new Position(shipStart);
-        Position end = new Position(shipEnd);
-
-        if (shootPos.getX() >= start.getX() && shootPos.getX() <= end.getX() &&
-                shootPos.getY() >= start.getY() && shootPos.getY() <= end.getY()) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 
     //ToDo: add all functions to validate a position first
     public ShipPlayer placeShip(long shipId, long playerId, String startPosition, String endPosition) {

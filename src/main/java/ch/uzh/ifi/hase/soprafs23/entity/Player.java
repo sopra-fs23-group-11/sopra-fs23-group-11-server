@@ -28,20 +28,11 @@ public class Player {
 
     private int shipsRemaining; // shipsRemaining ==0 <-> isAlive == true
 
-    /*
-    @OneToMany(mappedBy = "player")
-    public Ship[] ships;
+    @OneToMany(mappedBy = "attacker")
+    private List<Shot> shotsAttack;
 
-    @OneToMany(mappedBy = "player") // with only @Column there was a problem caused by javax.persistence.PersistenceException
-    private List<Ship> ships;
-
-    public List<Ship> getShips(){
-        return ships;
-    }
-
-    public void setShips(List<Ship> ships){
-        this.ships = ships;
-    } */
+    @OneToMany (mappedBy = "defender")
+    private List<Shot> shotsDefend;
 
     public Long getId() {
         return id;
@@ -49,15 +40,6 @@ public class Player {
     public void setId(Long id) {
         this.id = id;
     }
-
-/*
-    public Ship[] getShips() {
-        return ships;
-    }
-
-    public void setShips(Ship[] ships) {
-        this.ships = ships;
-    } */
 
     public String getName() {
         return name;
@@ -104,5 +86,21 @@ public class Player {
 
     public void setGamePlayer2(Game gamePlayer2) {
         this.gamePlayer2 = gamePlayer2;
+    }
+
+    public List<Shot> getShotsAttack() {
+        return shotsAttack;
+    }
+
+    public void setShotsAttack(List<Shot> shotsAttack) {
+        this.shotsAttack = shotsAttack;
+    }
+
+    public List<Shot> getShotsDefend() {
+        return shotsDefend;
+    }
+
+    public void setShotsDefend(List<Shot> shotsDefend) {
+        this.shotsDefend = shotsDefend;
     }
 }

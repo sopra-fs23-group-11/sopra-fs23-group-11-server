@@ -34,7 +34,8 @@ public class ShipPlayerService {
 
 
     //ToDo: add all functions to validate a position first
-    public ShipPlayer placeShip(long shipId, long playerId, String startPosition, String endPosition) {
+    //ToDO: check abs(start-end)=length
+    public ShipPlayer placeShip(long playerId, long shipId, String startPosition, String endPosition) {
         Optional<Ship> shipOptional = shipRepository.findById(shipId);
         Optional<Player> playerOptional = playerRepository.findById(playerId);
         if (shipOptional.isPresent() && playerOptional.isPresent()) {

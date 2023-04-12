@@ -26,6 +26,7 @@ public class Player {
     @OneToOne(mappedBy = "player2")
     private Game gamePlayer2;
 
+    @Column
     private int shipsRemaining; // shipsRemaining ==0 <-> isAlive == true
 
     @OneToMany(mappedBy = "attacker")

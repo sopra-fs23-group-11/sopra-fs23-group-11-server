@@ -1,6 +1,8 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,10 +14,12 @@ public class Shot {
 
     @ManyToOne
     @JoinColumn(name="attacker_id")
+    @JsonIgnore
     private Player attacker;
 
     @ManyToOne
     @JoinColumn(name="defender_id")
+    @JsonIgnore
     private Player defender;
 
 

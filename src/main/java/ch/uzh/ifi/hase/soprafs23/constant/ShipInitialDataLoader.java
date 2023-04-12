@@ -3,7 +3,9 @@
 
 package ch.uzh.ifi.hase.soprafs23.constant;
 
+import ch.uzh.ifi.hase.soprafs23.entity.Player;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.Ship;
+import ch.uzh.ifi.hase.soprafs23.repository.PlayerRepository;
 import ch.uzh.ifi.hase.soprafs23.repository.ShipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -27,7 +29,6 @@ public class ShipInitialDataLoader implements CommandLineRunner {
         shipRepository.save(ship3);
         shipRepository.save(ship4);
         shipRepository.save(ship5);
-
 
     }
 }

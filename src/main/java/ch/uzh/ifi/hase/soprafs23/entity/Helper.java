@@ -26,6 +26,7 @@ public class Helper {
         return false;
     }
 
+
     public static boolean isInsideGrid(int x, int y){
         return x <10 && y < 10 && x >=0 && y >=0;
     }
@@ -152,4 +153,5 @@ public class Helper {
         }
         return true;
     }
+
 }

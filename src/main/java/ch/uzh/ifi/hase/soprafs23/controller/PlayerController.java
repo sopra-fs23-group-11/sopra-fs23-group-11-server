@@ -62,17 +62,6 @@ public class PlayerController {
 
 */
 
- /*
-    @PutMapping("/submit/ships")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public void submitShips(@RequestBody PlayerPutDTO playerPutDTO){
-        Player userInput = DTOMapper.INSTANCE.convertPlayerPutDTOtoEntity(playerPutDTO);
-        playerService.validateInput(userInput);
-    }
-
-
-  */
     @GetMapping("/board/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

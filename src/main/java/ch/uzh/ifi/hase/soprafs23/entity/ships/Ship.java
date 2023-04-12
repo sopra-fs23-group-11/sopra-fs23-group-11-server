@@ -19,11 +19,11 @@ public class Ship {
     @OneToMany(mappedBy = "ship")
     private List<ShipPlayer> shipPlayers;
 
+    public Ship(){} // This is needed bcs of an caused error --> pls don't delete it.
     public Ship(Long id, int length, String type) {
         this.id = id;
         this.length = length;
         this.type = type;
-
     }
 
 /*

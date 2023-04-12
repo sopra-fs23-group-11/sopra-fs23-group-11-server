@@ -4,14 +4,6 @@ public class UserPostDTO {
 
   private String username;
   private String password;
-/*
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  } */
 
   public String getUsername() {
     return username;

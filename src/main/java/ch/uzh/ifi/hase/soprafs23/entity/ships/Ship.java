@@ -1,10 +1,10 @@
 package ch.uzh.ifi.hase.soprafs23.entity.ships;
 
-import ch.uzh.ifi.hase.soprafs23.entity.Player;
-import org.hibernate.annotations.ManyToAny;
-
 import javax.persistence.*;
+import java.util.List;
 
+/*To avoid redundancy we will join the information of player & ships using ShipPlayer
+ * The initial values of the ships will be created using data.sql*/
 @Entity
 @Table(name = "ships")
 public class Ship {
@@ -13,18 +13,29 @@ public class Ship {
     private Long id;
     @Column(nullable = false)
     private int length;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String type;
+
+    @OneToMany(mappedBy = "ship")
+    private List<ShipPlayer> shipPlayers;
+
+    public Ship() {
+
+    }
+
+    public Ship(Long id, int length, String type) {
+        this.id = id;
+        this.length = length;
+        this.type = type;
+
+    }
+
+/*
     private boolean isSunk;
 
-    private Position[] position;
     @ManyToOne
     public Player player;
 
-    public Ship(String type, int length) {
-        this.type = type;
-        this.length=length;
-    }
 
     public boolean isSunk() {
         return isSunk;
@@ -34,12 +45,10 @@ public class Ship {
         isSunk = sunk;
     }
 
-    public Position[] getPosition() {
-        return position;
-    }
+    } */
 
-    public void setPosition(Position[] position) {
-        this.position = position;
+    public Long getId() {
+        return id;
     }
 
     public String getType() {
@@ -58,13 +67,41 @@ public class Ship {
         this.length = length;
     }
 
+    public List<ShipPlayer> getShipPlayers() {
+        return shipPlayers;
+    }
+
+    public void setShipPlayers(List<ShipPlayer> shipPlayers) {
+        this.shipPlayers = shipPlayers;
+    }
+    /*
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     public boolean hit(){
         return false;
     }
     public boolean IsSunk(){
         return false;
+    }*/
+
+    public void decrementSize() {
+        this.length -= 1;
     }
 
-    public void decrementSize() {this.length -= 1;}
+    /*
+    public Position[] getPosition() {
+        return position;
+    }
 
+    public void setPosition(Position[] position) {
+        this.position = position;
+    }
+
+     */
 }

@@ -16,15 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * User Controller
- * This class is responsible for handling all REST request that are related to
- * the user.
- * The controller will receive the request and delegate the execution to the
- * UserService and finally return the result.
- */
-
-
 @RestController
 public class UserController {
 
@@ -81,21 +72,7 @@ public class UserController {
         User userInput = DTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
         userService.logoutUser(userInput);
     }
-/*
-    @PutMapping("/users/edit")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public void changeBDay(@RequestBody UserPutDTO userPutDTO){
-        User userInput = DTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
-        if(userInput.getBirthDate()!= null){
-            userService.setBDay(userInput);
-        }
-        if(userInput.getUsername()!=null){
-            userService.setNewName(userInput);
-        }
-    }
 
- */
 
     @PutMapping("/users")
     @ResponseStatus(HttpStatus.ACCEPTED)

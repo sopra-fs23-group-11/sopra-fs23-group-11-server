@@ -2,13 +2,15 @@ package ch.uzh.ifi.hase.soprafs23.entity;
 
 import ch.uzh.ifi.hase.soprafs23.entity.ships.Position;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.Ship;
+import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import org.mapstruct.Mapping;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
 import java.util.HashSet;
 import java.util.Set;
-
+@Component
 public class Helper {
 
     static Set<Character> numbers = new HashSet<>(Arrays.asList('0', '1', '2','3','4','5','6','7','8','9'));
@@ -41,10 +43,10 @@ public class Helper {
         return true;
     }
 
-    public static boolean isValidLengthForShip(Ship ship){
-        Position[] positions = ship.getPosition();
-        Position start = positions[0];
-        Position end = positions[1];
+
+    public static boolean isValidLengthForShip(ShipPlayer shipPlayer){
+        Position start = new Position(shipPlayer.getStartPosition());
+        Position end = new Position(shipPlayer.getEndPosition());
 
         int length = 0;
         if(start.getX() == end.getX()){// horizontal ship
@@ -53,15 +55,18 @@ public class Helper {
             length = Math.abs(start.getX() - end.getX());
         }
 
-        if(length != ship.getLength()-1){
-            System.out.println("Invalid positions for a "+ ship.getType());
+        if(length != shipPlayer.getShip().getLength()-1){
+            System.out.println("Invalid positions for a "+  shipPlayer.getShip().getType());
             return false;
         }
         return true;
     }
 
-    public static boolean shipIsWithinBoundary(Ship ship){
-        Position[] positions = ship.getPosition();
+    public static boolean shipIsWithinBoundary(ShipPlayer shipPlayer){
+        Position start = new Position(shipPlayer.getStartPosition());
+        Position end = new Position(shipPlayer.getEndPosition());
+        Position[] positions = {start, end};
+
         for(Position position : positions){
             if(!isInsideGrid(position.getX(), position.getY())){
                 return false;
@@ -69,6 +74,7 @@ public class Helper {
         }
         return true;
     }
+
 
     public static int[] convertToPos(String pos){
         int[] res = new int[2];
@@ -96,6 +102,20 @@ public class Helper {
 
     public static boolean isVertical(int[] start, int[] end){
         return start[1] == end[1];
+    }
+
+    public static boolean isContained(String shoot, ShipPlayer shipPlayer) {
+        Position shootPos = new Position(shoot);
+        Position start = new Position(shipPlayer.getStartPosition());
+        Position end = new Position(shipPlayer.getEndPosition());
+
+        if (shootPos.getX() >= start.getX() && shootPos.getX() <= end.getX() &&
+                shootPos.getY() >= start.getY() && shootPos.getY() <= end.getY()) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 }

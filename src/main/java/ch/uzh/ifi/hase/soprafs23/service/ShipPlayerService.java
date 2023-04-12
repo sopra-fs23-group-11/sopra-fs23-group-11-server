@@ -48,6 +48,8 @@ public class ShipPlayerService {
             player.getShipPlayers().add(shipPlayer);
             playerRepository.save(player);
             ShipPlayer shipPlayerToSave = shipPlayerRepository.save(shipPlayer);
+            shipPlayerRepository.flush();
+            playerRepository.flush();
             return shipPlayerToSave;
         }
         else {

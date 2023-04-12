@@ -19,10 +19,6 @@ public class Ship {
     @OneToMany(mappedBy = "ship")
     private List<ShipPlayer> shipPlayers;
 
-    public Ship() {
-
-    }
-
     public Ship(Long id, int length, String type) {
         this.id = id;
         this.length = length;

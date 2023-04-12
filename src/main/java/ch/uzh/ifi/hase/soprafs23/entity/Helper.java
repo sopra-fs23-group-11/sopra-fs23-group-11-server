@@ -6,10 +6,8 @@ import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
+import java.util.*;
 
-import java.util.HashSet;
-import java.util.Set;
 @Component
 public class Helper {
 
@@ -117,5 +115,41 @@ public class Helper {
             return false;
         }
     }
-
+    public static boolean shipsNotTouching(Player player){
+        List<ShipPlayer> ships = player.getShipPlayers();
+        List<Position> nonoSquare = new ArrayList<>();
+        if(!ships.isEmpty()){
+            for (ShipPlayer ship : ships){
+                Position start = new Position(ship.getStartPosition());
+                Position end = new Position(ship.getEndPosition());
+                int xStartBoundary = start.getX();
+                int yStartBoundary = start.getY();
+                int xEndBoundary = end.getX();
+                int yEndBoundary = end.getY();
+                if (xStartBoundary != 0){
+                    xStartBoundary--;
+                }
+                if (yStartBoundary != 0){
+                    yStartBoundary--;
+                }
+                if (xEndBoundary!=10){
+                    xEndBoundary++;
+                }
+                if (yEndBoundary!=10){
+                    yEndBoundary++;
+                }
+                for(int x = xStartBoundary; x <= xEndBoundary; x++){
+                    for (int y = yStartBoundary; y <= yEndBoundary; y++){
+                        Position position = new Position(x, y);
+                        if(nonoSquare.contains(position)){
+                            return false;
+                        }else{
+                            nonoSquare.add(position);
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
 }

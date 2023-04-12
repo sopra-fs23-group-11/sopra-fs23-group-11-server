@@ -34,6 +34,7 @@ Contributions Week 2 / 13.4:
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/97 Create Battleship
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/96 Create Carrier
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/69 Create ship representation
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/113 create board representation for getDTO
 
 - Qing Dai
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/61 Create table of input for ship placements
@@ -43,3 +44,4 @@ Contributions Week 2 / 13.4:
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/65 Check if ships are overlapping
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/64 Check if ships are touching
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/63 Check if position is empty
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/112 Create get board endpoint

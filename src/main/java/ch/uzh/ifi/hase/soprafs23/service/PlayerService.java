@@ -97,5 +97,8 @@ public class PlayerService {
         return null;
     }
 
-
+    public Player getField(long id){
+        Player playerById = playerRepository.getOne(id);
+        return playerById;
+    }
 }

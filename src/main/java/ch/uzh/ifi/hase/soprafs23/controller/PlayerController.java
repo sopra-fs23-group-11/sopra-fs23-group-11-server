@@ -73,10 +73,11 @@ public class PlayerController {
 
 
   */
-    @GetMapping("/board")
+    @GetMapping("/board/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Grid getUserGrid(@RequestBody GridGetDTO gridGetDTO){
-        return null;
+    public PlayerGetDTO getBoard(@PathVariable("id") long id){
+        Player player = playerService.getField(id);
+        return DTOMapper.INSTANCE.convertEntityToPlayerGetDTO(player);
     }
 }

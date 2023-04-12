@@ -50,6 +50,9 @@ public interface DTOMapper {
 
 
     @Mapping(source = "id", target = "id")
+    @Mapping(source = "shipPlayers", target = "shipPlayers")
+    @Mapping(source = "shotsAttack", target = "shotsAttack")
+    @Mapping(source = "shotsDefend", target = "shotsDefend")
     PlayerGetDTO convertEntityToPlayerGetDTO(Player player);
 
 

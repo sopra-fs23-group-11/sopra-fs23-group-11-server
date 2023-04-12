@@ -4,6 +4,7 @@ import ch.uzh.ifi.hase.soprafs23.Grid.Grid;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.entity.Player;
+import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
@@ -24,6 +25,18 @@ import org.mapstruct.factory.Mappers;
 public interface DTOMapper {
 
     DTOMapper INSTANCE = Mappers.getMapper(DTOMapper.class);
+
+    @Mapping(source = "ship", target = "ship")
+    @Mapping(source = "player", target = "player")
+    @Mapping(source = "startPosition", target = "startPosition")
+    @Mapping(source = "endPosition", target = "endPosition")
+    ShipPlayer convertShipPlayerPostDTOtoEntity(ShipPlayerPostDTO shipPlayerPostDTO);
+
+    @Mapping(source = "ship", target = "ship")
+    @Mapping(source = "player", target = "player")
+    @Mapping(source = "startPosition", target = "startPosition")
+    @Mapping(source = "endPosition", target = "endPosition")
+    ShipPlayerGetDTO convertEntityToShipPlayerGetDTO(ShipPlayer shipPlayer);
 
     @Mapping(source = "lobbyCode", target = "lobbyCode")
     @Mapping(source = "joiner", target = "joiner")
@@ -50,7 +63,9 @@ public interface DTOMapper {
 
 
     @Mapping(source = "id", target = "id")
+    @Mapping(source = "name", target = "name")
+    @Mapping(source = "shipPlayers", target = "shipPlayers")
+    @Mapping(source = "shotsAttack", target = "shotsAttack")
+    @Mapping(source = "shotsDefend", target = "shotsDefend")
     PlayerGetDTO convertEntityToPlayerGetDTO(Player player);
-
-
 }

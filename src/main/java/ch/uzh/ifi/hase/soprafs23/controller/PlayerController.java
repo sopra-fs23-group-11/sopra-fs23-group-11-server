@@ -62,21 +62,11 @@ public class PlayerController {
 
 */
 
- /*
-    @PutMapping("/submit/ships")
+    @GetMapping("/board/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public void submitShips(@RequestBody PlayerPutDTO playerPutDTO){
-        Player userInput = DTOMapper.INSTANCE.convertPlayerPutDTOtoEntity(playerPutDTO);
-        playerService.validateInput(userInput);
-    }
-
-
-  */
-    @GetMapping("/board")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public Grid getUserGrid(@RequestBody GridGetDTO gridGetDTO){
-        return null;
+    public PlayerGetDTO getBoard(@PathVariable("id") long id){
+        Player player = playerService.getField(id);
+        return DTOMapper.INSTANCE.convertEntityToPlayerGetDTO(player);
     }
 }

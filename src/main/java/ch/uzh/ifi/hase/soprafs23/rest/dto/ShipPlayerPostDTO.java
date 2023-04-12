@@ -9,7 +9,7 @@ public class ShipPlayerPostDTO {
     private Player player;
     private String startPosition;
     private String endPosition;
-    private boolean isSunk;
+
 
     public Long getId() {
         return id;
@@ -47,11 +47,5 @@ public class ShipPlayerPostDTO {
         this.endPosition = endPosition;
     }
 
-    public boolean isSunk() {
-        return isSunk;
-    }
 
-    public void setSunk(boolean sunk) {
-        isSunk = sunk;
-    }
 }

@@ -11,6 +11,7 @@ public class ShipPlayerGetDTO {
     private Player player;
     private String startPosition;
     private String endPosition;
+    private boolean isSunk;
 
     public Long getId() {
         return id;
@@ -46,5 +47,13 @@ public class ShipPlayerGetDTO {
 
     public void setEndPosition(String endPosition) {
         this.endPosition = endPosition;
+    }
+
+    public boolean isSunk() {
+        return isSunk;
+    }
+
+    public void setSunk(boolean sunk) {
+        isSunk = sunk;
     }
 }

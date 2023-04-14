@@ -54,10 +54,10 @@ public class GameService {
             shotPosition.setAttacker(attacker.get());
             shotPosition.setDefender(defender.get());
             shotPosition.setPosition(posOfShot);
-            attacker.get().getShotsAttack().add(shotPosition);
-            defender.get().getShotsDefend().add(shotPosition);
-            playerRepository.save(attacker.get());
-            playerRepository.save(defender.get());
+            //attacker.get().getShotsAttack().add(shotPosition);
+            //defender.get().getShotsDefend().add(shotPosition);
+            //playerRepository.save(attacker.get());
+            //playerRepository.save(defender.get());
             shotRepository.save(shotPosition);
             return shotPosition;
         }
@@ -67,23 +67,26 @@ public class GameService {
     }
 
     //ToDo: seperate errors
+
+
     private boolean isValidShot(String shotPosition, Player defender) {
-        System.out.println("valid shot");
         Shot shot = shotRepository.findByPositionAndDefender(shotPosition, defender);
-        if (shot == null && shotPosition.matches("[A-J][0-9]")) {
-            System.out.println("valid");
-            return true;
-        }
-        else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("position is not valid"));
+        if (shot == null) {
+            if (shotPosition.matches("[A-J][0-9]")) {
+                System.out.println("valid");
+                return true;
+            } else {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("enter a valid position"));
+            }
+        } else {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, String.format("This field was shot at before"));
         }
     }
+
 
     private ShipPlayer waterORship(String position, Player defender) {
         for (ShipPlayer shipPlayer : defender.getShipPlayers()) {
             if (Helper.isContained(position, shipPlayer)) {
-                System.out.println("ship of name" + shipPlayer.getShip().getType() + "positions are" + shipPlayer.getStartPosition()
-                + shipPlayer.getEndPosition());
                 return shipPlayer;
             }
         }

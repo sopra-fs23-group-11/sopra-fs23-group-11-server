@@ -14,9 +14,7 @@ public class Player {
     @Id
     @GeneratedValue
     private Long id;
-    @Column(nullable = false, unique = true)
-    private String name;
-    @OneToMany(mappedBy = "player")
+    @OneToMany(mappedBy = "player",fetch = FetchType.EAGER)
     private List<ShipPlayer> shipPlayers;
     @ManyToOne
     private User user;
@@ -40,14 +38,6 @@ public class Player {
     }
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getShipsRemaining() {

@@ -8,7 +8,6 @@ import java.util.List;
 public class PlayerGetDTO {
 
     private Long id;
-    private String name;
     private List<ShipPlayer> shipPlayers;
     private List<Shot> shotsAttack;
     private List<Shot> shotsDefend;
@@ -25,14 +24,6 @@ public class PlayerGetDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
 }

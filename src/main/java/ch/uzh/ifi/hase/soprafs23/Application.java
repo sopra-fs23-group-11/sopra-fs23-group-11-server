@@ -27,7 +27,7 @@ public class Application {
     SpringApplication.run(Application.class, args);
   }
 
-  @GetMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
+  @GetMapping(value = "/t", produces = MediaType.TEXT_PLAIN_VALUE)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public String helloWorld() {

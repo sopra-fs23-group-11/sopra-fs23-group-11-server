@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs23.rest.mapper;
 
 import ch.uzh.ifi.hase.soprafs23.Grid.Grid;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
+import ch.uzh.ifi.hase.soprafs23.entity.Shot;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.entity.Player;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
@@ -63,9 +64,11 @@ public interface DTOMapper {
 
 
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
     @Mapping(source = "shipPlayers", target = "shipPlayers")
     @Mapping(source = "shotsAttack", target = "shotsAttack")
     @Mapping(source = "shotsDefend", target = "shotsDefend")
     PlayerGetDTO convertEntityToPlayerGetDTO(Player player);
+
+
+    //ToDo create mapper for ShotGetDTO
 }

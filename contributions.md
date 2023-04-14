@@ -2,6 +2,7 @@
 - Nick Schlatter
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/9 Create Basic Grid Representation 
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/15 Create Host api call
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/17 Create Join api call
 
 - Kalil Subaan
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/59 Created Register Page in Client
@@ -35,7 +36,12 @@ Contributions Week 3 / 20.4 :
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/97 Create Battleship
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/96 Create Carrier
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/69 Create ship representation
-- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/113 create board representation for getDTO
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/113 Create board representation for getDTO (PlayerShip)
+- [ ] Create shots representation and functionality 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/126 After successful hit check if a ship has been sunk
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/122 create http error response for already shot fields if shot again
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/123 compare board with submitted shots to check if field has already been shot
+
 
 - Qing Dai
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/61 Create table of input for ship placements
@@ -47,3 +53,7 @@ Contributions Week 3 / 20.4 :
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/63 Check if position is empty
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/112 Create get board endpoint
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/84 Create "submit/ships" endpoint
+
+- Nick Schlatter
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/18 Create SubmitShotButton
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/11 Create SubmitButton

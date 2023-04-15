@@ -46,6 +46,7 @@ Contributions Week 3 / 20.4 :
 - Qing Dai
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/61 Create table of input for ship placements
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/60 Shipment input verification 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/34 Display cells occupied by ships
 
 -Louis Zürcher
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/65 Check if ships are overlapping

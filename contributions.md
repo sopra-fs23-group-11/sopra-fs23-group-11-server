@@ -47,6 +47,8 @@ Contributions Week 3 / 20.4 :
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/61 Create table of input for ship placements
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/60 Shipment input verification 
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/34 Display cells occupied by ships
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/45 Set restrictions in the frontend so that the ships can be either vertical or horizontal with inputs.
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/46 Show correct ship orientation
 
 -Louis Zürcher
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/65 Check if ships are overlapping

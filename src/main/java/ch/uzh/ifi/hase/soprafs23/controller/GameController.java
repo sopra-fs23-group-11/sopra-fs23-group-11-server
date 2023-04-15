@@ -1,3 +1,4 @@
+
 package ch.uzh.ifi.hase.soprafs23.controller;
 
 
@@ -22,7 +23,9 @@ public class GameController {
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
+
     @MessageMapping("/game")
+    //ToDO send message to the own game not every game /shot/gameId
     public ShotGetDTO attack(ShotPostDTO shotPostDTO){
         System.out.println("confirm0");
         System.out.println(shotPostDTO.getAttackerId());
@@ -34,8 +37,10 @@ public class GameController {
         newshotGet.setDefenderId(shot.getDefender().getId());
         newshotGet.setPosOfShot(shot.getPosition());
         newshotGet.setHit(shot.isHit());
-        simpMessagingTemplate.convertAndSend("/topic/shots", newshotGet);
+        simpMessagingTemplate.convertAndSend("/shot", newshotGet);
         System.out.println("confirm");
         return newshotGet;
     }
 }
+
+

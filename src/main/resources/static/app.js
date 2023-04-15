@@ -4,11 +4,11 @@ const defIdInput = document.getElementById('defenderId');
 const posInput = document.getElementById('posOfShot');
     const shotsDiv = document.getElementById('shots');
 
-    const socket = new SockJS('/websocket');
+    const socket = new SockJS('/ws');
     const stompClient = Stomp.over(socket);
 
     stompClient.connect({}, () => {
-        stompClient.subscribe('/topic/shots', (message) => {
+        stompClient.subscribe('/shot', (message) => {
             const parsedShot = JSON.parse(message.body);
             const shotElement = document.createElement('p');
             shotElement.innerText = 'Attacker: ' + parsedShot.attackerId + ', Defender: ' + parsedShot.defenderId + ', Position: ' + parsedShot.posOfShot + ', Hit:' + parsedShot.hit;

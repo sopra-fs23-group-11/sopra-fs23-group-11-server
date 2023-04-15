@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -57,5 +58,18 @@ public class ShipPlayerService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("one or more entities are missing"));
         }
 
+    }
+
+
+    public List<ShipPlayer> getPlayersShip (long playerId){
+        Optional<Player> playerOptional= playerRepository.findById(playerId);
+        if (playerOptional.isPresent()){
+            Player player = playerOptional.get();
+            List<ShipPlayer> shipPlayer= shipPlayerRepository.findAllByPlayer(player);
+            return shipPlayer;
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("player not found"));
+        }
     }
 }

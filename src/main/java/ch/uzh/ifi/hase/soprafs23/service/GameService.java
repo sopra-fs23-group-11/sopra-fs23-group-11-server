@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -93,5 +94,27 @@ public class GameService {
         return null;
     }
 
-    //ToDO test in the application , Schiffe sind gesunken
+   public List<Shot> getAttackersShot (long attackerId){
+        Optional<Player> player= playerRepository.findById(attackerId);
+        if (player.isPresent()){
+            Player attacker= player.get();
+            return shotRepository.findAllByAttacker(attacker);
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("not found"));
+        }
+
+   }
+
+    public List<Shot> getDefendersShot (long defenderId){
+        Optional<Player> player= playerRepository.findById(defenderId);
+        if (player.isPresent()){
+            Player defender= player.get();
+            return shotRepository.findAllByDefender(defender);
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("not found"));
+        }
+
+    }
 }

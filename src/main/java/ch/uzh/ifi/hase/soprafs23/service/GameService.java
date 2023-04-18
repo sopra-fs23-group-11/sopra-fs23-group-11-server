@@ -4,6 +4,9 @@ import ch.uzh.ifi.hase.soprafs23.entity.Helper;
 import ch.uzh.ifi.hase.soprafs23.entity.Player;
 import ch.uzh.ifi.hase.soprafs23.entity.Shot;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
+import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
+import ch.uzh.ifi.hase.soprafs23.exceptions.PlayerExcep;
+import ch.uzh.ifi.hase.soprafs23.exceptions.PositionExcep;
 import ch.uzh.ifi.hase.soprafs23.repository.PlayerRepository;
 import ch.uzh.ifi.hase.soprafs23.repository.ShipPlayerRepository;
 import ch.uzh.ifi.hase.soprafs23.repository.ShipRepository;
@@ -34,54 +37,45 @@ public class GameService {
     public Shot attack(long attackerId, long defenderId, String posOfShot) { //flush
         Optional<Player> attacker = playerRepository.findById(attackerId);
         Optional<Player> defender = playerRepository.findById(defenderId);
-        if (attacker.isPresent() && defender.isPresent()  && attacker.get()!= defender.get() && isValidShot(posOfShot, defender.get())) {
-            ShipPlayer ship_hit = waterORship(posOfShot, defender.get());
-            Shot shotPosition = new Shot();
-            if (ship_hit != null) {
+        if (attackerId == defenderId)
+            throw new PlayerExcep("players should differ");
+        if (attacker.isEmpty())
+            throw new EntityNotFoundExcep("attacker doesn't exist");
+        if (defender.isEmpty())
+            throw new EntityNotFoundExcep("defender doesn't exist");
 
-                shotPosition.setHit(true);
-                ship_hit.setHitParts(ship_hit.getHitParts() + 1);
+        if (!isValidShot(posOfShot, defender.get()))
+            throw new PositionExcep("not valid shot");
+        ShipPlayer ship_hit = waterORship(posOfShot, defender.get());
+        Shot shotPosition = new Shot();
+        if (ship_hit != null) {
+            shotPosition.setHit(true);
+            ship_hit.setHitParts(ship_hit.getHitParts() + 1);
+            if (ship_hit.getHitParts() == ship_hit.getShip().getLength()) {
+                ship_hit.setSunk(true);
 
-                if (ship_hit.getHitParts() == ship_hit.getShip().getLength()) {
-                    ship_hit.setSunk(true);
-
-                }
-                shipPlayerRepository.save(ship_hit);
             }
-            else {
-                shotPosition.setHit(false);
-
-            }
-            shotPosition.setAttacker(attacker.get());
-            shotPosition.setDefender(defender.get());
-            shotPosition.setPosition(posOfShot);
-            //attacker.get().getShotsAttack().add(shotPosition);
-            //defender.get().getShotsDefend().add(shotPosition);
-            //playerRepository.save(attacker.get());
-            //playerRepository.save(defender.get());
-            shotRepository.save(shotPosition);
-            return shotPosition;
+            shipPlayerRepository.save(ship_hit);
         }
         else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("both players should exist and differ"));
-        }
-    }
+            shotPosition.setHit(false);
 
-    //ToDo: seperate errors
+        }
+        shotPosition.setAttacker(attacker.get());
+        shotPosition.setDefender(defender.get());
+        shotPosition.setPosition(posOfShot);
+        shotRepository.save(shotPosition);
+        return shotPosition;
+    }
 
 
     private boolean isValidShot(String shotPosition, Player defender) {
         Shot shot = shotRepository.findByPositionAndDefender(shotPosition, defender);
-        if (shot == null) {
-            if (shotPosition.matches("[A-J][0-9]")) {
-                System.out.println("valid");
-                return true;
-            } else {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("enter a valid position"));
-            }
-        } else {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, String.format("This field was shot at before"));
-        }
+        if (shot != null)
+            throw new PositionExcep("This field was shot at before");
+        if (!shotPosition.matches("[A-J][0-9]"))
+            throw new PositionExcep("enter a valid position");
+        return true;
     }
 
 
@@ -94,27 +88,21 @@ public class GameService {
         return null;
     }
 
-   public List<Shot> getAttackersShot (long attackerId){
-        Optional<Player> player= playerRepository.findById(attackerId);
-        if (player.isPresent()){
-            Player attacker= player.get();
-            return shotRepository.findAllByAttacker(attacker);
-        }
-        else{
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("not found"));
-        }
-
-   }
-
-    public List<Shot> getDefendersShot (long defenderId){
-        Optional<Player> player= playerRepository.findById(defenderId);
-        if (player.isPresent()){
-            Player defender= player.get();
-            return shotRepository.findAllByDefender(defender);
-        }
-        else{
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("not found"));
-        }
-
+    public List<Shot> getAttackersShot(long attackerId) {
+        Optional<Player> player = playerRepository.findById(attackerId);
+        if (player.isEmpty())
+            throw new EntityNotFoundExcep("player not found");
+        Player attacker = player.get();
+        return shotRepository.findAllByAttacker(attacker);
     }
+
+    public List<Shot> getDefendersShot(long defenderId) {
+        Optional<Player> player = playerRepository.findById(defenderId);
+        if (player.isEmpty())
+            throw new EntityNotFoundExcep("player not found");
+
+        Player defender = player.get();
+        return shotRepository.findAllByDefender(defender);
+    }
+
 }

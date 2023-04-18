@@ -3,6 +3,7 @@ const attackerIdInput = document.getElementById('attackerId');
 const defIdInput = document.getElementById('defenderId');
 const posInput = document.getElementById('posOfShot');
     const shotsDiv = document.getElementById('shots');
+    const errorDiv = document.getElementById('error');
 
     const socket = new SockJS('/ws');
     const stompClient = Stomp.over(socket);
@@ -13,8 +14,27 @@ const posInput = document.getElementById('posOfShot');
             const shotElement = document.createElement('p');
             shotElement.innerText = 'Attacker: ' + parsedShot.attackerId + ', Defender: ' + parsedShot.defenderId + ', Position: ' + parsedShot.posOfShot + ', Hit:' + parsedShot.hit;
             shotsDiv.appendChild(shotElement);
+
         });
+        stompClient.subscribe('/errors', (message) => {
+                                const parsedShot = JSON.parse(message.body);
+                                const shotElement = document.createElement('p');
+                                shotElement.innerText = ' msg = '+parsedShot.errorMessage
+                                errorDiv.appendChild(shotElement);
+                            });
+
+
     });
+    /*
+              stompClient.connect({}, () => {
+                    stompClient.subscribe('/errors', (message) => {
+                        const parsedShot = JSON.parse(message.body);
+                        const shotElement = document.createElement('p');
+                        shotElement.innerText = ' msg = '+parsedShot.errorMessage
+                        errorDiv.appendChild(shotElement);
+                    });
+   });
+   */
 
     function sendShot() {
 const attackerId = attackerIdInput.value;

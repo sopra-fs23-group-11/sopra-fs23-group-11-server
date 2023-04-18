@@ -39,37 +39,34 @@ public class ShipPlayerService {
     public ShipPlayer placeShip(long playerId, long shipId, String startPosition, String endPosition) {
         Optional<Ship> shipOptional = shipRepository.findById(shipId);
         Optional<Player> playerOptional = playerRepository.findById(playerId);
-        if (shipOptional.isPresent() && playerOptional.isPresent()) {
-            Ship ship = shipOptional.get();
-            Player player = playerOptional.get();
-            ShipPlayer shipPlayer= new ShipPlayer();
-            shipPlayer.setStartPosition(startPosition);
-            shipPlayer.setEndPosition(endPosition);
-            shipPlayer.setShip(ship);
-            shipPlayer.setPlayer(player);
-            player.getShipPlayers().add(shipPlayer);
-            playerRepository.save(player);
-            ShipPlayer shipPlayerToSave = shipPlayerRepository.save(shipPlayer);
-            shipPlayerRepository.flush();
-            playerRepository.flush();
-            return shipPlayerToSave;
-        }
-        else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("one or more entities are missing"));
-        }
+        if (shipOptional.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("ship doesn't exist"));
+        if (playerOptional.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("player doesn't exist"));
 
+        Ship ship = shipOptional.get();
+        Player player = playerOptional.get();
+        ShipPlayer shipPlayer= new ShipPlayer();
+        shipPlayer.setStartPosition(startPosition);
+        shipPlayer.setEndPosition(endPosition);
+        shipPlayer.setShip(ship);
+        shipPlayer.setPlayer(player);
+        player.getShipPlayers().add(shipPlayer);
+        playerRepository.save(player);
+        ShipPlayer shipPlayerToSave = shipPlayerRepository.save(shipPlayer);
+        shipPlayerRepository.flush();
+        playerRepository.flush();
+        return shipPlayerToSave;
     }
 
 
     public List<ShipPlayer> getPlayersShip (long playerId){
         Optional<Player> playerOptional= playerRepository.findById(playerId);
-        if (playerOptional.isPresent()){
-            Player player = playerOptional.get();
-            List<ShipPlayer> shipPlayer= shipPlayerRepository.findAllByPlayer(player);
-            return shipPlayer;
-        }
-        else{
+        if (playerOptional.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("player not found"));
-        }
+
+        Player player = playerOptional.get();
+        List<ShipPlayer> shipPlayer = shipPlayerRepository.findAllByPlayer(player);
+        return shipPlayer;
     }
 }

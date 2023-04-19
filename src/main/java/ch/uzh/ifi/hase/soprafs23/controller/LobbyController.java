@@ -46,4 +46,5 @@ public class LobbyController {
         }
         lobbyService.joinLobby(userInput.getLobbyCode(), userInput.getJoiner().getId());
     }
+
 }

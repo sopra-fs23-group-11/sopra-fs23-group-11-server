@@ -29,8 +29,8 @@ public interface DTOMapper {
 
     @Mapping(source = "ship", target = "ship")
     @Mapping(source = "player", target = "player")
-    @Mapping(source = "shipId", target = "shipId")
-    @Mapping(source = "playerId", target = "playerId")
+    @Mapping(source = "shipPlayerShipId", target = "shipPlayerShipId")
+    @Mapping(source = "shipPlayerPlayerId", target = "shipPlayerPlayerId")
     @Mapping(source = "startPosition", target = "startPosition")
     @Mapping(source = "endPosition", target = "endPosition")
     ShipPlayer convertShipPlayerPostDTOtoEntity(ShipPlayerPostDTO shipPlayerPostDTO);

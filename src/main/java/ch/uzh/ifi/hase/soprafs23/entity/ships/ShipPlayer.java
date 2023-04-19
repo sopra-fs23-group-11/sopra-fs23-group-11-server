@@ -35,25 +35,25 @@ public class ShipPlayer {
     private int hitParts=0;
 
     @Column
-    Long shipId;
+    Long shipPlayerShipId;
 
     @Column
-    Long playerId;
+    Long shipPlayerPlayerId;
 
-    public void setPlayerId(Long playerId){
-        this.playerId = playerId;
+    public void setShipPlayerPlayerId(Long shipPlayerPlayerId){
+        this.shipPlayerPlayerId = shipPlayerPlayerId;
     }
 
-    public Long getPlayerId(){
-        return playerId;
+    public Long getShipPlayerPlayerId(){
+        return shipPlayerPlayerId;
     }
 
-    public void setShipId(Long shipId){
-        this.shipId = shipId;
+    public void setShipPlayerShipId(Long shipPlayerShipId){
+        this.shipPlayerShipId = shipPlayerShipId;
     }
 
-    public Long getShipId(){
-        return shipId;
+    public Long getShipPlayerShipId(){
+        return shipPlayerShipId;
     }
 
     public ShipPlayer(){}

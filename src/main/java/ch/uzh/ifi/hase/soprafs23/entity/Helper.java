@@ -116,6 +116,15 @@ public class Helper {
             return false;
         }
     }
+
+    public static boolean allShipsPlaced(Player player){
+        List<ShipPlayer> ships = player.getShipPlayers();
+        if(ships.size() == 5){
+            return true;
+        }
+        return false;
+    }
+
     public static boolean shipsNotTouching(Player player){
         List<ShipPlayer> ships = player.getShipPlayers();
         List<Position> nonoSquare = new ArrayList<>();

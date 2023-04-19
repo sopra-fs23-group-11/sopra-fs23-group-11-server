@@ -29,6 +29,8 @@ public interface DTOMapper {
 
     @Mapping(source = "ship", target = "ship")
     @Mapping(source = "player", target = "player")
+    @Mapping(source = "shipPlayerShipId", target = "shipPlayerShipId")
+    @Mapping(source = "shipPlayerPlayerId", target = "shipPlayerPlayerId")
     @Mapping(source = "startPosition", target = "startPosition")
     @Mapping(source = "endPosition", target = "endPosition")
     ShipPlayer convertShipPlayerPostDTOtoEntity(ShipPlayerPostDTO shipPlayerPostDTO);
@@ -47,6 +49,7 @@ public interface DTOMapper {
     LobbyGetDTO convertEntityToLobbyGetDTO(Lobby lobby);
 
     @Mapping(source = "host", target = "host")
+    @Mapping(source = "userId", target = "userId")
     Lobby convertLobbyPostDTOtoEntity(LobbyPostDTO lobbyPostDTO);
 
     @Mapping(source = "password", target = "password")

@@ -22,6 +22,6 @@ public class ShipPlayerController {
     @ResponseBody
     public void submitShips(@RequestBody ShipPlayerPostDTO shipPlayerPostDTO){
         ShipPlayer ship = DTOMapper.INSTANCE.convertShipPlayerPostDTOtoEntity(shipPlayerPostDTO);
-        shipPlayerService.placeShip(ship.getShip().getId(), ship.getPlayer().getId(), ship.getStartPosition(), ship.getEndPosition());
+        shipPlayerService.placeShip(ship.getShipPlayerShipId(), ship.getShipPlayerPlayerId(), ship.getStartPosition(), ship.getEndPosition());
     }
 }

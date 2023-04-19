@@ -9,7 +9,13 @@ public class ShipPlayerPostDTO {
     private Player player;
     private String startPosition;
     private String endPosition;
+    private Long shipPlayerShipId;
+    private Long shipPlayerPlayerId;
 
+    public Long getShipPlayerPlayerId(){return shipPlayerPlayerId;}
+    public Long getShipPlayerShipId(){return shipPlayerShipId;}
+    public void setShipPlayerPlayerId(Long shipPlayerPlayerId){this.shipPlayerPlayerId = shipPlayerPlayerId;}
+    public void setShipPlayerShipId(Long shipPlayerShipId){this.shipPlayerShipId = shipPlayerShipId;}
 
     public Long getId() {
         return id;

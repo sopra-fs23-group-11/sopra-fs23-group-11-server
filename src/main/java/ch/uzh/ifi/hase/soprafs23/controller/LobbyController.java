@@ -26,8 +26,7 @@ public class LobbyController {
     @ResponseBody
     public LobbyGetDTO host(@RequestBody LobbyPostDTO lobbyPostDTO) {
         Lobby lobby = DTOMapper.INSTANCE.convertLobbyPostDTOtoEntity(lobbyPostDTO);
-        User host = lobby.getHost();
-        Lobby createdLobby= lobbyService.createLobby(host.getId());
+        Lobby createdLobby= lobbyService.createLobby(lobby.getUserId());
         return DTOMapper.INSTANCE.convertEntityToLobbyGetDTO(createdLobby);
     }
     @PutMapping("/join")

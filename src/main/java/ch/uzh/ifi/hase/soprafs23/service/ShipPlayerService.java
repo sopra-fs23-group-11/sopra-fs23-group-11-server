@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
 import ch.uzh.ifi.hase.soprafs23.entity.Player;
+import ch.uzh.ifi.hase.soprafs23.entity.Helper;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.Position;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.Ship;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
@@ -25,24 +26,30 @@ public class ShipPlayerService {
     private final ShipPlayerRepository shipPlayerRepository;
     private final ShipRepository shipRepository;
     private final PlayerRepository playerRepository;
+    private  final Helper helper;
+
 
     @Autowired
-    public ShipPlayerService(ShipPlayerRepository shipPlayerRepository, ShipRepository shipRepository, PlayerRepository playerRepository) {
+    public ShipPlayerService(ShipPlayerRepository shipPlayerRepository, ShipRepository shipRepository, PlayerRepository playerRepository, Helper helper) {
         this.shipPlayerRepository = shipPlayerRepository;
         this.shipRepository = shipRepository;
         this.playerRepository = playerRepository;
+        this.helper = helper;
     }
 
 
     //ToDo: add all functions to validate a position first
     //ToDO: check abs(start-end)=length
     public ShipPlayer placeShip(long playerId, long shipId, String startPosition, String endPosition) {
+        String baseErrorMessage = "Ship can't be placed: %s";
         Optional<Ship> shipOptional = shipRepository.findById(shipId);
         Optional<Player> playerOptional = playerRepository.findById(playerId);
         if (shipOptional.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("ship doesn't exist"));
         if (playerOptional.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("player doesn't exist"));
+        if(helper.shipsNotTouching(playerOptional.get()))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("ships are touching"));
 
         Ship ship = shipOptional.get();
         Player player = playerOptional.get();

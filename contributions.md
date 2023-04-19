@@ -41,6 +41,7 @@ Contributions Week 3 / 20.4 :
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/126 After successful hit check if a ship has been sunk
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/122 create http error response for already shot fields if shot again
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/123 compare board with submitted shots to check if field has already been shot
+- [ ] create websockets representation for shots (& handle related errors using handleException) 
 
 
 - Qing Dai
@@ -56,8 +57,9 @@ Contributions Week 3 / 20.4 :
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/64 Check if ships are touching
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/63 Check if position is empty
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/112 Create get board endpoint
-- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/84 Create "submit/ships" endpoint
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/61 Create "submit/ships" endpoint
 
 - Nick Schlatter
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/18 Create SubmitShotButton
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/11 Create SubmitButton
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/12 Individual submit of ships with associated API call

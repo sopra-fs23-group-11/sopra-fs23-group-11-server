@@ -48,7 +48,7 @@ public class ShipPlayerService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("ship doesn't exist"));
         if (playerOptional.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("player doesn't exist"));
-        if(helper.shipsNotTouching(playerOptional.get()))
+        if(!helper.shipsNotTouching(playerOptional.get(), startPosition, endPosition))
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("ships are touching"));
 
         Ship ship = shipOptional.get();

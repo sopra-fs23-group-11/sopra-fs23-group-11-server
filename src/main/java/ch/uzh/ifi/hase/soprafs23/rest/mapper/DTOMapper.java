@@ -48,9 +48,8 @@ public interface DTOMapper {
     @Mapping(source = "lobbyCode", target = "lobbyCode")
     LobbyGetDTO convertEntityToLobbyGetDTO(Lobby lobby);
 
-    @Mapping(source = "host", target = "host")
-    @Mapping(source = "userId", target = "userId")
-    Lobby convertLobbyPostDTOtoEntity(LobbyPostDTO lobbyPostDTO);
+    //@Mapping(source = "hostId", target = "hostId")
+    //Lobby convertLobbyPostDTOtoEntity(LobbyPostDTO lobbyPostDTO);
 
     @Mapping(source = "password", target = "password")
     @Mapping(source = "username", target = "username")

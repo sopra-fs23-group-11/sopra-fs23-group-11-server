@@ -56,6 +56,8 @@ public class ShipPlayer {
         return shipPlayerShipId;
     }
 
+
+
     public ShipPlayer(){}
 
     public Long getId() {

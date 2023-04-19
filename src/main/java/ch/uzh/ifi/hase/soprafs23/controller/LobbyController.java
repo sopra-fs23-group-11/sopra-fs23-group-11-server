@@ -25,8 +25,7 @@ public class LobbyController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public LobbyGetDTO host(@RequestBody LobbyPostDTO lobbyPostDTO) {
-        Lobby lobby = DTOMapper.INSTANCE.convertLobbyPostDTOtoEntity(lobbyPostDTO);
-        Lobby createdLobby= lobbyService.createLobby(lobby.getUserId());
+        Lobby createdLobby= lobbyService.createLobby(lobbyPostDTO.getHostId());
         return DTOMapper.INSTANCE.convertEntityToLobbyGetDTO(createdLobby);
     }
     @PutMapping("/join")

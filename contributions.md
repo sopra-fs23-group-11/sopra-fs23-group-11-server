@@ -57,7 +57,7 @@ Contributions Week 3 / 20.4 :
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/64 Check if ships are touching
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/63 Check if position is empty
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/112 Create get board endpoint
-- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/84 Create "submit/ships" endpoint
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/61 Create "submit/ships" endpoint
 
 - Nick Schlatter
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/18 Create SubmitShotButton

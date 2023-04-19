@@ -62,3 +62,4 @@ Contributions Week 3 / 20.4 :
 - Nick Schlatter
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/18 Create SubmitShotButton
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/11 Create SubmitButton
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/12 Individual submit of ships with associated API call

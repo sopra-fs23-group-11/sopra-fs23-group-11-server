@@ -41,6 +41,7 @@ Contributions Week 3 / 20.4 :
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/126 After successful hit check if a ship has been sunk
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/122 create http error response for already shot fields if shot again
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/123 compare board with submitted shots to check if field has already been shot
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/84 create "submit/shot" endpoint 
 - [ ] create websockets representation for shots (& handle related errors using handleException) 
 
 

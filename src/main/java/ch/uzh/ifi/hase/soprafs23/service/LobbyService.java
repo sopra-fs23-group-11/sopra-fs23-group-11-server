@@ -1,6 +1,8 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
+import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
+import ch.uzh.ifi.hase.soprafs23.exceptions.PlayerExcep;
 import ch.uzh.ifi.hase.soprafs23.repository.LobbyRepository;
 import ch.uzh.ifi.hase.soprafs23.repository.UserRepository;
 import org.slf4j.Logger;
@@ -44,25 +46,34 @@ public class LobbyService {
             return lobby;
         }
         else{
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("User doesn't exist"));
+            throw new EntityNotFoundExcep("User doesn't exist");
         }
 
     }
 
-    public User joinLobby(String lobbyCode, long userId) {
+    public Lobby joinLobby(String lobbyCode, long userId) {
+        System.out.println("service1");
         Lobby lobby= lobbyRepository.findByLobbyCode(lobbyCode);
+        System.out.println("userId = " + userId);
         Optional <User> optionalUser= userRepository.findById(userId);
-        if (lobby != null && optionalUser.isPresent()){
-            User user= optionalUser.get();
-            user.setLobbyForJoiner(lobby);
-            User newuser= userRepository.save(user);
-            lobby.setJoiner(newuser);
-            lobbyRepository.save(lobby);
-            return newuser;
-        }
-        else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("lobby or user not found"));
-        }
+        if (lobby ==null)
+            throw new EntityNotFoundExcep("lobby not found");
+        long hostId= lobby.getHost().getId();
+        System.out.println("service1.2");
+        if (optionalUser.isEmpty())
+            throw new EntityNotFoundExcep("joiner not found");
+        System.out.println("service1.3");
+        User user= optionalUser.get();
+        if (hostId== user.getId())
+            throw new PlayerExcep("players should differ");
+
+        user.setLobbyForJoiner(lobby);
+        User newuser= userRepository.save(user);
+        lobby.setJoiner(newuser);
+        lobbyRepository.save(lobby);
+        System.out.println("service2");
+        return lobby;
+
     }
 
     public Lobby findByLobbyCode(String lobbyCode){

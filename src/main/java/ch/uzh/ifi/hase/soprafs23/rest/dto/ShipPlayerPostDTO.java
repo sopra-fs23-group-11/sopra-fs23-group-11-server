@@ -1,40 +1,26 @@
 package ch.uzh.ifi.hase.soprafs23.rest.dto;
 
-import ch.uzh.ifi.hase.soprafs23.entity.Player;
-import ch.uzh.ifi.hase.soprafs23.entity.ships.Ship;
-
 public class ShipPlayerPostDTO {
-    private Long id;
-    private Ship ship;
-    private Player player;
+
+    private long shipPlayerShipId;
+    private long shipPlayerPlayerId;
     private String startPosition;
     private String endPosition;
-    private Long shipPlayerShipId;
-    private Long shipPlayerPlayerId;
 
-    public Long getShipPlayerPlayerId(){return shipPlayerPlayerId;}
-    public Long getShipPlayerShipId(){return shipPlayerShipId;}
-    public void setShipPlayerPlayerId(Long shipPlayerPlayerId){this.shipPlayerPlayerId = shipPlayerPlayerId;}
-    public void setShipPlayerShipId(Long shipPlayerShipId){this.shipPlayerShipId = shipPlayerShipId;}
-
-    public Long getId() {
-        return id;
+    public long getShipPlayerShipId() {
+        return shipPlayerShipId;
     }
 
-    public Ship getShip() {
-        return ship;
+    public void setShipPlayerShipId(long shipPlayerShipId) {
+        this.shipPlayerShipId = shipPlayerShipId;
     }
 
-    public void setShip(Ship ship) {
-        this.ship = ship;
+    public long getShipPlayerPlayerId() {
+        return shipPlayerPlayerId;
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setShipPlayerPlayerId(long shipPlayerPlayerId) {
+        this.shipPlayerPlayerId = shipPlayerPlayerId;
     }
 
     public String getStartPosition() {

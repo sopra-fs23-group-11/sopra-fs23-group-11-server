@@ -26,7 +26,7 @@ import org.mapstruct.factory.Mappers;
 public interface DTOMapper {
 
     DTOMapper INSTANCE = Mappers.getMapper(DTOMapper.class);
-
+/*
     @Mapping(source = "ship", target = "ship")
     @Mapping(source = "player", target = "player")
     @Mapping(source = "shipPlayerShipId", target = "shipPlayerShipId")
@@ -35,15 +35,21 @@ public interface DTOMapper {
     @Mapping(source = "endPosition", target = "endPosition")
     ShipPlayer convertShipPlayerPostDTOtoEntity(ShipPlayerPostDTO shipPlayerPostDTO);
 
+ */
+
     @Mapping(source = "ship", target = "ship")
     @Mapping(source = "player", target = "player")
     @Mapping(source = "startPosition", target = "startPosition")
     @Mapping(source = "endPosition", target = "endPosition")
     ShipPlayerGetDTO convertEntityToShipPlayerGetDTO(ShipPlayer shipPlayer);
 
+    //ToDo: lobbymapper
+    /*
     @Mapping(source = "lobbyCode", target = "lobbyCode")
     @Mapping(source = "joiner", target = "joiner")
     Lobby convertLobbyPutDTOtoEntity(LobbyPutDTO lobbyPutDTO);
+
+     */
 
     @Mapping(source = "lobbyCode", target = "lobbyCode")
     LobbyGetDTO convertEntityToLobbyGetDTO(Lobby lobby);

@@ -4,7 +4,7 @@ import ch.uzh.ifi.hase.soprafs23.entity.User;
 
 public class LobbyPutDTO {
     private String lobbyCode;
-    private User joiner;
+    private long joinerId;
 
 
     public String getLobbyCode() {
@@ -15,11 +15,11 @@ public class LobbyPutDTO {
         this.lobbyCode = lobbyCode;
     }
 
-    public User getJoiner() {
-        return joiner;
+    public long getJoinerId() {
+        return joinerId;
     }
 
-    public void setJoiner(User joiner) {
-        this.joiner = joiner;
+    public void setJoinerId(long joinerId) {
+        this.joinerId = joinerId;
     }
 }

@@ -30,19 +30,11 @@ public class LobbyController {
     }
     @PutMapping("/join")
     @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public void join(@RequestBody LobbyPutDTO lobbyPutDTO){
-        Lobby userInput = DTOMapper.INSTANCE.convertLobbyPutDTOtoEntity(lobbyPutDTO);
-        String lobbyCode = userInput.getLobbyCode();
-        Lobby lobby= lobbyService.findByLobbyCode(lobbyCode);
-        if (lobby.getJoiner() != null) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "The lobby you're trying to join is full");
-        }
-        long userId = userInput.getJoiner().getId();
-        if ((lobby.getHost().getId() == userId)){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, String.format("You cannot join your own game"));
-        }
-        lobbyService.joinLobby(userInput.getLobbyCode(), userInput.getJoiner().getId());
+    public LobbyGetDTO join(@RequestBody LobbyPutDTO lobbyPutDTO){
+        System.out.println("controller");
+        Lobby createdLobby=lobbyService.joinLobby(lobbyPutDTO.getLobbyCode(), lobbyPutDTO.getJoinerId());
+
+        return DTOMapper.INSTANCE.convertEntityToLobbyGetDTO(createdLobby);
     }
 
 }

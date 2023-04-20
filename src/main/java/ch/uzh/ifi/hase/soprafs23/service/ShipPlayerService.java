@@ -5,6 +5,8 @@ import ch.uzh.ifi.hase.soprafs23.entity.Helper;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.Position;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.Ship;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
+import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
+import ch.uzh.ifi.hase.soprafs23.exceptions.PositionExcep;
 import ch.uzh.ifi.hase.soprafs23.repository.PlayerRepository;
 import ch.uzh.ifi.hase.soprafs23.repository.ShipPlayerRepository;
 import ch.uzh.ifi.hase.soprafs23.repository.ShipRepository;
@@ -38,18 +40,16 @@ public class ShipPlayerService {
     }
 
 
-    //ToDo: add all functions to validate a position first
-    //ToDO: check abs(start-end)=length
     public ShipPlayer placeShip(long playerId, long shipId, String startPosition, String endPosition) {
         String baseErrorMessage = "Ship can't be placed: %s";
         Optional<Ship> shipOptional = shipRepository.findById(shipId);
         Optional<Player> playerOptional = playerRepository.findById(playerId);
         if (shipOptional.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("ship doesn't exist"));
+            throw new EntityNotFoundExcep ("ship doesn't exist");
         if (playerOptional.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("player doesn't exist"));
+            throw new EntityNotFoundExcep ("player doesn't exist");
         if(!helper.shipsNotTouching(playerOptional.get(), startPosition, endPosition))
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("ships are touching"));
+            throw new PositionExcep("ships are touching");
 
         Ship ship = shipOptional.get();
         Player player = playerOptional.get();

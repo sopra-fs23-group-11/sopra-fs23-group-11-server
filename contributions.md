@@ -27,8 +27,8 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/62  Check if the entered position represents a vald length
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/66  Check if the coordinates are within boundaries
 
-Contributions Week 2 / 13.4 &
-Contributions Week 3 / 20.4 : 
+-- Contributions Week 2 / 13.4 &
+-- Contributions Week 3 / 20.4 : 
 - Nazek Olabi
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/100 Create Destroyer
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/99 Create Submarine
@@ -64,3 +64,18 @@ Contributions Week 3 / 20.4 :
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/18 Create SubmitShotButton
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/11 Create SubmitButton
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/12 Individual submit of ships with associated API call
+
+- Kalil Subaan 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/35 Render enemy shots
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/42 Render player's shots
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/41 render enemy board for player 2
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/39 render enemy board for player 1
+- Note: the above task fall under the implicit task of establishing a websocket connection
+
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/31
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/30
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/29
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/28
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/27
+- Note: these issues pertain to the creation of the different ship types that mirror the ones in the server
+

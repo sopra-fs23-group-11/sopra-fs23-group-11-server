@@ -7,10 +7,8 @@ import ch.uzh.ifi.hase.soprafs23.entity.Shot;
 import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
 import ch.uzh.ifi.hase.soprafs23.exceptions.PlayerExcep;
 import ch.uzh.ifi.hase.soprafs23.exceptions.PositionExcep;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.ErrorDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.GamePostDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.ShotGetDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.ShotPostDTO;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
+import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
@@ -53,9 +51,10 @@ public class GameController {
     }
 
     @PostMapping("/game")
-    public Game startGame(@RequestBody GamePostDTO gamePostDTO){
+    public GameGetDTO startGame(@RequestBody GamePostDTO gamePostDTO){
         System.out.println("gamePostDTO.getLobbyCode() = " + gamePostDTO.getLobbyCode());
-        return gameService.startGame(gamePostDTO.getHostId(), gamePostDTO.getLobbyCode());
+        Game game = gameService.startGame(gamePostDTO.getHostId(), gamePostDTO.getLobbyCode());
+        return DTOMapper.INSTANCE.convertEntityToGameGetDTO(game);
 
     }
     @MessageExceptionHandler(EntityNotFoundExcep.class)

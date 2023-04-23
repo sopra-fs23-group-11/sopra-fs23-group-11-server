@@ -1,10 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.rest.mapper;
 
 import ch.uzh.ifi.hase.soprafs23.Grid.Grid;
-import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
-import ch.uzh.ifi.hase.soprafs23.entity.Shot;
-import ch.uzh.ifi.hase.soprafs23.entity.User;
-import ch.uzh.ifi.hase.soprafs23.entity.Player;
+import ch.uzh.ifi.hase.soprafs23.entity.*;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
 import org.mapstruct.*;
@@ -51,10 +48,18 @@ public interface DTOMapper {
 
      */
     default LobbyGetDTO convertEntityToLobbyGetDTO(Lobby lobby){
-        LobbyGetDTO newLobbyGetDTO= new LobbyGetDTO();
-        newLobbyGetDTO.setLobbyCode(lobby.getLobbyCode());
-        newLobbyGetDTO.setHostName(lobby.getHost().getUsername());
-        return newLobbyGetDTO;
+        LobbyGetDTO lobbyGetDTO= new LobbyGetDTO();
+        lobbyGetDTO.setLobbyCode(lobby.getLobbyCode());
+        lobbyGetDTO.setHostName(lobby.getHost().getUsername());
+        return lobbyGetDTO;
+    }
+
+    default GameGetDTO convertEntityToGameGetDTO (Game game){
+        GameGetDTO gameGetDTO= new GameGetDTO();
+        gameGetDTO.setAttackerName(game.getPlayer1().getUser().getUsername());
+        gameGetDTO.setDefenderName(game.getPlayer2().getUser().getUsername());
+        gameGetDTO.setLobbyCode(game.getId());
+        return gameGetDTO;
     }
 
     //@Mapping(source = "hostId", target = "hostId")

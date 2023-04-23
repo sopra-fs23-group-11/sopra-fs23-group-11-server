@@ -16,7 +16,7 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/76 create host endpoint (Louis fixed the DTO)
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/75 check if room code is unique
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/74 create room code generator
-- [ ] implement the main classes as defined in the class diagram 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/139 implement the main classes as defined in the class diagram 
 
 - Qing Dai
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/85 check if input is valid

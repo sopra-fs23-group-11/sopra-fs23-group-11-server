@@ -109,12 +109,13 @@ public class GameService {
             throw new EntityNotFoundExcep("Lobby doesn't exist");
         Lobby lobby = optionalLobby.get();
         game.setId(lobby.getLobbyCode());
-        gameRepository.save(game);
-        //needed?
         if (lobby.getHost() == null)
             throw new EntityNotFoundExcep("host is not present");
         if (lobby.getJoiner() == null)
             throw new EntityNotFoundExcep("joiner is missing");
+        if (lobby.getHost().getId()!=hostId)
+            throw new PlayerExcep("only the host can start a game");
+        gameRepository.save(game);
         Player player1 = new Player();
         Player player2 = new Player();
         player1.setUser(lobby.getHost());

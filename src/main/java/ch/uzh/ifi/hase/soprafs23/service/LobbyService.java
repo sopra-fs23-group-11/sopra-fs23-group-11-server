@@ -48,13 +48,13 @@ public class LobbyService {
         newLobby.setHost(host);
         String lobbyCode;
         do {
-            lobbyCode = UUID.randomUUID().toString();
+            lobbyCode = UUID.randomUUID().toString().substring(0,5);
         } while (lobbyRepository.findByLobbyCode(lobbyCode) != null);
         newLobby.setLobbyCode(lobbyCode);
         Lobby lobby = lobbyRepository.save(newLobby);
         host.setLobbyForHost(lobby);
         userRepository.save(host);
-        createPlayerEntity(hostId);
+        //createPlayerEntity(hostId);
         return lobby;
 
     }
@@ -80,7 +80,7 @@ public class LobbyService {
         lobby.setJoiner(newuser);
         lobbyRepository.save(lobby);
         System.out.println("service2");
-        createPlayerEntity(userId);
+        //createPlayerEntity(userId);
         return lobby;
 
     }

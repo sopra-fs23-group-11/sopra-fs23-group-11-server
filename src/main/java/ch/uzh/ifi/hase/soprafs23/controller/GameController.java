@@ -54,6 +54,7 @@ public class GameController {
     public GameGetDTO startGame(@RequestBody GamePostDTO gamePostDTO){
         System.out.println("gamePostDTO.getLobbyCode() = " + gamePostDTO.getLobbyCode());
         Game game = gameService.startGame(gamePostDTO.getHostId(), gamePostDTO.getLobbyCode());
+
         return DTOMapper.INSTANCE.convertEntityToGameGetDTO(game);
 
     }

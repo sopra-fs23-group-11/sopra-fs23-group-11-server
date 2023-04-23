@@ -25,16 +25,6 @@ const posInput = document.getElementById('posOfShot');
 
 
     });
-    /*
-              stompClient.connect({}, () => {
-                    stompClient.subscribe('/errors', (message) => {
-                        const parsedShot = JSON.parse(message.body);
-                        const shotElement = document.createElement('p');
-                        shotElement.innerText = ' msg = '+parsedShot.errorMessage
-                        errorDiv.appendChild(shotElement);
-                    });
-   });
-   */
 
     function sendShot() {
 const attackerId = attackerIdInput.value;

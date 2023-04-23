@@ -1,4 +1,5 @@
 package ch.uzh.ifi.hase.soprafs23.service;
+
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.Player;
 import ch.uzh.ifi.hase.soprafs23.entity.Shot;
@@ -37,47 +38,45 @@ public class LobbyService {
         this.playerRepository = playerRepository;
     }
 
-    public Lobby createLobby(long hostId){
-        Optional <User> optionalUser= userRepository.findById(hostId);
-        if (optionalUser.isPresent()){
-            User host= optionalUser.get();
-            Lobby newLobby= new Lobby();
-            newLobby.setHost(host);
-            String lobbyCode;
-            do {
-                lobbyCode=UUID.randomUUID().toString();
-            }while (lobbyRepository.findByLobbyCode(lobbyCode)!= null);
-            newLobby.setLobbyCode(lobbyCode);
-            Lobby lobby= lobbyRepository.save(newLobby);
-            host.setLobbyForHost(lobby);
-            userRepository.save(host);
-            createPlayerEntity(hostId);
-            return lobby;
-        }
-        else{
+    public Lobby createLobby(long hostId) {
+        Optional<User> optionalUser = userRepository.findById(hostId);
+        if (optionalUser.isEmpty())
             throw new EntityNotFoundExcep("User doesn't exist");
-        }
+
+        User host = optionalUser.get();
+        Lobby newLobby = new Lobby();
+        newLobby.setHost(host);
+        String lobbyCode;
+        do {
+            lobbyCode = UUID.randomUUID().toString();
+        } while (lobbyRepository.findByLobbyCode(lobbyCode) != null);
+        newLobby.setLobbyCode(lobbyCode);
+        Lobby lobby = lobbyRepository.save(newLobby);
+        host.setLobbyForHost(lobby);
+        userRepository.save(host);
+        createPlayerEntity(hostId);
+        return lobby;
 
     }
 
     public Lobby joinLobby(String lobbyCode, long userId) {
         System.out.println("service1");
-        Lobby lobby= lobbyRepository.findByLobbyCode(lobbyCode);
+        Lobby lobby = lobbyRepository.findByLobbyCode(lobbyCode);
         System.out.println("userId = " + userId);
-        Optional <User> optionalUser= userRepository.findById(userId);
-        if (lobby ==null)
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (lobby == null)
             throw new EntityNotFoundExcep("lobby not found");
-        long hostId= lobby.getHost().getId();
+        long hostId = lobby.getHost().getId();
         System.out.println("service1.2");
         if (optionalUser.isEmpty())
             throw new EntityNotFoundExcep("joiner not found");
         System.out.println("service1.3");
-        User user= optionalUser.get();
-        if (hostId== user.getId())
+        User user = optionalUser.get();
+        if (hostId == user.getId())
             throw new PlayerExcep("players should differ");
 
         user.setLobbyForJoiner(lobby);
-        User newuser= userRepository.save(user);
+        User newuser = userRepository.save(user);
         lobby.setJoiner(newuser);
         lobbyRepository.save(lobby);
         System.out.println("service2");
@@ -86,21 +85,22 @@ public class LobbyService {
 
     }
 
-    public Lobby findByLobbyCode(String lobbyCode){
+    public Lobby findByLobbyCode(String lobbyCode) {
         return lobbyRepository.findByLobbyCode(lobbyCode);
     }
 
     private void createPlayerEntity(long userId) {
         Optional<Player> optionalPlayer = playerRepository.findById(userId);
 
-        if(optionalPlayer.isPresent()){
+        if (optionalPlayer.isPresent()) {
             Player player = optionalPlayer.get();
             player.setShipPlayers(new ArrayList<ShipPlayer>());
             player.setShipsRemaining(5);
             player.setShotsAttack(new ArrayList<Shot>());
             player.setShotsDefend(new ArrayList<Shot>());
             playerRepository.save(player);
-        }else {
+        }
+        else {
             Player newPlayer = new Player();
             newPlayer.setShipPlayers(new ArrayList<ShipPlayer>());
             newPlayer.setShipsRemaining(5);

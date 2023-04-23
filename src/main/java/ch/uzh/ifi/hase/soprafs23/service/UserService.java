@@ -2,6 +2,8 @@ package ch.uzh.ifi.hase.soprafs23.service;
 
 import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
+import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
+import ch.uzh.ifi.hase.soprafs23.exceptions.UserExcep;
 import ch.uzh.ifi.hase.soprafs23.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +31,6 @@ import java.util.UUID;
 public class UserService {
 
     private final Logger log = LoggerFactory.getLogger(UserService.class);
-
     private final UserRepository userRepository;
 
     @Autowired
@@ -45,10 +46,7 @@ public class UserService {
         newUser.setToken(UUID.randomUUID().toString());
         newUser.setStatus(UserStatus.ONLINE);
         newUser.setTotalWins(0);
-        //newUser.setVoldemort(String.valueOf(java.time.LocalDate.now()));
         checkIfUserExists(newUser);
-        // saves the given entity but data is only persisted in the database once
-        // flush() is called
         newUser = userRepository.save(newUser);
         userRepository.flush();
 
@@ -60,7 +58,7 @@ public class UserService {
         User nUser = userRepository.getOne(user.getId());
         User userByUsername = userRepository.findByUsername(user.getUsername());
         if (userByUsername!=null){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, String.format("Username already taken"));
+            throw new UserExcep("Username already taken");
         }else{
             nUser.setUsername(user.getUsername());
             userRepository.flush();
@@ -102,36 +100,25 @@ public class UserService {
      */
     private void checkIfUserExists(User userToBeCreated) {
         User userByUsername = userRepository.findByUsername(userToBeCreated.getUsername());
-        //User userByName = userRepository.findByName(userToBeCreated.getName());
 
         String baseErrorMessage = "The %s provided %s not unique. Therefore, the user could not be created!";
-        /*
-        if (userByUsername != null && userByName != null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    String.format(baseErrorMessage, "username and the name", "are"));
-        } else if (userByUsername != null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format(baseErrorMessage, "username", "is"));
-        } else if (userByName != null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format(baseErrorMessage, "name", "is"));
-        }*/
+
         if (userByUsername != null ) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    String.format(baseErrorMessage, "username", "is"));
+            throw new UserExcep("this username is not unique");
         }
     }
 
     public User findUserById(long id) {
         User userById = userRepository.getOne(id);
         if (userById != null) {return userById;}
-        else {throw new ResponseStatusException(HttpStatus.NOT_FOUND);}
+        else {throw new EntityNotFoundExcep("user doesn't exist");}
     }
 
     private void checkIfUserExistsLogin(User userToBeCreated) {
         User userByUsername = userRepository.findByUsername(userToBeCreated.getUsername());
         String baseErrorMessage = "Login failed: %s";
         if (userByUsername == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    String.format(baseErrorMessage, "Username does not exist"));
+            throw new EntityNotFoundExcep("user cannot be found by the provided name");
         }
     }
 

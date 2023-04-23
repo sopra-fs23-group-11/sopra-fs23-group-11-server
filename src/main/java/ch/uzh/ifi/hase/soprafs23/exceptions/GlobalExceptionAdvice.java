@@ -66,4 +66,11 @@ public class GlobalExceptionAdvice extends ResponseEntityExceptionHandler {
         return new ErrorDTO(ex.getMessage());
     }
 
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(UserExcep.class)
+    @ResponseBody
+    public ErrorDTO handleUserException (UserExcep ex) {
+        return new ErrorDTO(ex.getMessage());
+    }
+
 }

@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
 import ch.uzh.ifi.hase.soprafs23.entity.Helper;
 
 @Service
@@ -21,8 +22,7 @@ import ch.uzh.ifi.hase.soprafs23.entity.Helper;
 public class PlayerService {
     private final Logger log = LoggerFactory.getLogger(UserService.class);
     private final PlayerRepository playerRepository;
-
-    private  final Helper helper;
+    private final Helper helper;
 
     @Autowired
     public PlayerService(PlayerRepository playerRepository, Helper helper) {
@@ -92,12 +92,12 @@ public class PlayerService {
 
  */
 
-    public String convertInputToUsableString(List<Ship> input){
+    public String convertInputToUsableString(List<Ship> input) {
         //TODO: convert input to usable String that works with helper methods
         return null;
     }
 
-    public Player getField(long id){
+    public Player getField(long id) {
         Player playerById = playerRepository.getOne(id);
         return playerById;
     }

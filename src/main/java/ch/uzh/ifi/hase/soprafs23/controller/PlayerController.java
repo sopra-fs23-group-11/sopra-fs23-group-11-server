@@ -41,26 +41,7 @@ public class PlayerController {
         }
         return playerGetDTOs;
     }
-/*
-    @PostMapping("/players/register")
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    public PlayerGetDTO createPlayer(@RequestBody PlayerPostDTO playerPostDTO) {
-        Player userInput = DTOMapper.INSTANCE.convertPlayerPostDTOtoEntity(playerPostDTO);
-        Player createdUser = playerService.createPlayer(userInput);
-        return DTOMapper.INSTANCE.convertEntityToPlayerGetDTO(createdUser);
-    }
 
-    @PutMapping("/players/login")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    @ResponseBody
-    public PlayerGetDTO loginPlayer(@RequestBody PlayerPutDTO playerPutDTO){
-        Player userInput = DTOMapper.INSTANCE.convertPlayerPutDTOtoEntity(playerPutDTO);
-        Player player = playerService.loginPlayer(userInput);
-        return DTOMapper.INSTANCE.convertEntityToPlayerGetDTO(player);
-    }
-
-*/
 
     @GetMapping("/board/{id}")
     @ResponseStatus(HttpStatus.OK)

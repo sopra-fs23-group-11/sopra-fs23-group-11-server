@@ -102,13 +102,21 @@ public class GameService {
         return shotRepository.findAllByDefender(defender);
     }
 
-    public Game startGame(long hostId, String code){
+    public Game startGame(long hostId, String code) {
         Game game = new Game();
-        Lobby lobby= lobbyRepository.findByLobbyCode(code);
+        Optional<Lobby> optionalLobby = Optional.ofNullable(lobbyRepository.findByLobbyCode(code));
+        if (optionalLobby.isEmpty())
+            throw new EntityNotFoundExcep("Lobby doesn't exist");
+        Lobby lobby = optionalLobby.get();
         game.setId(lobby.getLobbyCode());
         gameRepository.save(game);
-        Player player1= new Player();
-        Player player2= new Player();
+        //needed?
+        if (lobby.getHost() == null)
+            throw new EntityNotFoundExcep("host is not present");
+        if (lobby.getJoiner() == null)
+            throw new EntityNotFoundExcep("joiner is missing");
+        Player player1 = new Player();
+        Player player2 = new Player();
         player1.setUser(lobby.getHost());
         player2.setUser(lobby.getJoiner());
         player2.setGamePlayer2(game);
@@ -120,9 +128,7 @@ public class GameService {
         game.setPlayer1(player1);
         game.setPlayer2(player2);
         gameRepository.save(game);
-
         return game;
-
     }
 
 }

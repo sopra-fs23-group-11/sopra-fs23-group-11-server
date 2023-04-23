@@ -39,8 +39,8 @@ public interface DTOMapper {
 
     @Mapping(source = "ship", target = "ship")
     @Mapping(source = "player", target = "player")
-    @Mapping(source = "startPosition", target = "startPosition")
-    @Mapping(source = "endPosition", target = "endPosition")
+//    @Mapping(source = "startPosition", target = "startPosition")
+//    @Mapping(source = "endPosition", target = "endPosition")
     ShipPlayerGetDTO convertEntityToShipPlayerGetDTO(ShipPlayer shipPlayer);
 
     //ToDo: lobbymapper

@@ -1,20 +1,13 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
-import ch.uzh.ifi.hase.soprafs23.entity.Helper;
-import ch.uzh.ifi.hase.soprafs23.entity.Player;
-import ch.uzh.ifi.hase.soprafs23.entity.Shot;
+import ch.uzh.ifi.hase.soprafs23.entity.*;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
 import ch.uzh.ifi.hase.soprafs23.exceptions.PlayerExcep;
 import ch.uzh.ifi.hase.soprafs23.exceptions.PositionExcep;
-import ch.uzh.ifi.hase.soprafs23.repository.PlayerRepository;
-import ch.uzh.ifi.hase.soprafs23.repository.ShipPlayerRepository;
-import ch.uzh.ifi.hase.soprafs23.repository.ShipRepository;
-import ch.uzh.ifi.hase.soprafs23.repository.ShotRepository;
+import ch.uzh.ifi.hase.soprafs23.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,13 +18,17 @@ public class GameService {
     private final ShotRepository shotRepository;
     private final ShipPlayerRepository shipPlayerRepository;
     private final ShipRepository shipRepository;
+    private final LobbyRepository lobbyRepository;
+    private final GameRepository gameRepository;
 
     @Autowired
-    public GameService(PlayerRepository playerRepository, ShotRepository shotRepository, ShipPlayerRepository shipPlayerRepository, ShipRepository shipRepository) {
+    public GameService(PlayerRepository playerRepository, ShotRepository shotRepository, ShipPlayerRepository shipPlayerRepository, ShipRepository shipRepository, LobbyRepository lobbyRepository, GameRepository gameRepository) {
         this.playerRepository = playerRepository;
         this.shotRepository = shotRepository;
         this.shipPlayerRepository = shipPlayerRepository;
         this.shipRepository = shipRepository;
+        this.lobbyRepository = lobbyRepository;
+        this.gameRepository = gameRepository;
     }
 
     public Shot attack(long attackerId, long defenderId, String posOfShot) { //flush
@@ -103,6 +100,29 @@ public class GameService {
 
         Player defender = player.get();
         return shotRepository.findAllByDefender(defender);
+    }
+
+    public Game startGame(long hostId, String code){
+        Game game = new Game();
+        Lobby lobby= lobbyRepository.findByLobbyCode(code);
+        game.setId(lobby.getLobbyCode());
+        gameRepository.save(game);
+        Player player1= new Player();
+        Player player2= new Player();
+        player1.setUser(lobby.getHost());
+        player2.setUser(lobby.getJoiner());
+        player2.setGamePlayer2(game);
+        player1.setGamePlayer1(game);
+        player1.setShipsRemaining(5);
+        player2.setShipsRemaining(5);
+        playerRepository.save(player1);
+        playerRepository.save(player2);
+        game.setPlayer1(player1);
+        game.setPlayer2(player2);
+        gameRepository.save(game);
+
+        return game;
+
     }
 
 }

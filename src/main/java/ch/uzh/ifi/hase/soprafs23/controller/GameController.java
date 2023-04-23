@@ -2,11 +2,13 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
 
+import ch.uzh.ifi.hase.soprafs23.entity.Game;
 import ch.uzh.ifi.hase.soprafs23.entity.Shot;
 import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
 import ch.uzh.ifi.hase.soprafs23.exceptions.PlayerExcep;
 import ch.uzh.ifi.hase.soprafs23.exceptions.PositionExcep;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.ErrorDTO;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.GamePostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.ShotGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.ShotPostDTO;
 import ch.uzh.ifi.hase.soprafs23.service.GameService;
@@ -14,6 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -47,6 +52,12 @@ public class GameController {
         return newshotGet;
     }
 
+    @PostMapping("/game")
+    public Game startGame(@RequestBody GamePostDTO gamePostDTO){
+        System.out.println("gamePostDTO.getLobbyCode() = " + gamePostDTO.getLobbyCode());
+        return gameService.startGame(gamePostDTO.getHostId(), gamePostDTO.getLobbyCode());
+
+    }
     @MessageExceptionHandler(EntityNotFoundExcep.class)
     public void handleEntityNotFoundExcep(EntityNotFoundExcep excep){
         ErrorDTO errorDTO= new ErrorDTO(excep.getMessage());

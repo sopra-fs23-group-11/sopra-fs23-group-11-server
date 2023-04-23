@@ -50,9 +50,12 @@ public interface DTOMapper {
     Lobby convertLobbyPutDTOtoEntity(LobbyPutDTO lobbyPutDTO);
 
      */
-
-    @Mapping(source = "lobbyCode", target = "lobbyCode")
-    LobbyGetDTO convertEntityToLobbyGetDTO(Lobby lobby);
+    default LobbyGetDTO convertEntityToLobbyGetDTO(Lobby lobby){
+        LobbyGetDTO newLobbyGetDTO= new LobbyGetDTO();
+        newLobbyGetDTO.setLobbyCode(lobby.getLobbyCode());
+        newLobbyGetDTO.setHostName(lobby.getHost().getUsername());
+        return newLobbyGetDTO;
+    }
 
     //@Mapping(source = "hostId", target = "hostId")
     //Lobby convertLobbyPostDTOtoEntity(LobbyPostDTO lobbyPostDTO);

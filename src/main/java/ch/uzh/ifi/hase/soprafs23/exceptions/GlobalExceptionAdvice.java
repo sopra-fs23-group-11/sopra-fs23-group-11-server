@@ -8,10 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionSystemException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.server.ResponseStatusException;
@@ -23,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 public class GlobalExceptionAdvice extends ResponseEntityExceptionHandler {
 
   private final Logger log = LoggerFactory.getLogger(GlobalExceptionAdvice.class);
+
+  /*
 
   @ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class })
   protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
@@ -36,6 +35,8 @@ public class GlobalExceptionAdvice extends ResponseEntityExceptionHandler {
     return new ResponseStatusException(HttpStatus.CONFLICT, ex.getMessage(), ex);
   }
 
+   */
+
   // Keep this one disable for all testing purposes -> it shows more detail with
   // this one disabled
   @ExceptionHandler(HttpServerErrorException.InternalServerError.class)
@@ -45,6 +46,7 @@ public class GlobalExceptionAdvice extends ResponseEntityExceptionHandler {
   }
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(EntityNotFoundExcep.class)
+    @ResponseBody
     public ErrorDTO handleEntityNotFoundException (EntityNotFoundExcep ex) {
         System.out.println("handler");
         return new ErrorDTO(ex.getMessage());
@@ -52,12 +54,14 @@ public class GlobalExceptionAdvice extends ResponseEntityExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     @ExceptionHandler(PositionExcep.class)
+    @ResponseBody
     public ErrorDTO handlePositionException (PositionExcep ex) {
         return new ErrorDTO(ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     @ExceptionHandler(PlayerExcep.class)
+    @ResponseBody
     public ErrorDTO handlePlayerException (PlayerExcep ex) {
         return new ErrorDTO(ex.getMessage());
     }

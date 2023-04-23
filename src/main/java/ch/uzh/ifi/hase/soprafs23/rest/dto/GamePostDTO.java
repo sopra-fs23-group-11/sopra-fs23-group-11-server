@@ -1,8 +1,8 @@
 package ch.uzh.ifi.hase.soprafs23.rest.dto;
 
-public class LobbyGetDTO {
+public class GamePostDTO {
     private String lobbyCode;
-    private String hostName;
+    private long hostId;
 
     public String getLobbyCode() {
         return lobbyCode;
@@ -12,11 +12,11 @@ public class LobbyGetDTO {
         this.lobbyCode = lobbyCode;
     }
 
-    public String getHostName() {
-        return hostName;
+    public long getHostId() {
+        return hostId;
     }
 
-    public void setHostName(String hostName) {
-        this.hostName = hostName;
+    public void setHostId(long hostId) {
+        this.hostId = hostId;
     }
 }

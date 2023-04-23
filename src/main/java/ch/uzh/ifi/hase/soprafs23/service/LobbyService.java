@@ -31,24 +31,21 @@ public class LobbyService {
 
     public Lobby createLobby(long hostId){
         Optional <User> optionalUser= userRepository.findById(hostId);
-        if (optionalUser.isPresent()){
-            User host= optionalUser.get();
-            Lobby newLobby= new Lobby();
-            newLobby.setHost(host);
-            String lobbyCode;
-            do {
-                lobbyCode=UUID.randomUUID().toString();
-            }while (lobbyRepository.findByLobbyCode(lobbyCode)!= null);
-            newLobby.setLobbyCode(lobbyCode);
-            Lobby lobby= lobbyRepository.save(newLobby);
-            host.setLobbyForHost(lobby);
-            userRepository.save(host);
-            return lobby;
-        }
-        else{
+        if (optionalUser.isEmpty())
             throw new EntityNotFoundExcep("User doesn't exist");
-        }
 
+        User host= optionalUser.get();
+        Lobby newLobby= new Lobby();
+        newLobby.setHost(host);
+        String lobbyCode;
+        do {
+            lobbyCode=UUID.randomUUID().toString();
+        }while (lobbyRepository.findByLobbyCode(lobbyCode)!= null);
+        newLobby.setLobbyCode(lobbyCode);
+        Lobby lobby= lobbyRepository.save(newLobby);
+        host.setLobbyForHost(lobby);
+        userRepository.save(host);
+        return lobby;
     }
 
     public Lobby joinLobby(String lobbyCode, long userId) {

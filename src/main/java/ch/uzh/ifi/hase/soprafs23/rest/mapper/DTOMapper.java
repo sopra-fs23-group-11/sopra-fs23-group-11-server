@@ -50,6 +50,7 @@ public interface DTOMapper {
     default LobbyGetDTO convertEntityToLobbyGetDTO(Lobby lobby){
         LobbyGetDTO lobbyGetDTO= new LobbyGetDTO();
         lobbyGetDTO.setLobbyCode(lobby.getLobbyCode());
+        lobbyGetDTO.setHostId(lobby.getHost().getId());
         lobbyGetDTO.setHostName(lobby.getHost().getUsername());
         return lobbyGetDTO;
     }

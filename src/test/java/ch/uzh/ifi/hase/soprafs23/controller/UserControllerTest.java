@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
+import ch.uzh.ifi.hase.soprafs23.Application;
 import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
@@ -7,16 +8,27 @@ import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,8 +46,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * request without actually sending them over the network.
  * This tests if the UserController works.
  */
-/*
-@WebMvcTest(UserController.class)
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class UserControllerTest {
 
   @Autowired
@@ -48,9 +61,9 @@ public class UserControllerTest {
   public void givenUsers_whenGetUsers_thenReturnJsonArray() throws Exception {
     // given
     User user = new User();
-    user.setName("Firstname Lastname");
-    user.setUsername("firstname@lastname");
-    user.setStatus(UserStatus.OFFLINE);
+    System.out.println(user);
+    user.setUsername("Mario");
+    user.setPassword("Admin");
 
     List<User> allUsers = Collections.singletonList(user);
 
@@ -64,7 +77,7 @@ public class UserControllerTest {
     // then
     mockMvc.perform(getRequest).andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(1)))
-        .andExpect(jsonPath("$[0].name", is(user.getName())))
+        .andExpect(jsonPath("$[0].password", is(user.getPassword())))
         .andExpect(jsonPath("$[0].username", is(user.getUsername())))
         .andExpect(jsonPath("$[0].status", is(user.getStatus().toString())));
   }
@@ -73,14 +86,13 @@ public class UserControllerTest {
   public void createUser_validInput_userCreated() throws Exception {
     // given
     User user = new User();
-    user.setId(1L);
-    user.setName("Test User");
+    user.setPassword("Test Password");
     user.setUsername("testUsername");
     user.setToken("1");
     user.setStatus(UserStatus.ONLINE);
 
     UserPostDTO userPostDTO = new UserPostDTO();
-    userPostDTO.setName("Test User");
+    userPostDTO.setPassword("Test Password");
     userPostDTO.setUsername("testUsername");
 
     given(userService.createUser(Mockito.any())).willReturn(user);
@@ -94,10 +106,32 @@ public class UserControllerTest {
     mockMvc.perform(postRequest)
         .andExpect(status().isCreated())
         .andExpect(jsonPath("$.id", is(user.getId().intValue())))
-        .andExpect(jsonPath("$.name", is(user.getName())))
+        .andExpect(jsonPath("$.password", is(user.getPassword())))
         .andExpect(jsonPath("$.username", is(user.getUsername())))
         .andExpect(jsonPath("$.status", is(user.getStatus().toString())));
   }
+
+  @Test
+  public void getUserByValidId_thenReturnsJsonArray() throws Exception {
+      User user = new User();
+      System.out.println(user);
+      user.setUsername("Mario");
+      user.setPassword("Admin");
+      userService.createUser(user);
+      Long id = user.getId();
+
+      given(userService.findUserById(Mockito.any())).willReturn(user);
+
+      MockHttpServletRequestBuilder getRequest = get("/users/"+id).contentType(MediaType.APPLICATION_JSON);
+
+      mockMvc.perform(getRequest)
+              .andExpect(jsonPath("$[0].password", is(user.getPassword())))
+              .andExpect(jsonPath("$[0].username", is(user.getUsername())))
+              .andExpect(jsonPath("$[0].id", is(user.getId())))
+              .andExpect(jsonPath("$[0].status", is(user.getStatus().toString())));
+
+  }
+
 
   /**
    * Helper Method to convert userPostDTO into a JSON string such that the input
@@ -106,8 +140,8 @@ public class UserControllerTest {
    * 
    * @param object
    * @return string
-   */
-  /*private String asJsonString(final Object object) {
+*/
+    private String asJsonString(final Object object) {
     try {
       return new ObjectMapper().writeValueAsString(object);
     } catch (JsonProcessingException e) {
@@ -116,4 +150,3 @@ public class UserControllerTest {
     }
   }
 }
-*/

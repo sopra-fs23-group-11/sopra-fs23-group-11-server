@@ -82,4 +82,6 @@
 - Note: these issues pertain to the creation of the different ship types that mirror the ones in the server
 
 -- Contributions Week 4:
+- Nazek Olabi
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/95 Create a "CheckPlayerShips" function 
 

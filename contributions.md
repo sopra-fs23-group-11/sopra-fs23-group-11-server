@@ -43,6 +43,8 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/123 compare board with submitted shots to check if field has already been shot
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/84 create "submit/shot" endpoint 
 - [ ] create websockets representation for shots (& handle related errors using handleException) 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/65 fix "Check if ships are overlapping"
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/64 fix "Check if ships are touching"
 
 
 - Qing Dai
@@ -78,4 +80,6 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/28
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/27
 - Note: these issues pertain to the creation of the different ship types that mirror the ones in the server
+
+-- Contributions Week 4:
 

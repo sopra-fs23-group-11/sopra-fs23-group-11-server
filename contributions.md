@@ -94,6 +94,9 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/149 Create DTOs and game endpoint to start a game (using websockets)
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/150 Create/modify join endpoint with websockets & define join message
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/151 Create representation for startGame- message and endpoint (websocket) 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/152 Create error message and endpoint using websockets
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/153 Create ready message and endpoint using websockets 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/154 Create finish message and endpoint using websockets
 
 - Qing Dai
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/66 Create setup API request in setup.jsx to start a game, and reroute setup as the page right after players enter the lobby

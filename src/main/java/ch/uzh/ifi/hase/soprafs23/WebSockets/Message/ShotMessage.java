@@ -1,6 +1,6 @@
-package ch.uzh.ifi.hase.soprafs23.rest.dto;
+package ch.uzh.ifi.hase.soprafs23.WebSockets.Message;
 
-public class ShotGetDTO {
+public class ShotMessage {
     private long attackerId;
     private long defenderId;
     private String posOfShot;

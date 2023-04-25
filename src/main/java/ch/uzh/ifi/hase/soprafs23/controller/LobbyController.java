@@ -1,7 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
-import ch.uzh.ifi.hase.soprafs23.repository.Message.JoinMessage;
+import ch.uzh.ifi.hase.soprafs23.WebSockets.Message.JoinMessage;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.LobbyGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.LobbyPostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.LobbyPutDTO;
@@ -35,7 +35,7 @@ public class LobbyController {
     public LobbyGetDTO join(@RequestBody LobbyPutDTO lobbyPutDTO) {
         System.out.println("controller");
         Lobby createdLobby = lobbyService.joinLobby(lobbyPutDTO.getLobbyCode(), lobbyPutDTO.getJoinerId());
-        JoinMessage joinMessage = new JoinMessage("join", createdLobby.getLobbyCode(), createdLobby.getJoiner().getId(), createdLobby.getJoiner().getUsername());
+        JoinMessage joinMessage = new JoinMessage(createdLobby.getLobbyCode(), createdLobby.getJoiner().getId(), createdLobby.getJoiner().getUsername());
         simpMessagingTemplate.convertAndSend("/game/" + createdLobby.getLobbyCode(), joinMessage);
         return DTOMapper.INSTANCE.convertEntityToLobbyGetDTO(createdLobby);
     }

@@ -50,7 +50,8 @@ public class GameService {
             ship_hit.setHitParts(ship_hit.getHitParts() + 1);
             if (ship_hit.getHitParts() == ship_hit.getShip().getLength()) {
                 ship_hit.setSunk(true);
-
+                defender.get().setShipsRemaining(defender.get().getShipsRemaining() -1 );
+                playerRepository.save(defender.get());
             }
             shipPlayerRepository.save(ship_hit);
         }
@@ -73,6 +74,14 @@ public class GameService {
         if (!shotPosition.matches("[A-J][0-9]"))
             throw new PositionExcep("enter a valid position");
         return true;
+    }
+
+    public boolean looserAlert(long defenderId){
+        Optional<Player> optionalPlayer= playerRepository.findById(defenderId);
+        if (optionalPlayer.isEmpty())
+            throw new EntityNotFoundExcep("player does not exist");
+        Player defender= optionalPlayer.get();
+        return defender.getShipsRemaining()==0;
     }
 
 

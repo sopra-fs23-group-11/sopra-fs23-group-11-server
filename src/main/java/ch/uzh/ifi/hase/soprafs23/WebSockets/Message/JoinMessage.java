@@ -1,13 +1,12 @@
-package ch.uzh.ifi.hase.soprafs23.repository.Message;
+package ch.uzh.ifi.hase.soprafs23.WebSockets.Message;
 
 public class JoinMessage {
-    private String type;
+    private String type="Join";
     private String lobbyCode;
     private long joinerId;
     private String joinerName;
 
-    public JoinMessage(String type, String lobbyCode, long joinerId, String joinerName) {
-        this.type = type;
+    public JoinMessage( String lobbyCode, long joinerId, String joinerName) {
         this.lobbyCode = lobbyCode;
         this.joinerId = joinerId;
         this.joinerName = joinerName;

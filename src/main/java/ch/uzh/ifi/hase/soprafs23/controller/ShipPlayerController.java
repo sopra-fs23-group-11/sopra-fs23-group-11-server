@@ -35,6 +35,7 @@ public class ShipPlayerController {
         shipPlayerService.placeShip(shipPlayerPostDTO.getShipPlayerPlayerId(), shipPlayerPostDTO.getShipPlayerShipId(), shipPlayerPostDTO.getStartPosition(), shipPlayerPostDTO.getEndPosition());
     }
 
+    //ToDo fix it
     @GetMapping("/ships/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

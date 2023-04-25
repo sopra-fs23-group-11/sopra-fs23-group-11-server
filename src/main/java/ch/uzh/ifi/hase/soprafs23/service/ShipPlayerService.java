@@ -76,4 +76,8 @@ public class ShipPlayerService {
         List<ShipPlayer> shipPlayer = shipPlayerRepository.findAllByPlayer(player);
         return shipPlayer;
     }
+
+    public Player getPlayerById(Long id) {
+        return playerRepository.getOne(id);
+    }
 }

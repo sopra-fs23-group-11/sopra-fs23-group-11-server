@@ -11,6 +11,9 @@ public class PlayerGetDTO {
     private List<ShipPlayer> shipPlayers;
     private List<Shot> shotsAttack;
     private List<Shot> shotsDefend;
+    private int shipsRemaining;
+    public int getShipsRemaining(){return shipsRemaining;}
+    public void setShipsRemaining(int shipsRemaining){this.shipsRemaining = shipsRemaining;}
     public List<Shot> getShotsDefend(){return shotsDefend;}
     public void setShotsDefend(List<Shot> shotsDefend){this.shotsDefend= shotsDefend;}
     public List<Shot> getShotsAttack(){return shotsAttack;}

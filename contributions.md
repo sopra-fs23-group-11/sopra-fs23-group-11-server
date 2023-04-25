@@ -95,4 +95,5 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/150 Create/modify join endpoint with websockets & define join message
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/151 Create representation for startGame- message and endpoint (websocket) 
 
-
+- Qing Dai
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/66 Create setup API request in setup.jsx to start a game, and reroute setup as the page right after players enter the lobby

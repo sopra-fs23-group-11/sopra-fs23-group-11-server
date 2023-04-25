@@ -1,4 +1,4 @@
-package ch.uzh.ifi.hase.soprafs23.WebSockets;
+package ch.uzh.ifi.hase.soprafs23.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -20,7 +20,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.setApplicationDestinationPrefixes("/app");
-        registry.enableSimpleBroker("/chat", "/game");
+        registry.enableSimpleBroker("/chatroom","/user", "/shot", "/errors", "/shot-simple", "/game");
         registry.setUserDestinationPrefix("/user");
     }
 

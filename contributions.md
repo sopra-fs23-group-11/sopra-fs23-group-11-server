@@ -17,6 +17,7 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/75 check if room code is unique
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/74 create room code generator
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/139 implement the main classes as defined in the class diagram 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/140 
 
 - Qing Dai
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/85 check if input is valid
@@ -36,15 +37,20 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/97 Create Battleship
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/96 Create Carrier
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/69 Create ship representation
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/141 Create shipPlayers representation to join ship & player
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/113 Create board representation for getDTO (PlayerShip)
-- [ ] Create shots representation and functionality 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/143 Create placeship functionaliCy
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/142 Check if a shot position hits a ship
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/144 Create shipPlayers representation for Post- and GetDTO
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/145 Create shots representation and functionalities
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/126 After successful hit check if a ship has been sunk
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/122 create http error response for already shot fields if shot again
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/123 compare board with submitted shots to check if field has already been shot
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/84 create "submit/shot" endpoint 
-- [ ] create websockets representation for shots (& handle related errors using handleException) 
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/65 fix "Check if ships are overlapping"
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/64 fix "Check if ships are touching"
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/146 Create webockets configuration and representation for class shot
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/147 Create websockets endpoint for shots and handle exceptions with websockets
 
 
 - Qing Dai
@@ -81,7 +87,11 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/27
 - Note: these issues pertain to the creation of the different ship types that mirror the ones in the server
 
--- Contributions Week 4:
+-- Contributions Week 4 / 27.4:
 - Nazek Olabi
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/95 Create a "CheckPlayerShips" function 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/148 Turn lobby into game and user into player
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/149 Create DTOs and game endpoint to start a game (using websockets)
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/150 Create/modify join endpoint with websockets & define join message
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/151 Create representation for startGame- message and endpoint (websocket) 
 

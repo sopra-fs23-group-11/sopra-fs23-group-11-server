@@ -77,6 +77,7 @@ public interface DTOMapper {
 
 
     @Mapping(source = "username", target = "username")
+    @Mapping(source = "password", target = "password")
     User convertUserPutDTOtoEntity(UserPutDTO userPutDTO);
 
 
@@ -84,6 +85,7 @@ public interface DTOMapper {
     @Mapping(source = "shipPlayers", target = "shipPlayers")
     @Mapping(source = "shotsAttack", target = "shotsAttack")
     @Mapping(source = "shotsDefend", target = "shotsDefend")
+    @Mapping(source = "shipsRemaining", target = "shipsRemaining")
     PlayerGetDTO convertEntityToPlayerGetDTO(Player player);
 
 

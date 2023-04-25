@@ -82,10 +82,13 @@ public class UserService {
     public User loginUser(User user){
         checkIfUserExistsLogin(user);
         User logUser = userRepository.findByUsername(user.getUsername());
-        logUser.setToken(UUID.randomUUID().toString());
-        logUser.setStatus(UserStatus.ONLINE);
-        userRepository.flush();
-        return logUser;
+        if(user.getUsername() == logUser.getUsername()){
+            logUser.setToken(UUID.randomUUID().toString());
+            logUser.setStatus(UserStatus.ONLINE);
+            userRepository.flush();
+            return logUser;}
+        else{throw new UserExcep("wrong password");
+        }
     }
 
     /**
@@ -100,8 +103,6 @@ public class UserService {
      */
     private void checkIfUserExists(User userToBeCreated) {
         User userByUsername = userRepository.findByUsername(userToBeCreated.getUsername());
-
-        String baseErrorMessage = "The %s provided %s not unique. Therefore, the user could not be created!";
 
         if (userByUsername != null ) {
             throw new UserExcep("this username is not unique");

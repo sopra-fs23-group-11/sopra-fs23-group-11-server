@@ -8,13 +8,75 @@
 </head>
 <body>
 <div>
+    <input type="text" id="gameId" placeholder="Game ID">
     <input type="text" id="attackerId" placeholder="Attacker ID">
     <input type="text" id="defenderId" placeholder="Defender ID">
     <input type="text" id="posOfShot" placeholder="Position">
-    <button>Send</button>
+    <button id="subscribe">Subscribe</button>
+    <button id="send">Send</button>
 </div>
 <div id="shots"></div>
 <div id="error"></div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const gameIdInput = document.getElementById('gameId');
+        const attackerIdInput = document.getElementById('attackerId');
+        const defIdInput = document.getElementById('defenderId');
+        const posInput = document.getElementById('posOfShot');
+        const shotsDiv = document.getElementById('shots');
+        const errorDiv = document.getElementById('error');
+
+        let stompClient = null;
+
+        function connectToSocket() {
+            const socket = new SockJS('/ws');
+            stompClient = Stomp.over(socket);
+
+            stompClient.connect({}, () => {
+                stompClient.subscribe('/game/' + gameIdInput.value, (message) => {
+                    const parsedShot = JSON.parse(message.body);
+                    const shotElement = document.createElement('p');
+                    //shotElement.innerText = 'Attacker: ' + parsedShot.attackerId + ', Defender: ' + parsedShot.defenderId + ', Position: ' + parsedShot.posOfShot + ', Hit:' + parsedShot.hit;
+                    shotElement.innerText = message.body;
+                    shotsDiv.appendChild(shotElement);
+                });
+            });
+        }
+
+        function sendShot() {
+            const attackerId = attackerIdInput.value;
+            const defId = defIdInput.value;
+            const pos = posInput.value;
+            const gameId = gameIdInput.value;
+
+            if (attackerId && defId && pos) {
+                const shot = {
+                    attackerId: attackerId,
+                    defenderId: defId,
+                    posOfShot: pos,
+                    gameId: gameId
+                };
+
+                stompClient.send('/app/game', {}, JSON.stringify(shot));
+
+                attackerIdInput.value = '';
+                defIdInput.value = '';
+                posInput.value = '';
+            }
+        }
+
+
+        const subscribeButton = document.getElementById("subscribe");
+        subscribeButton.addEventListener("click", () => {
+
+            connectToSocket();
+        });
+
+        const sendButton = document.getElementById("send");
+        sendButton.addEventListener("click", sendShot);
+    });
+</script>
 
 </body>
 </html>

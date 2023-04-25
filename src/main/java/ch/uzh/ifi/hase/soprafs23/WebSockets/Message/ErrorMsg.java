@@ -3,11 +3,11 @@ package ch.uzh.ifi.hase.soprafs23.WebSockets.Message;
 public class ErrorMsg {
     private String type = "Error";
     private String errorMsg;
-    private String playerName;
 
-    public ErrorMsg(String errorMsg, String playerName) {
+
+    public ErrorMsg(String errorMsg) {
         this.errorMsg = errorMsg;
-        this.playerName = playerName;
+
     }
 
     public String getType() {
@@ -26,11 +26,5 @@ public class ErrorMsg {
         this.errorMsg = errorMsg;
     }
 
-    public String getPlayerName() {
-        return playerName;
-    }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
 }

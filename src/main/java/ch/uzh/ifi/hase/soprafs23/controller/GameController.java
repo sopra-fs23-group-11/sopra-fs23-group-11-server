@@ -2,15 +2,12 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
 
-import ch.uzh.ifi.hase.soprafs23.WebSockets.Message.FinishMsg;
-import ch.uzh.ifi.hase.soprafs23.WebSockets.Message.ReadyMsg;
+import ch.uzh.ifi.hase.soprafs23.WebSockets.Message.*;
 import ch.uzh.ifi.hase.soprafs23.entity.Game;
 import ch.uzh.ifi.hase.soprafs23.entity.Shot;
 import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
 import ch.uzh.ifi.hase.soprafs23.exceptions.PlayerExcep;
 import ch.uzh.ifi.hase.soprafs23.exceptions.PositionExcep;
-import ch.uzh.ifi.hase.soprafs23.WebSockets.Message.ShotMessage;
-import ch.uzh.ifi.hase.soprafs23.WebSockets.Message.StartGameMessage;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.service.GameService;
@@ -37,19 +34,19 @@ public class GameController {
 
     @MessageMapping("/game")
     //ToDO send message to the own game not every game /shot/gameId
-    public ShotMessage attack(ShotPostDTO shotPostDTO, ReadyPostDTO readyPostDTO){
+    public ShotMessage attack(ShotPostDTO shotPostDTO){
 
-        Shot shot=gameService.attack(shotPostDTO.getAttackerId(), shotPostDTO.getDefenderId(), shotPostDTO.getPosOfShot());
+        Shot shot=gameService.attack(shotPostDTO.getAttackerId(), shotPostDTO.getDefenderId(), shotPostDTO.getPosOfShot(), shotPostDTO.getGameId());
         ShotMessage newshotGet= new ShotMessage();
         newshotGet.setAttackerId(shot.getAttacker().getId());
         newshotGet.setDefenderId(shot.getDefender().getId());
         newshotGet.setPosOfShot(shot.getPosition());
         newshotGet.setHit(shot.isHit());
-        String gameId=readyPostDTO.getGameId();
-        simpMessagingTemplate.convertAndSend("/game/" + gameId, newshotGet);
-        if (gameService.looserAlert(newshotGet.getDefenderId())) {
+        simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() , newshotGet);
+        if (gameService.looserAlert(newshotGet.getDefenderId(), shotPostDTO.getGameId())) {
             FinishMsg finishMsg = new FinishMsg(newshotGet.getAttackerId(), newshotGet.getDefenderId());
-            simpMessagingTemplate.convertAndSend("/game/" + gameId, finishMsg);
+            System.out.println("sha3'le");
+            simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() , finishMsg);
         }
 
         return newshotGet;
@@ -61,7 +58,7 @@ public class GameController {
 
     }
 
-    @PostMapping("/game")
+    @PostMapping("/startgame")
     public GameGetDTO startGame(@RequestBody GamePostDTO gamePostDTO){
         System.out.println("gamePostDTO.getLobbyCode() = " + gamePostDTO.getLobbyCode());
         Game game = gameService.startGame(gamePostDTO.getHostId(), gamePostDTO.getLobbyCode());
@@ -74,8 +71,9 @@ public class GameController {
     // ToDo errors in game (only 2 channels needed
     @MessageExceptionHandler(EntityNotFoundExcep.class)
     public void handleEntityNotFoundExcep(EntityNotFoundExcep excep){
-        ErrorDTO errorDTO= new ErrorDTO(excep.getMessage());
-        simpMessagingTemplate.convertAndSend("/errors", errorDTO);
+        //ErrorDTO errorDTO= new ErrorDTO(excep.getMessage());
+        ErrorMsg errorMsg= new ErrorMsg(excep.getMessage());
+        simpMessagingTemplate.convertAndSend("/game/" + excep.getGameId(), errorMsg);
         System.out.println("..entity");
     }
     @MessageExceptionHandler(PositionExcep.class)
@@ -86,8 +84,8 @@ public class GameController {
     }
     @MessageExceptionHandler(PlayerExcep.class)
     public void handlePlayerExcep(PlayerExcep excep){
-        ErrorDTO errorDTO= new ErrorDTO(excep.getMessage());
-        simpMessagingTemplate.convertAndSend("/errors", errorDTO);
+        ErrorMsg errorMsg= new ErrorMsg(excep.getMessage());
+        simpMessagingTemplate.convertAndSend("/game/" + excep.getGameId(), errorMsg);
         System.out.println("..player");
     }
 }

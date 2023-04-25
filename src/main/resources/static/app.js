@@ -1,3 +1,5 @@
+/*
+
 document.addEventListener("DOMContentLoaded", function() {
 const attackerIdInput = document.getElementById('attackerId');
 const defIdInput = document.getElementById('defenderId');
@@ -51,3 +53,4 @@ const pos = posInput.value;
     const sendButton = document.querySelector("button");
     sendButton.addEventListener("click", sendShot);
 });
+*/

@@ -13,10 +13,7 @@ import ch.uzh.ifi.hase.soprafs23.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -41,7 +38,7 @@ public class LobbyService {
     public Lobby createLobby(long hostId) {
         Optional<User> optionalUser = userRepository.findById(hostId);
         if (optionalUser.isEmpty())
-            throw new EntityNotFoundExcep("User doesn't exist");
+            throw new EntityNotFoundExcep("User doesn't exist", "");
 
         User host = optionalUser.get();
         Lobby newLobby = new Lobby();
@@ -65,15 +62,15 @@ public class LobbyService {
         System.out.println("userId = " + userId);
         Optional<User> optionalUser = userRepository.findById(userId);
         if (lobby == null)
-            throw new EntityNotFoundExcep("lobby not found");
+            throw new EntityNotFoundExcep("lobby not found", "");
         long hostId = lobby.getHost().getId();
         System.out.println("service1.2");
         if (optionalUser.isEmpty())
-            throw new EntityNotFoundExcep("joiner not found");
+            throw new EntityNotFoundExcep("joiner not found", lobbyCode);
         System.out.println("service1.3");
         User user = optionalUser.get();
         if (hostId == user.getId())
-            throw new PlayerExcep("players should differ");
+            throw new PlayerExcep("players should differ", lobbyCode);
 
         user.setLobbyForJoiner(lobby);
         User newuser = userRepository.save(user);

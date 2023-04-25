@@ -4,6 +4,7 @@ public class ShotPostDTO {
     private long attackerId;
     private long defenderId;
     private String posOfShot;
+    private String gameId;
 
     public long getAttackerId() {
         return attackerId;
@@ -27,5 +28,13 @@ public class ShotPostDTO {
 
     public void setPosOfShot(String posOfShot) {
         this.posOfShot = posOfShot;
+    }
+
+    public String getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
     }
 }

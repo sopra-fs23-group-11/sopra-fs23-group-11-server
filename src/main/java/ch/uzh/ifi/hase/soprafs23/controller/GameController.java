@@ -37,7 +37,7 @@ public class GameController {
 
     @MessageMapping("/game")
     //ToDO send message to the own game not every game /shot/gameId
-    public ShotMessage attack(ShotPostDTO shotPostDTO){
+    public ShotMessage attack(ShotPostDTO shotPostDTO, ReadyPostDTO readyPostDTO){
 
         Shot shot=gameService.attack(shotPostDTO.getAttackerId(), shotPostDTO.getDefenderId(), shotPostDTO.getPosOfShot());
         ShotMessage newshotGet= new ShotMessage();
@@ -45,10 +45,11 @@ public class GameController {
         newshotGet.setDefenderId(shot.getDefender().getId());
         newshotGet.setPosOfShot(shot.getPosition());
         newshotGet.setHit(shot.isHit());
-        simpMessagingTemplate.convertAndSend("/shot", newshotGet);
+        String gameId=readyPostDTO.getGameId();
+        simpMessagingTemplate.convertAndSend("/game/" + gameId, newshotGet);
         if (gameService.looserAlert(newshotGet.getDefenderId())) {
             FinishMsg finishMsg = new FinishMsg(newshotGet.getAttackerId(), newshotGet.getDefenderId());
-            simpMessagingTemplate.convertAndSend("/game/", finishMsg);
+            simpMessagingTemplate.convertAndSend("/game/" + gameId, finishMsg);
         }
 
         return newshotGet;

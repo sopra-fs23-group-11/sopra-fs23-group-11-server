@@ -72,6 +72,7 @@ public interface DTOMapper {
     @Mapping(source = "id", target = "id")
     @Mapping(source = "username", target = "username")
     @Mapping(source = "token", target = "token")
+    @Mapping(source = "totalWins", target = "totalWins")
     UserGetDTO convertEntityToUserGetDTO(User user);
 
 

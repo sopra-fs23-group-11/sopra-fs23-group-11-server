@@ -32,6 +32,7 @@ public class LobbyController {
 
     @PutMapping("/join")
     @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public LobbyGetDTO join(@RequestBody LobbyPutDTO lobbyPutDTO) {
         System.out.println("controller");
         Lobby createdLobby = lobbyService.joinLobby(lobbyPutDTO.getLobbyCode(), lobbyPutDTO.getJoinerId());
@@ -39,5 +40,4 @@ public class LobbyController {
         simpMessagingTemplate.convertAndSend("/game/" + createdLobby.getLobbyCode(), joinMessage);
         return DTOMapper.INSTANCE.convertEntityToLobbyGetDTO(createdLobby);
     }
-
 }

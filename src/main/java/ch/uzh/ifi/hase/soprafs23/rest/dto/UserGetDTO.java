@@ -10,6 +10,10 @@ public class UserGetDTO {
     private String username;
     private UserStatus status;
     private String token;
+    private int totalWins;
+
+    public void setTotalWins(int totalWins){this.totalWins = totalWins;}
+    public int getTotalWins(){return totalWins;}
 
     public void setToken(String token){this.token = token;};
 

@@ -6,6 +6,7 @@ public class ShipPlayerPostDTO {
     private long shipPlayerPlayerId;
     private String startPosition;
     private String endPosition;
+    private String gameId;
 
     public long getShipPlayerShipId() {
         return shipPlayerShipId;
@@ -39,5 +40,11 @@ public class ShipPlayerPostDTO {
         this.endPosition = endPosition;
     }
 
+    public String getGameId() {
+        return gameId;
+    }
 
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
+    }
 }

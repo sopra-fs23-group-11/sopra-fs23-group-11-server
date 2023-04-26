@@ -10,6 +10,14 @@ public class FinishMsg {
         this.looserId = looserId;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public long getWinnerId() {
         return winnerId;
     }

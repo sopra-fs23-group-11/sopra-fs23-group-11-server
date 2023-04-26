@@ -40,14 +40,14 @@ public class ShipPlayerService {
     }
 
 
-    public ShipPlayer placeShip(long playerId, long shipId, String startPosition, String endPosition) {
+    public ShipPlayer placeShip(long playerId, long shipId, String startPosition, String endPosition, String gameId) {
         String baseErrorMessage = "Ship can't be placed: %s";
         Optional<Ship> shipOptional = shipRepository.findById(shipId);
         Optional<Player> playerOptional = playerRepository.findById(playerId);
         if (shipOptional.isEmpty())
-            throw new EntityNotFoundExcep ("ship doesn't exist");
+            throw new EntityNotFoundExcep ("ship doesn't exist", gameId);
         if (playerOptional.isEmpty())
-            throw new EntityNotFoundExcep ("player doesn't exist");
+            throw new EntityNotFoundExcep ("player doesn't exist", gameId);
         if(!helper.shipsNotTouching(playerOptional.get(), startPosition, endPosition))
             throw new PositionExcep("ships are touching");
 

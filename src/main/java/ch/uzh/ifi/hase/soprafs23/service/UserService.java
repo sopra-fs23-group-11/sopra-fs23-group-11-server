@@ -112,14 +112,14 @@ public class UserService {
     public User findUserById(long id) {
         User userById = userRepository.getOne(id);
         if (userById != null) {return userById;}
-        else {throw new EntityNotFoundExcep("user doesn't exist");}
+        else {throw new EntityNotFoundExcep("user doesn't exist", "");}
     }
 
     private void checkIfUserExistsLogin(User userToBeCreated) {
         User userByUsername = userRepository.findByUsername(userToBeCreated.getUsername());
         String baseErrorMessage = "Login failed: %s";
         if (userByUsername == null) {
-            throw new EntityNotFoundExcep("user cannot be found by the provided name");
+            throw new EntityNotFoundExcep("user cannot be found by the provided name", "");
         }
     }
 

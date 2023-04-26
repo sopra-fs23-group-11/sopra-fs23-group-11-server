@@ -31,15 +31,15 @@ public class GameService {
         this.gameRepository = gameRepository;
     }
 
-    public Shot attack(long attackerId, long defenderId, String posOfShot) { //flush
+    public Shot attack(long attackerId, long defenderId, String posOfShot, String gameId) { //flush
         Optional<Player> attacker = playerRepository.findById(attackerId);
         Optional<Player> defender = playerRepository.findById(defenderId);
-        if (attackerId == defenderId)
-            throw new PlayerExcep("players should differ");
         if (attacker.isEmpty())
-            throw new EntityNotFoundExcep("attacker doesn't exist");
+            throw new EntityNotFoundExcep( "attacker doesn't exist", gameId);
         if (defender.isEmpty())
-            throw new EntityNotFoundExcep("defender doesn't exist");
+            throw new EntityNotFoundExcep("defender doesn't exist", gameId);
+        if (attackerId == defenderId)
+            throw new PlayerExcep("players should differ", gameId);
 
         if (!isValidShot(posOfShot, defender.get()))
             throw new PositionExcep("not valid shot");
@@ -76,11 +76,13 @@ public class GameService {
         return true;
     }
 
-    public boolean looserAlert(long defenderId){
+    public boolean looserAlert(long defenderId, String gameId){
         Optional<Player> optionalPlayer= playerRepository.findById(defenderId);
+        System.out.println("sha3'le -1");
         if (optionalPlayer.isEmpty())
-            throw new EntityNotFoundExcep("player does not exist");
+            throw new EntityNotFoundExcep("player does not exist", gameId);
         Player defender= optionalPlayer.get();
+        System.out.println("defender = " + defender);
         return defender.getShipsRemaining()==0;
     }
 
@@ -94,18 +96,18 @@ public class GameService {
         return null;
     }
 
-    public List<Shot> getAttackersShot(long attackerId) {
+    public List<Shot> getAttackersShot(long attackerId, String gameId) {
         Optional<Player> player = playerRepository.findById(attackerId);
         if (player.isEmpty())
-            throw new EntityNotFoundExcep("player not found");
+            throw new EntityNotFoundExcep("player not found", gameId);
         Player attacker = player.get();
         return shotRepository.findAllByAttacker(attacker);
     }
 
-    public List<Shot> getDefendersShot(long defenderId) {
+    public List<Shot> getDefendersShot(long defenderId, String gameId) {
         Optional<Player> player = playerRepository.findById(defenderId);
         if (player.isEmpty())
-            throw new EntityNotFoundExcep("player not found");
+            throw new EntityNotFoundExcep("player not found", gameId);
 
         Player defender = player.get();
         return shotRepository.findAllByDefender(defender);
@@ -115,15 +117,15 @@ public class GameService {
         Game game = new Game();
         Optional<Lobby> optionalLobby = Optional.ofNullable(lobbyRepository.findByLobbyCode(code));
         if (optionalLobby.isEmpty())
-            throw new EntityNotFoundExcep("Lobby doesn't exist");
+            throw new EntityNotFoundExcep("Lobby doesn't exist", "");
         Lobby lobby = optionalLobby.get();
         game.setId(lobby.getLobbyCode());
         if (lobby.getHost() == null)
-            throw new EntityNotFoundExcep("host is not present");
+            throw new EntityNotFoundExcep("host is not present", code);
         if (lobby.getJoiner() == null)
-            throw new EntityNotFoundExcep("joiner is missing");
+            throw new EntityNotFoundExcep("joiner is missing", code);
         if (lobby.getHost().getId()!=hostId)
-            throw new PlayerExcep("only the host can start a game");
+            throw new PlayerExcep("only the host can start a game", code);
         gameRepository.save(game);
         Player player1 = new Player();
         Player player2 = new Player();

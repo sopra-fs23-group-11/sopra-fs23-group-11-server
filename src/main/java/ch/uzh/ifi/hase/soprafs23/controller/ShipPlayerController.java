@@ -33,7 +33,8 @@ public class ShipPlayerController {
     @ResponseBody
     public void submitShips(@RequestBody ShipPlayerPostDTO shipPlayerPostDTO){
         //ShipPlayer ship = DTOMapper.INSTANCE.convertShipPlayerPostDTOtoEntity(shipPlayerPostDTO);
-        shipPlayerService.placeShip(shipPlayerPostDTO.getShipPlayerPlayerId(), shipPlayerPostDTO.getShipPlayerShipId(), shipPlayerPostDTO.getStartPosition(), shipPlayerPostDTO.getEndPosition());
+        shipPlayerService.placeShip(shipPlayerPostDTO.getShipPlayerPlayerId(), shipPlayerPostDTO.getShipPlayerShipId(),
+                shipPlayerPostDTO.getStartPosition(), shipPlayerPostDTO.getEndPosition(), shipPlayerPostDTO.getGameId());
     }
 
     //ToDo fix it

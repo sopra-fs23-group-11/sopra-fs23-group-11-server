@@ -38,20 +38,7 @@ public class Application {
       return "The application is running.";
   }
 
-    @GetMapping(value = "/test/{playerId}/{shipId}/{start}/{end}")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public ShipPlayer test( @PathVariable long playerId, @PathVariable long shipId, @PathVariable String start, @PathVariable String end) {
-      return shipPlayerService.placeShip(playerId, shipId, start, end);
-    }
 
-    @GetMapping(value = "/test1/{attackerId}/{defenderId}/{posOfShot}")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public Shot testattack(@PathVariable long attackerId, @PathVariable long defenderId, @PathVariable String posOfShot) {
-        System.out.println("testattck controller");
-        return gameService.attack(attackerId, defenderId, posOfShot);
-    }
 
   @Bean
   public WebMvcConfigurer corsConfigurer() {

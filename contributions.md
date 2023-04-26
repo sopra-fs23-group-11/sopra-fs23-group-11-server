@@ -98,6 +98,8 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/152 Create error message and endpoint using websockets
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/153 Create ready message and endpoint using websockets 
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/154 Create finish message and endpoint using websockets
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/158 Test LobbyController 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/156 Fix some tests (done by Louis)
 
 - Qing Dai
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/66 Create setup API request in setup.jsx to start a game, and reroute setup as the page right after players enter the lobby

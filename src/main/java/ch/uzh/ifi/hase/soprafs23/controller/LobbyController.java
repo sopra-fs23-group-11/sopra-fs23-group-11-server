@@ -31,7 +31,7 @@ public class LobbyController {
     }
 
     @PutMapping("/join")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody
     public LobbyGetDTO join(@RequestBody LobbyPutDTO lobbyPutDTO) {
         System.out.println("controller");

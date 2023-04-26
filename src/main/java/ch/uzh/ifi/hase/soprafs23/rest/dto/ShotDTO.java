@@ -1,4 +1,6 @@
+
 package ch.uzh.ifi.hase.soprafs23.rest.dto;
+
 
 public class ShotDTO {
 
@@ -12,9 +14,5 @@ public class ShotDTO {
     public void setPosition(String position) {
         this.position = position;
     }
-
-
-
-
-
 }
+

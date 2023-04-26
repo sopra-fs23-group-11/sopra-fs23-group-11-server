@@ -7,6 +7,7 @@ import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.Ship;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
+import ch.uzh.ifi.hase.soprafs23.exceptions.PositionExcep;
 import ch.uzh.ifi.hase.soprafs23.repository.PlayerRepository;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.ShipPlayerPostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
@@ -57,14 +58,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * UserControllerTest
- * This is a WebMvcTest which allows to test the UserController i.e. GET/POST
- * request without actually sending them over the network.
- * This tests if the UserController works.
- */
-
-
 
 @WebMvcTest(ShipPlayerController.class)
 
@@ -85,7 +78,7 @@ public class ShipPlayerControllerTest {
     @MockBean
     private PlayerService playerService;
 
-    @Ignore
+    @Test
     public void placeShipsValidInput_thenShipsPlaced() throws Exception{
         ShipPlayer shipPlayer = new ShipPlayer();
         shipPlayer.setStartPosition("a");
@@ -97,10 +90,11 @@ public class ShipPlayerControllerTest {
         shipPlayerPostDTO.setShipPlayerShipId(1);
         shipPlayerPostDTO.setShipPlayerPlayerId(1);
 
-        given(shipPlayerService.placeShip(1,1,"a","b", "hello")).willReturn(shipPlayer);
+        given(shipPlayerService.placeShip(Mockito.anyLong(),Mockito.anyLong(),Mockito.anyString(),Mockito.anyString(),
+                Mockito.anyString())).willReturn(shipPlayer);
 
         // when/then -> do the request + validate the result
-        MockHttpServletRequestBuilder postRequest = post("/ships/submit")
+        MockHttpServletRequestBuilder postRequest = post("/submit/ships")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(shipPlayerPostDTO));
 
@@ -109,19 +103,40 @@ public class ShipPlayerControllerTest {
                 .andExpect(status().isCreated());
     }
 
-    @Ignore
-    public void placeShipInvalidInput() throws Exception {
-        ShipPlayerPostDTO shipPlayerPostDTO = new ShipPlayerPostDTO();
-        shipPlayerPostDTO.setStartPosition("a");
-        shipPlayerPostDTO.setEndPosition("b");
+    @Test
+    public void placeShipInvalidInput_PlayerOrShipNotFound() throws Exception {
+        ShipPlayerPostDTO dto=new ShipPlayerPostDTO();
+        dto.setShipPlayerPlayerId(1L);
+        dto.setShipPlayerShipId(2L);
+        dto.setStartPosition("A1");
+        dto.setEndPosition("A3");
+        dto.setGameId("AAAAA");
 
-        given(shipPlayerService.placeShip(1,1,"a","b", "hello")).willThrow(new ResponseStatusException(HttpStatus.CONFLICT));
-        MockHttpServletRequestBuilder postRequest = post("/ships/submit")
+        given(shipPlayerService.placeShip(Mockito.anyLong(),Mockito.anyLong(),Mockito.anyString(),Mockito.anyString(),
+                Mockito.anyString())).willThrow(new EntityNotFoundExcep("player doesn't exist","1"));
+        MockHttpServletRequestBuilder postRequest = post("/submit/ships")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(shipPlayerPostDTO));
+                .content(asJsonString(dto));
 
-        mockMvc.perform(postRequest).andExpect(status().isConflict());
+        mockMvc.perform(postRequest).andExpect(status().isNotFound());
+    }
 
+    @Test
+    public void placeShipInvalidInput_Position() throws Exception {
+        ShipPlayerPostDTO dto=new ShipPlayerPostDTO();
+        dto.setShipPlayerPlayerId(1L);
+        dto.setShipPlayerShipId(2L);
+        dto.setStartPosition("A1");
+        dto.setEndPosition("A3");
+        dto.setGameId("AAAAA");
+
+        given(shipPlayerService.placeShip(Mockito.anyLong(),Mockito.anyLong(),Mockito.anyString(),Mockito.anyString(),
+                Mockito.anyString())).willThrow(new PositionExcep("ships are touching","1"));
+        MockHttpServletRequestBuilder postRequest = post("/submit/ships")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(dto));
+
+        mockMvc.perform(postRequest).andExpect(status().isNotAcceptable());
     }
 
     @Test
@@ -159,8 +174,6 @@ public class ShipPlayerControllerTest {
         MockHttpServletRequestBuilder getRequest = get("/ships/1").contentType(MediaType.APPLICATION_JSON);
         mockMvc.perform(getRequest).andExpect(status().isNotFound());
     }
-
-
 
 
     private String asJsonString(final Object object) {

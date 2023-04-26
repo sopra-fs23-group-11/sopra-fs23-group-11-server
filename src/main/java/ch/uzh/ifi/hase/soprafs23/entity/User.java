@@ -108,4 +108,7 @@ public class User implements Serializable {
         this.status = status;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

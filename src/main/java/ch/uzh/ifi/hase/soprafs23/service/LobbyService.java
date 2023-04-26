@@ -83,7 +83,7 @@ public class LobbyService {
         return lobby;
 
     }
-
+/*
     public Lobby findByLobbyCode(String lobbyCode) {
         return lobbyRepository.findByLobbyCode(lobbyCode);
     }
@@ -108,4 +108,6 @@ public class LobbyService {
             playerRepository.save(newPlayer);
         }
     }
+
+ */
 }

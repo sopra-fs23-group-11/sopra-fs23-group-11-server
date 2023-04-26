@@ -2,7 +2,6 @@ package ch.uzh.ifi.hase.soprafs23.service;
 
 import ch.uzh.ifi.hase.soprafs23.entity.Player;
 import ch.uzh.ifi.hase.soprafs23.entity.Helper;
-import ch.uzh.ifi.hase.soprafs23.entity.ships.Position;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.Ship;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
@@ -49,7 +48,7 @@ public class ShipPlayerService {
         if (playerOptional.isEmpty())
             throw new EntityNotFoundExcep ("player doesn't exist", gameId);
         if(!helper.shipsNotTouching(playerOptional.get(), startPosition, endPosition))
-            throw new PositionExcep("ships are touching");
+            throw new PositionExcep("ships are touching", gameId);
 
         Ship ship = shipOptional.get();
         Player player = playerOptional.get();

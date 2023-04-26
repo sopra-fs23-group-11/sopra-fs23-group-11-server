@@ -78,8 +78,9 @@ public class GameController {
     }
     @MessageExceptionHandler(PositionExcep.class)
     public void handlePositionExcep(PositionExcep excep){
-        ErrorDTO errorDTO= new ErrorDTO(excep.getMessage());
-        simpMessagingTemplate.convertAndSend("/errors", errorDTO);
+        //ErrorDTO errorDTO= new ErrorDTO(excep.getMessage());
+        ErrorMsg errorMsg= new ErrorMsg(excep.getMessage());
+        simpMessagingTemplate.convertAndSend("/game/" + excep.getGameId(), errorMsg);
         System.out.println("..pos");
     }
     @MessageExceptionHandler(PlayerExcep.class)

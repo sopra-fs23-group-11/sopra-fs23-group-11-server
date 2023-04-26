@@ -42,7 +42,7 @@ public class GameService {
             throw new PlayerExcep("players should differ", gameId);
 
         if (!isValidShot(posOfShot, defender.get()))
-            throw new PositionExcep("not valid shot");
+            throw new PositionExcep("not valid shot", gameId);
         ShipPlayer ship_hit = waterORship(posOfShot, defender.get());
         Shot shotPosition = new Shot();
         if (ship_hit != null) {
@@ -70,9 +70,9 @@ public class GameService {
     private boolean isValidShot(String shotPosition, Player defender) {
         Shot shot = shotRepository.findByPositionAndDefender(shotPosition, defender);
         if (shot != null)
-            throw new PositionExcep("This field was shot at before");
+            throw new PositionExcep("This field was shot at before",defender.getGame().getId());
         if (!shotPosition.matches("[A-J][0-9]"))
-            throw new PositionExcep("enter a valid position");
+            throw new PositionExcep("enter a valid position", defender.getGame().getId() );
         return true;
     }
 

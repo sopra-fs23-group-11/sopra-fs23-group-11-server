@@ -22,6 +22,7 @@
 - Qing Dai
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/85 check if input is valid
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/68 Create grid in backend
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/62 Check if the entered position represents a valid length #62
 - [ ] create helper class to validate user input during ship placement and game itself.
 
 -Louis Zürcher
@@ -94,6 +95,11 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/149 Create DTOs and game endpoint to start a game (using websockets)
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/150 Create/modify join endpoint with websockets & define join message
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/151 Create representation for startGame- message and endpoint (websocket) 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/152 Create error message and endpoint using websockets
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/153 Create ready message and endpoint using websockets 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/154 Create finish message and endpoint using websockets
 
 - Qing Dai
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/66 Create setup API request in setup.jsx to start a game, and reroute setup as the page right after players enter the lobby
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/67 Add the lobby code box in the lobby so that once the host clicks in, the host can get the lobby code
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/68 Add copyCodeToClipboard function #68

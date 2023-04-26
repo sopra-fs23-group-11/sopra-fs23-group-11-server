@@ -4,6 +4,7 @@ public class LobbyGetDTO {
     private String lobbyCode;
     private String hostName;
     private long hostId;
+    private long joinerId;
 
     public String getLobbyCode() {
         return lobbyCode;
@@ -28,4 +29,7 @@ public class LobbyGetDTO {
     public void setHostId(long hostId) {
         this.hostId = hostId;
     }
+    public Long getJoinerId(){return joinerId;}
+    public void setJoinerId(Long joinerId) {this.joinerId = joinerId;}
+
 }

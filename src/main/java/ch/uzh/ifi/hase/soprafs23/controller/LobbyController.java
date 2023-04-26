@@ -40,4 +40,12 @@ public class LobbyController {
         simpMessagingTemplate.convertAndSend("/game/" + createdLobby.getLobbyCode(), joinMessage);
         return DTOMapper.INSTANCE.convertEntityToLobbyGetDTO(createdLobby);
     }
+
+    @GetMapping("/lobby/{lobbyCode}")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public LobbyGetDTO getLobby(@PathVariable("lobbyCode") String lobbyCode){
+        Lobby foundLobby = lobbyService.findByLobbyCode(lobbyCode);
+        return DTOMapper.INSTANCE.convertEntityToLobbyGetDTO(foundLobby);
+    }
 }

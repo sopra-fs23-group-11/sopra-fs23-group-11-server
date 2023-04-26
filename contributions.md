@@ -103,3 +103,7 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/66 Create setup API request in setup.jsx to start a game, and reroute setup as the page right after players enter the lobby
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/67 Add the lobby code box in the lobby so that once the host clicks in, the host can get the lobby code
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/68 Add copyCodeToClipboard function #68
+
+- Nick Schlatter
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/24 Display victory message
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/25 Display total wins

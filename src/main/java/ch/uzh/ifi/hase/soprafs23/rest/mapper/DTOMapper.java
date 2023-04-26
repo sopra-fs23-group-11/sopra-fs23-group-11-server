@@ -51,6 +51,7 @@ public interface DTOMapper {
         lobbyGetDTO.setLobbyCode(lobby.getLobbyCode());
         lobbyGetDTO.setHostId(lobby.getHost().getId());
         lobbyGetDTO.setHostName(lobby.getHost().getUsername());
+        lobbyGetDTO.setLobbyCode(lobby.getLobbyCode());
         return lobbyGetDTO;
     }
 

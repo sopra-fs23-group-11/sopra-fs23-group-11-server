@@ -7,6 +7,7 @@ import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
 import ch.uzh.ifi.hase.soprafs23.exceptions.PlayerExcep;
+import ch.uzh.ifi.hase.soprafs23.exceptions.UserExcep;
 import ch.uzh.ifi.hase.soprafs23.repository.LobbyRepository;
 import ch.uzh.ifi.hase.soprafs23.repository.PlayerRepository;
 import ch.uzh.ifi.hase.soprafs23.repository.UserRepository;
@@ -71,7 +72,8 @@ public class LobbyService {
         User user = optionalUser.get();
         if (hostId == user.getId())
             throw new PlayerExcep("players should differ", lobbyCode);
-
+        if (lobby.getJoiner()!=null)
+            throw new UserExcep("lobby has a joiner");
         user.setLobbyForJoiner(lobby);
         User newuser = userRepository.save(user);
         lobby.setJoiner(newuser);

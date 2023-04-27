@@ -12,11 +12,13 @@ import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -59,6 +61,7 @@ public class GameController {
     }
 
     @PostMapping("/startgame")
+    //@ResponseStatus(HttpStatus.CREATED)
     public GameGetDTO startGame(@RequestBody GamePostDTO gamePostDTO){
         System.out.println("gamePostDTO.getLobbyCode() = " + gamePostDTO.getLobbyCode());
         Game game = gameService.startGame(gamePostDTO.getHostId(), gamePostDTO.getLobbyCode());

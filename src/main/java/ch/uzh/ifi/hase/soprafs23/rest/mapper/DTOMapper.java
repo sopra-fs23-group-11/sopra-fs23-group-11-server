@@ -33,19 +33,20 @@ public interface DTOMapper {
 
  */
 
-    @Mapping(source = "ship", target = "ship")
-    @Mapping(source = "player", target = "player")
+    //@Mapping(source = "ship", target = "ship")
+    //@Mapping(source = "player", target = "player")
 //    @Mapping(source = "startPosition", target = "startPosition")
 //    @Mapping(source = "endPosition", target = "endPosition")
-    ShipPlayerGetDTO convertEntityToShipPlayerGetDTO(ShipPlayer shipPlayer);
+    default ShipPlayerGetDTO convertEntityToShipPlayerGetDTO(ShipPlayer shipPlayer){
+        ShipPlayerGetDTO shipPlayerGetDTO= new ShipPlayerGetDTO();
+        shipPlayerGetDTO.setId(shipPlayer.getId());
+        shipPlayerGetDTO.setPlayerId(shipPlayer.getPlayer().getId());
+        shipPlayerGetDTO.setShipId(shipPlayer.getShip().getId());
+        shipPlayerGetDTO.setStartPosition(shipPlayer.getStartPosition());
+        shipPlayerGetDTO.setEndPosition(shipPlayer.getEndPosition());
+        return shipPlayerGetDTO;
+    }
 
-    //ToDo: lobbymapper
-    /*
-    @Mapping(source = "lobbyCode", target = "lobbyCode")
-    @Mapping(source = "joiner", target = "joiner")
-    Lobby convertLobbyPutDTOtoEntity(LobbyPutDTO lobbyPutDTO);
-
-     */
     default LobbyGetDTO convertEntityToLobbyGetDTO(Lobby lobby){
         LobbyGetDTO lobbyGetDTO= new LobbyGetDTO();
         lobbyGetDTO.setLobbyCode(lobby.getLobbyCode());

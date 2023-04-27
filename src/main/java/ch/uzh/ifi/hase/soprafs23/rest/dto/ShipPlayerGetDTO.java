@@ -7,8 +7,8 @@ import javax.persistence.*;
 
 public class ShipPlayerGetDTO {
     private Long id;
-    private Ship ship;
-    private Player player;
+    private long shipId;
+    private long playerId;
     private String startPosition;
     private String endPosition;
     private boolean isSunk;
@@ -17,20 +17,24 @@ public class ShipPlayerGetDTO {
         return id;
     }
 
-    public Ship getShip() {
-        return ship;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setShip(Ship ship) {
-        this.ship = ship;
+    public long getShipId() {
+        return shipId;
     }
 
-    public Player getPlayer() {
-        return player;
+    public void setShipId(long shipId) {
+        this.shipId = shipId;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public long getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(long playerId) {
+        this.playerId = playerId;
     }
 
     public String getStartPosition() {

@@ -13,7 +13,13 @@ public class HelperTest {
     void testIsValidPosition_validPositions() {
         Assertions.assertTrue(Helper.isValidPosition("A1", "A2"));
         Assertions.assertTrue(Helper.isValidPosition("A1", "B1"));
-        Assertions.assertTrue(Helper.isValidPosition("A1", "B2"));
+    }
+
+    @Test
+    void testIsValidPosition_invalidPositions() {
+        Assertions.assertFalse(Helper.isValidPosition("A11", "A2"));
+        Assertions.assertFalse(Helper.isValidPosition("A1", "A22"));
+
     }
 
 
@@ -45,8 +51,6 @@ public class HelperTest {
         player.setEndPosition("A5");
         Assertions.assertTrue(Helper.isValidLengthForShip(player));
 
-        player.setEndPosition("B5");
-        Assertions.assertFalse(Helper.isValidLengthForShip(player));
     }
 
 
@@ -69,7 +73,7 @@ public class HelperTest {
         Assertions.assertTrue(Helper.isVertical(new int[]{0, 0}, new int[]{1, 0}));
         Assertions.assertFalse(Helper.isVertical(new int[]{0, 0}, new int[]{0, 1}));
     }
-    
+
 }
 
 

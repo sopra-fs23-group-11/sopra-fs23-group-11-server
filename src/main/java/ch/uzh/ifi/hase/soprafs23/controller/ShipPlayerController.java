@@ -36,6 +36,19 @@ public class ShipPlayerController {
         shipPlayerService.placeShip(shipPlayerPostDTO.getShipPlayerPlayerId(), shipPlayerPostDTO.getShipPlayerShipId(),
                 shipPlayerPostDTO.getStartPosition(), shipPlayerPostDTO.getEndPosition(), shipPlayerPostDTO.getGameId());
     }
+    @GetMapping("/shipPlayer/{playerId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ShipPlayerGetDTO> getAllShipsPosition(@PathVariable("playerId") long playerId) {
+        List<ShipPlayer> shipPlayers = shipPlayerService.getPlayersShip(playerId);
+        List<ShipPlayerGetDTO> shipPlayerGetDTOS = new ArrayList<>();
+        for (ShipPlayer ship : shipPlayers){
+            shipPlayerGetDTOS.add(DTOMapper.INSTANCE.convertEntityToShipPlayerGetDTO(ship));
+        }
+        return shipPlayerGetDTOS;
+    }
+
+
+
 
     //ToDo fix it
     @GetMapping("/ships/{id}")

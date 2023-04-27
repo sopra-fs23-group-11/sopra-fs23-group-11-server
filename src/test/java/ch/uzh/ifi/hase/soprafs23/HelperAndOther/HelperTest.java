@@ -46,6 +46,30 @@ public class HelperTest {
         assertTrue(Helper.isValidAttackPosition(pos2));
     }
 
+    @Test
+    public void testIsSplittableTrue() {
+        String input = "12,34";
+        assertTrue(Helper.isSplittable(input));
+    }
+
+    @Test
+    public void testIsSplittableFalse1() {
+        String input = "1234";
+        assertFalse(Helper.isSplittable(input));
+    }
+
+    @Test
+    public void testIsSplittableFalse2() {
+        String input = "1,234";
+        assertFalse(Helper.isSplittable(input));
+    }
+
+    @Test
+    public void testIsSplittableFalse3() {
+        String input = "12,3,4";
+        assertFalse(Helper.isSplittable(input));
+    }
+
 
     @Test
     void testIsValidLengthForShip() {
@@ -162,6 +186,21 @@ public class HelperTest {
         player.setShipPlayers(shipPlayerList);
         boolean result = Helper.allShipsPlaced(player);
         assertTrue(result);
+    }
+
+    @Test
+    public void withinBoundariesValidTest(){
+        ShipPlayer shipPlayer =  new ShipPlayer();
+        shipPlayer.setEndPosition("A2");
+        shipPlayer.setStartPosition("A1");
+        assertTrue(Helper.shipIsWithinBoundary( shipPlayer));
+    }
+    @Test
+    public void withinBoundariesInValidTest(){
+        ShipPlayer shipPlayer =  new ShipPlayer();
+        shipPlayer.setEndPosition("A10");
+        shipPlayer.setStartPosition("A8");
+        assertTrue(Helper.shipIsWithinBoundary( shipPlayer));
     }
 }
 

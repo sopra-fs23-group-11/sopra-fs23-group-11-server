@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @see UserService
  */
-/*
+
 
 @WebAppConfiguration
 @SpringBootTest
@@ -42,8 +42,9 @@ public class UserServiceIntegrationTest {
     assertNull(userRepository.findByUsername("testUsername"));
 
     User testUser = new User();
-    testUser.setUsername("testName");
+    //testUser.setUsername("testName");
     testUser.setUsername("testUsername");
+    testUser.setPassword("***");
 
     // when
     User createdUser = userService.createUser(testUser);
@@ -53,9 +54,9 @@ public class UserServiceIntegrationTest {
     assertEquals(testUser.getUsername(), createdUser.getUsername());
     assertEquals(testUser.getUsername(), createdUser.getUsername());
     assertNotNull(createdUser.getToken());
-    assertEquals(UserStatus.OFFLINE, createdUser.getStatus());
+    assertEquals(UserStatus.ONLINE, createdUser.getStatus());
   }
-
+/*
   @Test
   public void createUser_duplicateUsername_throwsException() {
     assertNull(userRepository.findByUsername("testUsername"));
@@ -75,6 +76,9 @@ public class UserServiceIntegrationTest {
     // check that an error is thrown
     assertThrows(ResponseStatusException.class, () -> userService.createUser(testUser2));
   }
-}
 
  */
+
+}
+
+

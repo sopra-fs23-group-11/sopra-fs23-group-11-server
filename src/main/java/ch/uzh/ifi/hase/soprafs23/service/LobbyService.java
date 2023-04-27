@@ -83,6 +83,9 @@ public class LobbyService {
         return lobby;
 
     }
+    public Lobby findByLobbyCode(String lobbyCode) {
+        return lobbyRepository.findByLobbyCode(lobbyCode);
+    }
 /*
     public Lobby findByLobbyCode(String lobbyCode) {
         return lobbyRepository.findByLobbyCode(lobbyCode);

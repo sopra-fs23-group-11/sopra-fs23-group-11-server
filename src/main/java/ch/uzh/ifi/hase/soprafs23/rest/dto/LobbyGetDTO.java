@@ -29,7 +29,7 @@ public class LobbyGetDTO {
     public void setHostId(long hostId) {
         this.hostId = hostId;
     }
-    public Long getJoinerId(){return joinerId;}
+    public long getJoinerId(){return joinerId;}
     public void setJoinerId(Long joinerId) {this.joinerId = joinerId;}
 
 }

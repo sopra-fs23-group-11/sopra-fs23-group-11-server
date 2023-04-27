@@ -22,7 +22,7 @@ public class LobbyController {
     }
 
     //Create lobby
-    @PostMapping("/host")
+    @PostMapping("/lobbies")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public LobbyGetDTO host(@RequestBody LobbyPostDTO lobbyPostDTO) {
@@ -30,7 +30,7 @@ public class LobbyController {
         return DTOMapper.INSTANCE.convertEntityToLobbyGetDTO(createdLobby);
     }
 
-    @PutMapping("/join")
+    @PutMapping("/lobbies")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public LobbyGetDTO join(@RequestBody LobbyPutDTO lobbyPutDTO) {
@@ -41,7 +41,7 @@ public class LobbyController {
         return DTOMapper.INSTANCE.convertEntityToLobbyGetDTO(createdLobby);
     }
 
-    @GetMapping("/lobby/{lobbyCode}")
+    @GetMapping("/lobbies/{lobbyCode}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public LobbyGetDTO getLobby(@PathVariable("lobbyCode") String lobbyCode){

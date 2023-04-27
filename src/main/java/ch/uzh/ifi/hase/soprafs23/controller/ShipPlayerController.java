@@ -28,7 +28,7 @@ public class ShipPlayerController {
         this.playerService = playerService;
     }
 
-    @PostMapping("/submit/ships")
+    @PostMapping("/ships")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public void submitShips(@RequestBody ShipPlayerPostDTO shipPlayerPostDTO){

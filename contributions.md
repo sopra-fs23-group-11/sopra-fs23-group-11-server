@@ -28,6 +28,7 @@
 -Louis Zürcher
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/62  Check if the entered position represents a vald length
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/66  Check if the coordinates are within boundaries
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/166 Create user authentification
 
 -- Contributions Week 2 / 13.4 &
 -- Contributions Week 3 / 20.4 : 
@@ -117,3 +118,7 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/72 Combine websocket connection within the lobby and game
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/32 Refactor setup so that input is done by click instead of text input
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/73 introduce React Context API to store relevant gamestates
+
+-Louis Zürcher
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/155 test UserController Class
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/156 test ShipPlayerController Class

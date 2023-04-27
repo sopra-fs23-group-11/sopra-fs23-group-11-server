@@ -71,7 +71,7 @@ public class LobbyControllerTest {
         lobbyPostDTO.setHostId(1L);
 
         given(lobbyService.createLobby(Mockito.anyLong())).willReturn(lobby);
-        MockHttpServletRequestBuilder postRequest = post("/host")
+        MockHttpServletRequestBuilder postRequest = post("/lobbies")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(lobbyPostDTO));
 
@@ -99,7 +99,7 @@ public class LobbyControllerTest {
 
         given(lobbyService.createLobby(Mockito.anyLong())).willThrow(new EntityNotFoundExcep(
                 "Don't look for the entity. The test works", ""));
-        MockHttpServletRequestBuilder postRequest = post("/host")
+        MockHttpServletRequestBuilder postRequest = post("/lobbies")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(lobbyPostDTO));
 
@@ -129,7 +129,7 @@ public class LobbyControllerTest {
         lobbyPostDTO.setJoinerId(1L);
 
         given(lobbyService.joinLobby(Mockito.anyString(), Mockito.anyLong())).willReturn(lobby);
-        MockHttpServletRequestBuilder putRequest = MockMvcRequestBuilders.put("/join")
+        MockHttpServletRequestBuilder putRequest = MockMvcRequestBuilders.put("/lobbies")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyPostDTO));
 
         mockMvc.perform(putRequest)
@@ -159,7 +159,7 @@ public class LobbyControllerTest {
 
         given(lobbyService.joinLobby(Mockito.anyString(), Mockito.anyLong())).willThrow(
                 new EntityNotFoundExcep("Entity Not Found", ""));
-        MockHttpServletRequestBuilder putRequest = MockMvcRequestBuilders.put("/join")
+        MockHttpServletRequestBuilder putRequest = MockMvcRequestBuilders.put("/lobbies")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyPostDTO));
 
         mockMvc.perform(putRequest)
@@ -189,7 +189,7 @@ public class LobbyControllerTest {
 
         given(lobbyService.joinLobby(Mockito.anyString(), Mockito.anyLong())).willThrow(
                 new PlayerExcep("Entity Not Found", ""));
-        MockHttpServletRequestBuilder putRequest = MockMvcRequestBuilders.put("/join")
+        MockHttpServletRequestBuilder putRequest = MockMvcRequestBuilders.put("/lobbies")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyPostDTO));
 
         mockMvc.perform(putRequest)
@@ -219,7 +219,7 @@ public class LobbyControllerTest {
 
         given(lobbyService.joinLobby(Mockito.anyString(), Mockito.anyLong())).willThrow(
                 new UserExcep("Entity Not Found"));
-        MockHttpServletRequestBuilder putRequest = MockMvcRequestBuilders.put("/join")
+        MockHttpServletRequestBuilder putRequest = MockMvcRequestBuilders.put("/lobbies")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyPostDTO));
 
         mockMvc.perform(putRequest)
@@ -239,7 +239,7 @@ public class LobbyControllerTest {
         lobbyGetDTO.setLobbyCode("**");
 
         given(lobbyService.findByLobbyCode(Mockito.anyString())).willReturn(lobby);
-        MockHttpServletRequestBuilder getRequest = get("/lobby/" + lobby.getLobbyCode())
+        MockHttpServletRequestBuilder getRequest = get("/lobbies/" + lobby.getLobbyCode())
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyGetDTO));
 
         mockMvc.perform(getRequest)
@@ -260,7 +260,7 @@ public class LobbyControllerTest {
         lobbyGetDTO.setLobbyCode("**");
 
         given(lobbyService.findByLobbyCode(Mockito.anyString())).willThrow(new EntityNotFoundExcep("not found", "*"));
-        MockHttpServletRequestBuilder getRequest = get("/lobby/" + lobby.getLobbyCode())
+        MockHttpServletRequestBuilder getRequest = get("/lobbies/" + lobby.getLobbyCode())
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyGetDTO));
 
         mockMvc.perform(getRequest)

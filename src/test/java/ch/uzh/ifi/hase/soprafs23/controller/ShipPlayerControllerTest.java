@@ -94,7 +94,7 @@ public class ShipPlayerControllerTest {
                 Mockito.anyString())).willReturn(shipPlayer);
 
         // when/then -> do the request + validate the result
-        MockHttpServletRequestBuilder postRequest = post("/submit/ships")
+        MockHttpServletRequestBuilder postRequest = post("/ships")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(shipPlayerPostDTO));
 
@@ -114,7 +114,7 @@ public class ShipPlayerControllerTest {
 
         given(shipPlayerService.placeShip(Mockito.anyLong(),Mockito.anyLong(),Mockito.anyString(),Mockito.anyString(),
                 Mockito.anyString())).willThrow(new EntityNotFoundExcep("player doesn't exist","1"));
-        MockHttpServletRequestBuilder postRequest = post("/submit/ships")
+        MockHttpServletRequestBuilder postRequest = post("/ships")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(dto));
 
@@ -132,7 +132,7 @@ public class ShipPlayerControllerTest {
 
         given(shipPlayerService.placeShip(Mockito.anyLong(),Mockito.anyLong(),Mockito.anyString(),Mockito.anyString(),
                 Mockito.anyString())).willThrow(new PositionExcep("ships are touching","1"));
-        MockHttpServletRequestBuilder postRequest = post("/submit/ships")
+        MockHttpServletRequestBuilder postRequest = post("/ships")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(dto));
 

@@ -3,8 +3,8 @@ package ch.uzh.ifi.hase.soprafs23.rest.dto;
 public class LobbyGetDTO {
     private String lobbyCode;
     private String hostName;
-    private long hostId;
-    private long joinerId;
+    private Long hostId;
+    private Long joinerId;
 
     public String getLobbyCode() {
         return lobbyCode;
@@ -29,7 +29,7 @@ public class LobbyGetDTO {
     public void setHostId(long hostId) {
         this.hostId = hostId;
     }
-    public long getJoinerId(){return joinerId;}
+    public Long getJoinerId(){return joinerId;}
     public void setJoinerId(Long joinerId) {this.joinerId = joinerId;}
 
 }

@@ -101,6 +101,8 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/158 Test LobbyController 
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/156 Fix some tests (done by Louis)
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/160 Create API-Endpoint to get the positions of ships #160
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/168
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/169
 
 - Qing Dai
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/66 Create setup API request in setup.jsx to start a game, and reroute setup as the page right after players enter the lobby

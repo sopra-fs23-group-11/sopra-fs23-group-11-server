@@ -133,7 +133,7 @@ public class LobbyControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyPostDTO));
 
         mockMvc.perform(putRequest)
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -225,6 +225,8 @@ public class LobbyControllerTest {
         mockMvc.perform(putRequest)
                 .andExpect(status().isConflict());
     }
+
+
 
     private String asJsonString(final Object object) {
         try {

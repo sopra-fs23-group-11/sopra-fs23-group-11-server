@@ -87,9 +87,6 @@ public class LobbyService {
         return lobbyRepository.findByLobbyCode(lobbyCode);
     }
 /*
-    public Lobby findByLobbyCode(String lobbyCode) {
-        return lobbyRepository.findByLobbyCode(lobbyCode);
-    }
 
     private void createPlayerEntity(long userId) {
         Optional<Player> optionalPlayer = playerRepository.findById(userId);

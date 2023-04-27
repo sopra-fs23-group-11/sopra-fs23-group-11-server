@@ -84,6 +84,8 @@ public class LobbyService {
 
     }
     public Lobby findByLobbyCode(String lobbyCode) {
+        if (lobbyRepository.findByLobbyCode(lobbyCode)==null)
+            throw new EntityNotFoundExcep("lobby not found", lobbyCode);
         return lobbyRepository.findByLobbyCode(lobbyCode);
     }
 /*

@@ -53,10 +53,10 @@ public class LobbyControllerTest {
     private SimpMessagingTemplate simpMessagingTemplate;
 
     @Test
-    public void hostValid() throws Exception{
-        Lobby lobby=new Lobby();
+    public void hostValid() throws Exception {
+        Lobby lobby = new Lobby();
         lobby.setLobbyCode("**");
-        User host= new User();
+        User host = new User();
         lobby.setHost(host);
         host.setId(1L);
         host.setLobbyForHost(lobby);
@@ -80,10 +80,10 @@ public class LobbyControllerTest {
     }
 
     @Test
-    public void inValidHost() throws Exception{
-        Lobby lobby=new Lobby();
+    public void inValidHost() throws Exception {
+        Lobby lobby = new Lobby();
         lobby.setLobbyCode("**");
-        User host= new User();
+        User host = new User();
         lobby.setHost(host);
         host.setId(1L);
         host.setLobbyForHost(lobby);
@@ -98,7 +98,7 @@ public class LobbyControllerTest {
         lobbyPostDTO.setHostId(1L);
 
         given(lobbyService.createLobby(Mockito.anyLong())).willThrow(new EntityNotFoundExcep(
-                "Don't look for the entity. The test works",""));
+                "Don't look for the entity. The test works", ""));
         MockHttpServletRequestBuilder postRequest = post("/host")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(lobbyPostDTO));
@@ -107,11 +107,11 @@ public class LobbyControllerTest {
     }
 
     @Test
-    public void validJoin() throws Exception{
-        Lobby lobby=new Lobby();
+    public void validJoin() throws Exception {
+        Lobby lobby = new Lobby();
         lobby.setLobbyCode("**");
-        User joiner=new User();
-        User host= new User();
+        User joiner = new User();
+        User host = new User();
         lobby.setJoiner(joiner);
         lobby.setHost(host);
         host.setId(1L);
@@ -124,24 +124,24 @@ public class LobbyControllerTest {
         joiner.setUsername("Sara");
 
 
-        LobbyPutDTO lobbyPostDTO= new LobbyPutDTO();
+        LobbyPutDTO lobbyPostDTO = new LobbyPutDTO();
         lobbyPostDTO.setLobbyCode("**");
         lobbyPostDTO.setJoinerId(1L);
 
-        given(lobbyService.joinLobby(Mockito.anyString(),Mockito.anyLong())).willReturn(lobby);
+        given(lobbyService.joinLobby(Mockito.anyString(), Mockito.anyLong())).willReturn(lobby);
         MockHttpServletRequestBuilder putRequest = MockMvcRequestBuilders.put("/join")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyPostDTO));
 
         mockMvc.perform(putRequest)
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void inValidJoinEntityNotFound() throws Exception{
-        Lobby lobby=new Lobby();
+    public void inValidJoinEntityNotFound() throws Exception {
+        Lobby lobby = new Lobby();
         lobby.setLobbyCode("**");
-        User joiner=new User();
-        User host= new User();
+        User joiner = new User();
+        User host = new User();
         lobby.setJoiner(joiner);
         lobby.setHost(host);
         host.setId(1L);
@@ -153,11 +153,11 @@ public class LobbyControllerTest {
         joiner.setStatus(UserStatus.valueOf("ONLINE"));
         joiner.setUsername("Sara");
 
-        LobbyPutDTO lobbyPostDTO= new LobbyPutDTO();
+        LobbyPutDTO lobbyPostDTO = new LobbyPutDTO();
         lobbyPostDTO.setLobbyCode("**");
         lobbyPostDTO.setJoinerId(1L);
 
-        given(lobbyService.joinLobby(Mockito.anyString(),Mockito.anyLong())).willThrow(
+        given(lobbyService.joinLobby(Mockito.anyString(), Mockito.anyLong())).willThrow(
                 new EntityNotFoundExcep("Entity Not Found", ""));
         MockHttpServletRequestBuilder putRequest = MockMvcRequestBuilders.put("/join")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyPostDTO));
@@ -167,11 +167,11 @@ public class LobbyControllerTest {
     }
 
     @Test
-    public void inValidJoinPlayerExc() throws Exception{
-        Lobby lobby=new Lobby();
+    public void inValidJoinPlayerExc() throws Exception {
+        Lobby lobby = new Lobby();
         lobby.setLobbyCode("**");
-        User joiner=new User();
-        User host= new User();
+        User joiner = new User();
+        User host = new User();
         lobby.setJoiner(joiner);
         lobby.setHost(host);
         host.setId(1L);
@@ -183,11 +183,11 @@ public class LobbyControllerTest {
         joiner.setStatus(UserStatus.valueOf("ONLINE"));
         joiner.setUsername("Sara");
 
-        LobbyPutDTO lobbyPostDTO= new LobbyPutDTO();
+        LobbyPutDTO lobbyPostDTO = new LobbyPutDTO();
         lobbyPostDTO.setLobbyCode("**");
         lobbyPostDTO.setJoinerId(1L);
 
-        given(lobbyService.joinLobby(Mockito.anyString(),Mockito.anyLong())).willThrow(
+        given(lobbyService.joinLobby(Mockito.anyString(), Mockito.anyLong())).willThrow(
                 new PlayerExcep("Entity Not Found", ""));
         MockHttpServletRequestBuilder putRequest = MockMvcRequestBuilders.put("/join")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyPostDTO));
@@ -197,11 +197,11 @@ public class LobbyControllerTest {
     }
 
     @Test
-    public void inValidJoinUserExc() throws Exception{
-        Lobby lobby=new Lobby();
+    public void inValidJoinUserExc() throws Exception {
+        Lobby lobby = new Lobby();
         lobby.setLobbyCode("**");
-        User joiner=new User();
-        User host= new User();
+        User joiner = new User();
+        User host = new User();
         lobby.setJoiner(joiner);
         lobby.setHost(host);
         host.setId(1L);
@@ -213,11 +213,11 @@ public class LobbyControllerTest {
         joiner.setStatus(UserStatus.valueOf("ONLINE"));
         joiner.setUsername("Sara");
 
-        LobbyPutDTO lobbyPostDTO= new LobbyPutDTO();
+        LobbyPutDTO lobbyPostDTO = new LobbyPutDTO();
         lobbyPostDTO.setLobbyCode("**");
         lobbyPostDTO.setJoinerId(1L);
 
-        given(lobbyService.joinLobby(Mockito.anyString(),Mockito.anyLong())).willThrow(
+        given(lobbyService.joinLobby(Mockito.anyString(), Mockito.anyLong())).willThrow(
                 new UserExcep("Entity Not Found"));
         MockHttpServletRequestBuilder putRequest = MockMvcRequestBuilders.put("/join")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyPostDTO));
@@ -226,10 +226,54 @@ public class LobbyControllerTest {
                 .andExpect(status().isConflict());
     }
 
+    @Test
+    public void getLobbyTest() throws Exception {
+        Lobby lobby = new Lobby();
+        lobby.setLobbyCode("**");
+        User host = new User();
+        lobby.setHost(host);
+        host.setId(1L);
+
+        LobbyGetDTO lobbyGetDTO = new LobbyGetDTO();
+        lobbyGetDTO.setHostId(1L);
+        lobbyGetDTO.setLobbyCode("**");
+
+        given(lobbyService.findByLobbyCode(Mockito.anyString())).willReturn(lobby);
+        MockHttpServletRequestBuilder getRequest = get("/lobby/" + lobby.getLobbyCode())
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyGetDTO));
+
+        mockMvc.perform(getRequest)
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    public void getLobbyNotFoundTest() throws Exception {
+        Lobby lobby = new Lobby();
+        lobby.setLobbyCode("**");
+        User host = new User();
+        lobby.setHost(host);
+        host.setId(1L);
+
+        LobbyGetDTO lobbyGetDTO = new LobbyGetDTO();
+        lobbyGetDTO.setHostId(1L);
+        lobbyGetDTO.setLobbyCode("**");
+
+        given(lobbyService.findByLobbyCode(Mockito.anyString())).willThrow(new EntityNotFoundExcep("not found", "*"));
+        MockHttpServletRequestBuilder getRequest = get("/lobby/" + lobby.getLobbyCode())
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyGetDTO));
+
+        mockMvc.perform(getRequest)
+                .andExpect(status().isNotFound());
+
+    }
+
+
     private String asJsonString(final Object object) {
         try {
             return new ObjectMapper().writeValueAsString(object);
-        } catch (JsonProcessingException e) {
+        }
+        catch (JsonProcessingException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     String.format("The request body could not be created.%s", e.toString()));
         }

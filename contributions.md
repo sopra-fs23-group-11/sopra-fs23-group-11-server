@@ -109,3 +109,8 @@
 - Nick Schlatter
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/24 Display victory message
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/25 Display total wins
+
+-Kalil Subaan
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/72 Combine websocket connection within the lobby and game
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/32 Refactor setup so that input is done by click instead of text input
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/73 introduce React Context API to store relevant gamestates

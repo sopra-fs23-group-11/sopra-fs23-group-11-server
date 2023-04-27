@@ -84,8 +84,32 @@ public class LobbyService {
 
     }
     public Lobby findByLobbyCode(String lobbyCode) {
-        if (lobbyRepository.findByLobbyCode(lobbyCode) == null)
+        if (lobbyRepository.findByLobbyCode(lobbyCode)==null)
             throw new EntityNotFoundExcep("lobby not found", lobbyCode);
         return lobbyRepository.findByLobbyCode(lobbyCode);
     }
+/*
+
+    private void createPlayerEntity(long userId) {
+        Optional<Player> optionalPlayer = playerRepository.findById(userId);
+
+        if (optionalPlayer.isPresent()) {
+            Player player = optionalPlayer.get();
+            player.setShipPlayers(new ArrayList<ShipPlayer>());
+            player.setShipsRemaining(5);
+            player.setShotsAttack(new ArrayList<Shot>());
+            player.setShotsDefend(new ArrayList<Shot>());
+            playerRepository.save(player);
+        }
+        else {
+            Player newPlayer = new Player();
+            newPlayer.setShipPlayers(new ArrayList<ShipPlayer>());
+            newPlayer.setShipsRemaining(5);
+            newPlayer.setShotsAttack(new ArrayList<Shot>());
+            newPlayer.setShotsDefend(new ArrayList<Shot>());
+            playerRepository.save(newPlayer);
+        }
+    }
+
+ */
 }

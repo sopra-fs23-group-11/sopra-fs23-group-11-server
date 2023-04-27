@@ -37,7 +37,7 @@ public class LobbyController {
         System.out.println("controller");
         Lobby createdLobby = lobbyService.joinLobby(lobbyPutDTO.getLobbyCode(), lobbyPutDTO.getJoinerId());
         JoinMessage joinMessage = new JoinMessage(createdLobby.getLobbyCode(), createdLobby.getJoiner().getId(), createdLobby.getJoiner().getUsername());
-        simpMessagingTemplate.convertAndSend("/game/" + createdLobby.getLobbyCode(), joinMessage);
+        simpMessagingTemplate.convertAndSend("/join/" + createdLobby.getLobbyCode(), joinMessage);
         return DTOMapper.INSTANCE.convertEntityToLobbyGetDTO(createdLobby);
     }
 

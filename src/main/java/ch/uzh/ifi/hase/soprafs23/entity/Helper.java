@@ -163,10 +163,10 @@ public class Helper {
             if (yStartBoundary != 0) {
                 yStartBoundary--;
             }
-            if (xEndBoundary != 10) {
+            if (xEndBoundary != 9) {
                 xEndBoundary++;
             }
-            if (yEndBoundary != 10) {
+            if (yEndBoundary != 9) {
                 yEndBoundary++;
             }
 

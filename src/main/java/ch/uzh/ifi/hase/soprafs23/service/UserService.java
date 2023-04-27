@@ -82,7 +82,7 @@ public class UserService {
     public User loginUser(User user){
         checkIfUserExistsLogin(user);
         User logUser = userRepository.findByUsername(user.getUsername());
-        if(user.getUsername() == logUser.getUsername()){
+        if(Objects.equals(user.getPassword(), logUser.getPassword())){
             logUser.setToken(UUID.randomUUID().toString());
             logUser.setStatus(UserStatus.ONLINE);
             userRepository.flush();

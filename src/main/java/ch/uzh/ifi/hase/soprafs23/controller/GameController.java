@@ -68,7 +68,7 @@ public class GameController {
         Game game = gameService.startGame(gamePostDTO.getHostId(), gamePostDTO.getLobbyCode());
         StartGameMessage startGameMessage= new StartGameMessage(game.getId(), game.getPlayer1().getId(),
                 game.getPlayer2().getId(), game.getPlayer1().getUser().getUsername(), game.getPlayer2().getUser().getUsername());
-        simpMessagingTemplate.convertAndSend("/game/" + game.getId(), startGameMessage);
+        simpMessagingTemplate.convertAndSend("/startgame/" + game.getId(), startGameMessage);
         return DTOMapper.INSTANCE.convertEntityToGameGetDTO(game);
 
     }

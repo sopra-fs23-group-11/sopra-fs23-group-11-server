@@ -20,15 +20,17 @@ public class GameService {
     private final ShipRepository shipRepository;
     private final LobbyRepository lobbyRepository;
     private final GameRepository gameRepository;
+    private final CellRepository cellRepository;
 
     @Autowired
-    public GameService(PlayerRepository playerRepository, ShotRepository shotRepository, ShipPlayerRepository shipPlayerRepository, ShipRepository shipRepository, LobbyRepository lobbyRepository, GameRepository gameRepository) {
+    public GameService(CellRepository cellRepository, PlayerRepository playerRepository, ShotRepository shotRepository, ShipPlayerRepository shipPlayerRepository, ShipRepository shipRepository, LobbyRepository lobbyRepository, GameRepository gameRepository) {
         this.playerRepository = playerRepository;
         this.shotRepository = shotRepository;
         this.shipPlayerRepository = shipPlayerRepository;
         this.shipRepository = shipRepository;
         this.lobbyRepository = lobbyRepository;
         this.gameRepository = gameRepository;
+        this.cellRepository = cellRepository;
     }
 
     public Shot attack(long attackerId, long defenderId, String posOfShot, String gameId) { //flush
@@ -131,6 +133,8 @@ public class GameService {
         Player player2 = new Player();
         player1.setUser(lobby.getHost());
         player2.setUser(lobby.getJoiner());
+        createCells(1L);
+        createCells(2L);
         player2.setGamePlayer2(game);
         player1.setGamePlayer1(game);
         player1.setShipsRemaining(5);
@@ -143,4 +147,21 @@ public class GameService {
         return game;
     }
 
+    public void createCells(Long ownerId){
+        for(int i = 1; i <11 ; i++){
+            for (int j = 1; j < 11; j++){
+                Cell newCell = new Cell();
+                String id = getCharForNumber(j) + String.valueOf(i);
+                newCell.setId(id);
+                newCell.setOwnerId(ownerId);
+                newCell.setIsOccupied(null);
+                newCell.setIsShotAt(false);
+                cellRepository.save(newCell);
+                cellRepository.flush();
+            }
+        }
+    }
+    public String getCharForNumber(int i) {
+        return i > 0 && i < 27 ? String.valueOf((char)(i + 'A' - 1)) : null;
+    }
 }

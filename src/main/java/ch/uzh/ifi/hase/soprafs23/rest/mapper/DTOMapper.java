@@ -90,6 +90,12 @@ public interface DTOMapper {
     @Mapping(source = "shipsRemaining", target = "shipsRemaining")
     PlayerGetDTO convertEntityToPlayerGetDTO(Player player);
 
+    @Mapping(source="ownerId",target="ownerId")
+    @Mapping(source="id",target="id")
+    @Mapping(source="isShotAt",target="isShotAt")
+    @Mapping(source="isOccupied",target="isOccupied")
+    CellGetDTO convertEntityToCellGetDTO(Cell cell);
+
 
     //ToDo create mapper for ShotGetDTO
 }

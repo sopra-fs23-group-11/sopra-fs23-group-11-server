@@ -67,6 +67,7 @@ public interface DTOMapper {
     //@Mapping(source = "hostId", target = "hostId")
     //Lobby convertLobbyPostDTOtoEntity(LobbyPostDTO lobbyPostDTO);
 
+    @Mapping(source="avatar",target="avatar")
     @Mapping(source = "password", target = "password")
     @Mapping(source = "username", target = "username")
     User convertUserPostDTOtoEntity(UserPostDTO userPostDTO);
@@ -75,6 +76,7 @@ public interface DTOMapper {
     @Mapping(source = "username", target = "username")
     @Mapping(source = "token", target = "token")
     @Mapping(source = "totalWins", target = "totalWins")
+    @Mapping(source="avatar",target="avatar")
     UserGetDTO convertEntityToUserGetDTO(User user);
 
 

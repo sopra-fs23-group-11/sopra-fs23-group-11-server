@@ -4,6 +4,10 @@ public class UserPostDTO {
 
   private String username;
   private String password;
+  private String avatar;
+
+  public String getAvatar(){return avatar;}
+    public void setAvatar(String avatar){this.avatar = avatar;}
 
   public String getUsername() {
     return username;

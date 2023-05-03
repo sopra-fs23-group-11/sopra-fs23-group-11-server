@@ -122,3 +122,9 @@
 -Louis Zürcher
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/155 test UserController Class
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/156 test ShipPlayerController Class
+
+-- Contributions Week 5 / 4.5:
+- Qing Dai
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/79 Create a button for user to choose direction of the ships.
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/80 Update the ship positions in the board based on the state value of the "orientation" button
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/82 Remove the direction button when no ships left.

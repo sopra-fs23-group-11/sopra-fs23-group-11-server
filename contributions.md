@@ -138,3 +138,9 @@
 - Nick Schlatter
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/52 Make Avatars selectable; Possible to generate new Avatars.
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/81 Create Profile Page and show selected Aavatar.
+
+-Louis Zürcher
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/171 Create cell class
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/172 Create Cellservice class
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/173 Create CellGetDTO
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/174 Create CellController

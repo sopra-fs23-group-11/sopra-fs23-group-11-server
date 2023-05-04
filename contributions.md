@@ -114,7 +114,7 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/24 Display victory message
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/25 Display total wins
 
--Kalil Subaan
+- Kalil Subaan
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/72 Combine websocket connection within the lobby and game
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/32 Refactor setup so that input is done by click instead of text input
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/73 introduce React Context API to store relevant gamestates
@@ -128,3 +128,9 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/79 Create a button for user to choose direction of the ships.
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/80 Update the ship positions in the board based on the state value of the "orientation" button
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/82 Remove the direction button when no ships left.
+
+- Kalil Subaan
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/38 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/40
+- Note: Both players are able to see their playing boards with their respective ships
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/19 shots are visible on both player screens

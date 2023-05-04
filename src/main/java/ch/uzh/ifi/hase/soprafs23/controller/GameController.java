@@ -55,10 +55,10 @@ public class GameController {
 
         return newshotGet;
     }
-    @PostMapping("/ready")
-    public void ready (@RequestBody ReadyPostDTO readyPostDTO){
+    @MessageMapping("/ready")
+    public void ready (@Payload ReadyPostDTO readyPostDTO){
         ReadyMsg readyMsg = new ReadyMsg(readyPostDTO.getPlayerId(), readyPostDTO.getPlayerName());
-        simpMessagingTemplate.convertAndSend("/game/" + readyPostDTO.getGameId(), readyMsg);
+        simpMessagingTemplate.convertAndSend("/ready/" + readyPostDTO.getPlayerName(), readyMsg);
 
     }
 

@@ -92,7 +92,7 @@ public class LobbyServiceTest {
 
     }
 
-    //2
+
     @Test
     public void joinLobby_validInputs_success() {
 

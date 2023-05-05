@@ -160,7 +160,7 @@ public class GameService {
                 String id = getCharForNumber(j) + String.valueOf(i);
                 newCell.setId(id);
                 newCell.setOwnerId(ownerId);
-                newCell.setIsOccupied(null);
+                newCell.setOccupyingShip(null);
                 newCell.setIsShotAt(false);
                 cellRepository.save(newCell);
                 cellRepository.flush();

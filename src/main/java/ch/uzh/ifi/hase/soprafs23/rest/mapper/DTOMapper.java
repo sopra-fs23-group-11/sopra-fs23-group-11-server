@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.rest.mapper;
 
+import ch.uzh.ifi.hase.soprafs23.WebSockets.Message.ShotMessage;
 import ch.uzh.ifi.hase.soprafs23.entity.*;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
@@ -108,11 +109,16 @@ public interface DTOMapper {
     @Mapping(source = "shipsRemaining", target = "shipsRemaining")
     PlayerGetDTO convertEntityToPlayerGetDTO(Player player);
 
-    @Mapping(source="ownerId",target="ownerId")
-    @Mapping(source="id",target="id")
-    @Mapping(source="isShotAt",target="isShotAt")
-    @Mapping(source="isOccupied",target="isOccupied")
-    CellGetDTO convertEntityToCellGetDTO(Cell cell);
+
+    default CellGetDTO convertEntityToCellGetDTO (Cell cell){
+        CellGetDTO cellGetDTO = new CellGetDTO();
+        cellGetDTO.setOccupyingShip(cell.getOccupyingShip());
+        cellGetDTO.setShotAt(cell.getIsShotAt());
+        cellGetDTO.setId(cell.getId());
+        cellGetDTO.setOwnerId(cell.getOwnerId());
+
+        return cellGetDTO;
+    }
 
 
 

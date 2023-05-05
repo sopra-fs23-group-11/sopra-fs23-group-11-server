@@ -39,7 +39,11 @@ public class UserService {
     }
 
     public List<User> getUsers() {
-        return this.userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        if (users.isEmpty()) {
+            throw new UserExcep("No users found");
+        }
+        return users;
     }
 
     public User createUser(User newUser) {

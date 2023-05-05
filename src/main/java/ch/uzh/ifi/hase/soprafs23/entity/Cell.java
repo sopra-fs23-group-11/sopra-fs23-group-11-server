@@ -28,7 +28,7 @@ public class Cell implements Serializable {
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "ship_id")
-    private Ship isOccupied;
+    private Ship occupyingShip;
 
     public void setOwnerId(Long ownerId){this.ownerId = ownerId;}
     public Long getOwnerId(){return this.ownerId;}
@@ -36,8 +36,13 @@ public class Cell implements Serializable {
     public void setIsShotAt(boolean isShotAt){this.isShotAt = isShotAt;}
     public Boolean getIsShotAt(){return isShotAt;}
 
-    public void setIsOccupied(Ship isOccupied){this.isOccupied = isOccupied;}
-    public Ship getIsOccupied(){return isOccupied;}
+    public Ship getOccupyingShip() {
+        return occupyingShip;
+    }
+
+    public void setOccupyingShip(Ship occupyingShip) {
+        this.occupyingShip = occupyingShip;
+    }
 
     public void setId(String id){this.id = id;}
     public String getId(){return id;}

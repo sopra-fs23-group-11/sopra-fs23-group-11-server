@@ -1,6 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
 import ch.uzh.ifi.hase.soprafs23.entity.User;
+import ch.uzh.ifi.hase.soprafs23.exceptions.UserExcep;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPutDTO;
@@ -85,7 +86,7 @@ public class UserController {
     public void authenticate(@RequestBody UserPutDTO userPutDTO){
         User userInput = DTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
         if(!userService.checkAuth(userInput)){
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, String.format("Can't touch this."));
+            throw new UserExcep("cannot do that");
         }
     }
 

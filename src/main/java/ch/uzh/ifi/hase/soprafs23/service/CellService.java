@@ -48,7 +48,7 @@ public class CellService {
     public void updateCells(Long ownerId) {
         List<Cell> cells = cellRepository.findAllByOwnerId(ownerId);
         for(Cell cell:cells){
-            System.out.println(cell.getIsOccupied());
+            System.out.println(cell.getOccupyingShip());
             System.out.println(cell.getIsShotAt());
         }
         Player player = playerRepository.getOne(ownerId);
@@ -86,7 +86,7 @@ public class CellService {
 
         for(Cell cell : cells){
             if (positions.containsKey(cell.getId())){
-                cell.setIsOccupied(positions.get(cell.getId()));
+                cell.setOccupyingShip(positions.get(cell.getId()));
             }
 
             if (shotpos.contains(cell.getId())){

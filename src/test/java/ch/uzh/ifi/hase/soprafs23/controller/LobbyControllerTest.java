@@ -239,11 +239,12 @@ public class LobbyControllerTest {
         lobbyGetDTO.setLobbyCode("**");
 
         given(lobbyService.findByLobbyCode(Mockito.anyString())).willReturn(lobby);
-        MockHttpServletRequestBuilder getRequest = get("/lobbies/" + lobby.getLobbyCode())
-                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyGetDTO));
+        MockHttpServletRequestBuilder getRequest = get("/lobbies/" + lobby.getLobbyCode());
+
 
         mockMvc.perform(getRequest)
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.lobbyCode", is(lobbyGetDTO.getLobbyCode())));
 
     }
 
@@ -260,9 +261,7 @@ public class LobbyControllerTest {
         lobbyGetDTO.setLobbyCode("**");
 
         given(lobbyService.findByLobbyCode(Mockito.anyString())).willThrow(new EntityNotFoundExcep("not found", "*"));
-        MockHttpServletRequestBuilder getRequest = get("/lobbies/" + lobby.getLobbyCode())
-                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyGetDTO));
-
+        MockHttpServletRequestBuilder getRequest = get("/lobbies/" + lobby.getLobbyCode());
         mockMvc.perform(getRequest)
                 .andExpect(status().isNotFound());
 

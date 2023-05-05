@@ -144,3 +144,7 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/172 Create Cellservice class
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/173 Create CellGetDTO
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/174 Create CellController
+
+-Nazek Olabi
+- [ ] create avatar representation
+- [ ] test lobbyService and and add some integration tests to that

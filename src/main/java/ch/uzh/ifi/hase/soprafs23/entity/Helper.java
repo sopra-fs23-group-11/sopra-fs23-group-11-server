@@ -32,7 +32,7 @@ public class Helper {
     }
 
     public static boolean isValidAttackPosition(Position pos) {
-        if (pos.length() > 2) {
+        if (pos.length() > 2 ) {
             System.out.println("Limit the input length to 2, like 'A2'");
             return false;
         }

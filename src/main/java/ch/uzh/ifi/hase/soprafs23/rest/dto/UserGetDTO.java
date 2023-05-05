@@ -11,6 +11,7 @@ public class UserGetDTO {
     private UserStatus status;
     private String token;
     private int totalWins;
+    private String avatar;
 
     public void setTotalWins(int totalWins){this.totalWins = totalWins;}
     public int getTotalWins(){return totalWins;}
@@ -41,5 +42,17 @@ public class UserGetDTO {
 
     public void setStatus(UserStatus status) {
         this.status = status;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

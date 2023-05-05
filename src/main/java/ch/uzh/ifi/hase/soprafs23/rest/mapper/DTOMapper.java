@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.rest.mapper;
 
+import ch.uzh.ifi.hase.soprafs23.WebSockets.Message.ShotMessage;
 import ch.uzh.ifi.hase.soprafs23.entity.*;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
@@ -52,7 +53,14 @@ public interface DTOMapper {
         lobbyGetDTO.setLobbyCode(lobby.getLobbyCode());
         lobbyGetDTO.setHostId(lobby.getHost().getId());
         lobbyGetDTO.setHostName(lobby.getHost().getUsername());
-        lobbyGetDTO.setLobbyCode(lobby.getLobbyCode());
+        if (lobby.getJoiner()==null){
+            lobbyGetDTO.setJoinerId(-1L);
+            lobbyGetDTO.setJoinerName(null);
+        }else {
+            lobbyGetDTO.setJoinerId(lobby.getJoiner().getId());
+            lobbyGetDTO.setJoinerName(lobby.getJoiner().getUsername());
+
+        }
         return lobbyGetDTO;
     }
 
@@ -64,17 +72,28 @@ public interface DTOMapper {
         return gameGetDTO;
     }
 
+    default ShotMessage convertEntityToShotMessage (Shot shot){
+        ShotMessage shotMessage= new ShotMessage();
+        shotMessage.setAttackerId(shot.getAttacker().getId());
+        shotMessage.setDefenderId(shot.getDefender().getId());
+        shotMessage.setPosOfShot(shot.getPosition());
+        shotMessage.setHit(shot.isHit());
+        return shotMessage;
+    }
+
     //@Mapping(source = "hostId", target = "hostId")
     //Lobby convertLobbyPostDTOtoEntity(LobbyPostDTO lobbyPostDTO);
 
     @Mapping(source = "password", target = "password")
     @Mapping(source = "username", target = "username")
+    @Mapping(source = "avatar", target = "avatar")
     User convertUserPostDTOtoEntity(UserPostDTO userPostDTO);
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "username", target = "username")
     @Mapping(source = "token", target = "token")
     @Mapping(source = "totalWins", target = "totalWins")
+    @Mapping(source = "avatar", target = "avatar")
     UserGetDTO convertEntityToUserGetDTO(User user);
 
 
@@ -91,5 +110,5 @@ public interface DTOMapper {
     PlayerGetDTO convertEntityToPlayerGetDTO(Player player);
 
 
-    //ToDo create mapper for ShotGetDTO
+
 }

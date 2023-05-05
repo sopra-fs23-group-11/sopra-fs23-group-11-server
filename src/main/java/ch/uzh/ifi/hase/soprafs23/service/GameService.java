@@ -20,15 +20,17 @@ public class GameService {
     private final ShipRepository shipRepository;
     private final LobbyRepository lobbyRepository;
     private final GameRepository gameRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public GameService(PlayerRepository playerRepository, ShotRepository shotRepository, ShipPlayerRepository shipPlayerRepository, ShipRepository shipRepository, LobbyRepository lobbyRepository, GameRepository gameRepository) {
+    public GameService(PlayerRepository playerRepository, ShotRepository shotRepository, ShipPlayerRepository shipPlayerRepository, ShipRepository shipRepository, LobbyRepository lobbyRepository, GameRepository gameRepository, UserRepository userRepository) {
         this.playerRepository = playerRepository;
         this.shotRepository = shotRepository;
         this.shipPlayerRepository = shipPlayerRepository;
         this.shipRepository = shipRepository;
         this.lobbyRepository = lobbyRepository;
         this.gameRepository = gameRepository;
+        this.userRepository = userRepository;
     }
 
     public Shot attack(long attackerId, long defenderId, String posOfShot, String gameId) { //flush
@@ -63,6 +65,10 @@ public class GameService {
         shotPosition.setDefender(defender.get());
         shotPosition.setPosition(posOfShot);
         shotRepository.save(shotPosition);
+        if(looserAlert(defenderId, gameId)){
+            attacker.get().getUser().setTotalWins(attacker.get().getUser().getTotalWins() +1);
+            userRepository.save(attacker.get().getUser());
+        }
         return shotPosition;
     }
 
@@ -78,11 +84,9 @@ public class GameService {
 
     public boolean looserAlert(long defenderId, String gameId){
         Optional<Player> optionalPlayer= playerRepository.findById(defenderId);
-        System.out.println("sha3'le -1");
         if (optionalPlayer.isEmpty())
             throw new EntityNotFoundExcep("player does not exist", gameId);
         Player defender= optionalPlayer.get();
-        System.out.println("defender = " + defender);
         return defender.getShipsRemaining()==0;
     }
 

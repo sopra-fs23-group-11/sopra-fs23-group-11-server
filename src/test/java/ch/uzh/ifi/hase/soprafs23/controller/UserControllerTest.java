@@ -53,7 +53,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
 
@@ -62,7 +61,7 @@ public class UserControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-     private UserService userService;
+    private UserService userService;
 
     @MockBean
     private User user;
@@ -77,167 +76,175 @@ public class UserControllerTest {
     private SimpMessagingTemplate simpMessagingTemplate;
 
 
+    @Test
+    public void givenUsers_whenGetUsers_thenReturnJsonArray() throws Exception {
+        // given
+        User user = new User();
+        System.out.println(user);
+        user.setUsername("Mario");
+        user.setId(1L);
+        user.setPassword("Admin");
+        user.setTotalWins(5);
 
-  @Test
-  public void givenUsers_whenGetUsers_thenReturnJsonArray() throws Exception {
-    // given
-    User user = new User();
-    System.out.println(user);
-    user.setUsername("Mario");
-    user.setPassword("Admin");
-    user.setTotalWins(5);
+        List<User> allUsers = Collections.singletonList(user);
 
-    List<User> allUsers = Collections.singletonList(user);
+        // this mocks the UserService -> we define above what the userService should
+        // return when getUsers() is called
+        given(userService.getUsers()).willReturn(allUsers);
 
-    // this mocks the UserService -> we define above what the userService should
-    // return when getUsers() is called
-    given(userService.getUsers()).willReturn(allUsers);
+        // when
+        MockHttpServletRequestBuilder getRequest = get("/users").contentType(MediaType.APPLICATION_JSON);
 
-    // when
-    MockHttpServletRequestBuilder getRequest = get("/users").contentType(MediaType.APPLICATION_JSON);
+        // then
+        mockMvc.perform(getRequest).andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].username", is(user.getUsername())))
+                .andExpect(jsonPath("$[0].totalWins", is(user.getTotalWins())));
 
-    // then
-    mockMvc.perform(getRequest).andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(1)))
-        .andExpect(jsonPath("$[0].username", is(user.getUsername())))
-        .andExpect(jsonPath("$[0].totalWins", is(user.getTotalWins())));
-  }
 
-  @Test
-  public void createUser_validInput_userCreated() throws Exception {
-    // given
-    User user = new User();
-    user.setPassword("Test Password");
-    user.setUsername("testUsername");
-    user.setToken("1");
-    user.setStatus(UserStatus.ONLINE);
+    }
 
-    UserPostDTO userPostDTO = new UserPostDTO();
-    userPostDTO.setPassword("Test Password");
-    userPostDTO.setUsername("testUsername");
+    @Test
+    public void createUser_validInput_userCreated() throws Exception {
+        // given
+        User user = new User();
+        user.setId(1L);
+        user.setPassword("Test Password");
+        user.setUsername("testUsername");
+        user.setToken("1");
+        user.setStatus(UserStatus.ONLINE);
 
-    given(userService.createUser(Mockito.any())).willReturn(user);
+        UserPostDTO userPostDTO = new UserPostDTO();
+        userPostDTO.setPassword("Test Password");
+        userPostDTO.setUsername("testUsername");
 
-    // when/then -> do the request + validate the result
-    MockHttpServletRequestBuilder postRequest = post("/users")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(asJsonString(userPostDTO));
+        given(userService.createUser(Mockito.any())).willReturn(user);
 
-    // then
-    mockMvc.perform(postRequest)
-        .andExpect(status().isCreated())
-        .andExpect(jsonPath("$.id", is(user.getId())))
-        .andExpect(jsonPath("$.username", is(user.getUsername())))
-        .andExpect(jsonPath("$.status", is(user.getStatus().toString())));
-  }
+        // when/then -> do the request + validate the result
+        MockHttpServletRequestBuilder postRequest = post("/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(userPostDTO));
 
-  @Test
-  public void createUser_invalidInput_thenUserNotCreated() throws Exception {
-      UserPostDTO userPostDTO = new UserPostDTO();
-      userPostDTO.setPassword("Test Password");
-      userPostDTO.setUsername("testUsername");
-      given(userService.createUser(Mockito.any())).willThrow(new UserExcep("this username is not unique"));
-      MockHttpServletRequestBuilder postRequest = post("/users")
-              .contentType(MediaType.APPLICATION_JSON)
-              .content(asJsonString(userPostDTO));
-      mockMvc.perform(postRequest).andExpect(status().isConflict());
-  }
+        // then
+        mockMvc.perform(postRequest)
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", is(user.getId().intValue())))
+                .andExpect(jsonPath("$.username", is(user.getUsername())))
+                .andExpect(jsonPath("$.status", is(user.getStatus().toString())));
 
-  @Test
-  public void getUserByValidId_thenReturnsJsonArray() throws Exception {
-      User user = new User();
-      user.setUsername("Mario");
-      user.setPassword("Admin");
-      userService.createUser(user);
-      given(userService.findUserById(1)).willReturn(user);
 
-      MockHttpServletRequestBuilder getRequest = get("/users/1").contentType(MediaType.APPLICATION_JSON);
+    }
 
-      mockMvc.perform(getRequest)
-              .andExpect(jsonPath("$.username", is(user.getUsername())))
-              .andExpect(jsonPath("$.id", is(user.getId())));
+    @Test
+    public void createUser_invalidInput_thenUserNotCreated() throws Exception {
+        UserPostDTO userPostDTO = new UserPostDTO();
+        userPostDTO.setPassword("Test Password");
+        userPostDTO.setUsername("testUsername");
+        given(userService.createUser(Mockito.any())).willThrow(new UserExcep("this username is not unique"));
+        MockHttpServletRequestBuilder postRequest = post("/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(userPostDTO));
+        mockMvc.perform(postRequest).andExpect(status().isConflict());
+    }
 
-  }
+    @Test
+    public void getUserByValidId_thenReturnsJsonArray() throws Exception {
+        User user = new User();
+        user.setUsername("Mario");
+        user.setId(1L);
+        user.setPassword("Admin");
+        given(userService.findUserById(1L)).willReturn(user);
 
-  @Test
-  public void getUserByInvalidId_thenReturnsError() throws Exception{
-      given(userService.findUserById(2)).willThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
+        MockHttpServletRequestBuilder getRequest = get("/users/1").contentType(MediaType.APPLICATION_JSON);
+        mockMvc.perform(getRequest)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.username", is(user.getUsername())))
+                .andExpect(jsonPath("$.id", is(user.getId().intValue())));
 
-      MockHttpServletRequestBuilder getRequest = get("/users/2").contentType(MediaType.APPLICATION_JSON);
 
-      mockMvc.perform(getRequest).andExpect(status().isNotFound());
+    }
 
-  }
+    @Test
+    public void getUserByInvalidId_thenReturnsError() throws Exception {
+        given(userService.findUserById(2)).willThrow(new EntityNotFoundExcep("not found", ""));
 
-  @Test
-  public void loginWithValidInput_UserLoggedIn() throws Exception {
-      User user = new User();
-      user.setUsername("Mario");
-      user.setPassword("Admin");
+        MockHttpServletRequestBuilder getRequest = get("/users/2").contentType(MediaType.APPLICATION_JSON);
 
-      UserPutDTO userPutDTO = new UserPutDTO();
-      userPutDTO.setUsername("Mario");
-      userPutDTO.setPassword("Admin");
+        mockMvc.perform(getRequest).andExpect(status().isNotFound());
 
-      given(userService.loginUser(Mockito.any())).willReturn(user);
+    }
 
-      MockHttpServletRequestBuilder putRequest = put("/users").contentType(MediaType.APPLICATION_JSON).content(asJsonString(userPutDTO));
+    @Test
+    public void loginWithValidInput_UserLoggedIn() throws Exception {
+        User user = new User();
+        user.setUsername("Mario");
+        user.setPassword("Admin");
+        user.setId(1L);
 
-      mockMvc.perform(putRequest)
-              .andExpect(jsonPath("$.username", is(user.getUsername())));
-  }
+        UserPutDTO userPutDTO = new UserPutDTO();
+        userPutDTO.setUsername("Mario");
+        userPutDTO.setPassword("Admin");
 
-  @Test
-  public void loginWithInvalidUsername_NotFound() throws Exception{
-      UserPutDTO userPutDTO = new UserPutDTO();
-      userPutDTO.setUsername("Mario");
-      userPutDTO.setPassword("Admin");
-      given(userService.loginUser(Mockito.any())).willThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
+        given(userService.loginUser(Mockito.any())).willReturn(user);
 
-      MockHttpServletRequestBuilder putRequest = put("/users").contentType(MediaType.APPLICATION_JSON).content(asJsonString(userPutDTO));
+        MockHttpServletRequestBuilder putRequest = put("/users").contentType(MediaType.APPLICATION_JSON).content(asJsonString(userPutDTO));
 
-      mockMvc.perform(putRequest)
-              .andExpect(status().isNotFound());
-  }
+        mockMvc.perform(putRequest)
+                .andExpect(jsonPath("$.username", is(user.getUsername())));
+    }
 
-  @Test
-  public void loginWithInvalidPassword_Conflict() throws Exception{
-      User user = new User();
-      user.setUsername("Mario");
-      user.setPassword("Admin");
+    @Test
+    public void loginWithInvalidUsername_NotFound() throws Exception {
+        UserPutDTO userPutDTO = new UserPutDTO();
+        userPutDTO.setUsername("Mario");
+        userPutDTO.setPassword("Admin");
+        given(userService.loginUser(Mockito.any())).willThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-      UserPutDTO userPutDTO = new UserPutDTO();
-      userPutDTO.setUsername("Mario");
-      userPutDTO.setPassword("nimbA");
+        MockHttpServletRequestBuilder putRequest = put("/users").contentType(MediaType.APPLICATION_JSON).content(asJsonString(userPutDTO));
 
-      given(userService.loginUser(Mockito.any())).willThrow(new ResponseStatusException(HttpStatus.CONFLICT));
+        mockMvc.perform(putRequest)
+                .andExpect(status().isNotFound());
+    }
 
-      MockHttpServletRequestBuilder putRequest = put("/users").contentType(MediaType.APPLICATION_JSON).content(asJsonString(userPutDTO));
+    @Test
+    public void loginWithInvalidPassword_Conflict() throws Exception {
+        User user = new User();
+        user.setUsername("Mario");
+        user.setPassword("Admin");
 
-      mockMvc.perform(putRequest)
-              .andExpect(status().isConflict());
-  }
+        UserPutDTO userPutDTO = new UserPutDTO();
+        userPutDTO.setUsername("Mario");
+        userPutDTO.setPassword("nimbA");
 
-/*
+        given(userService.loginUser(Mockito.any())).willThrow(new ResponseStatusException(HttpStatus.CONFLICT));
 
-*
-   * Helper Method to convert userPostDTO into a JSON string such that the input
-   * can be processed
-   * Input will look like this: {"name": "Test User", "username": "testUsername"}
-   *
-   * @param object
-   * @return string
+        MockHttpServletRequestBuilder putRequest = put("/users").contentType(MediaType.APPLICATION_JSON).content(asJsonString(userPutDTO));
 
- */
+        mockMvc.perform(putRequest)
+                .andExpect(status().isConflict());
+    }
+
+    /*
+
+     *
+     * Helper Method to convert userPostDTO into a JSON string such that the input
+     * can be processed
+     * Input will look like this: {"name": "Test User", "username": "testUsername"}
+     *
+     * @param object
+     * @return string
+
+     */
 
 
     private String asJsonString(final Object object) {
-    try {
-      return new ObjectMapper().writeValueAsString(object);
-    } catch (JsonProcessingException e) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-          String.format("The request body could not be created.%s", e.toString()));
+        try {
+            return new ObjectMapper().writeValueAsString(object);
+        }
+        catch (JsonProcessingException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    String.format("The request body could not be created.%s", e.toString()));
+        }
     }
-  }
 }
 

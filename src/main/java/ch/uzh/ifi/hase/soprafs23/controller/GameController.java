@@ -37,23 +37,17 @@ public class GameController {
 
 
     @MessageMapping("/game")
-    //ToDO send message to the own game not every game /shot/gameId
     public ShotMessage attack(ShotPostDTO shotPostDTO){
 
         Shot shot=gameService.attack(shotPostDTO.getAttackerId(), shotPostDTO.getDefenderId(), shotPostDTO.getPosOfShot(), shotPostDTO.getGameId());
-        ShotMessage newshotGet= new ShotMessage();
-        newshotGet.setAttackerId(shot.getAttacker().getId());
-        newshotGet.setDefenderId(shot.getDefender().getId());
-        newshotGet.setPosOfShot(shot.getPosition());
-        newshotGet.setHit(shot.isHit());
-        simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() , newshotGet);
-        if (gameService.looserAlert(newshotGet.getDefenderId(), shotPostDTO.getGameId())) {
-            FinishMsg finishMsg = new FinishMsg(newshotGet.getAttackerId(), newshotGet.getDefenderId());
-            System.out.println("sha3'le");
+        ShotMessage shotMessage= DTOMapper.INSTANCE.convertEntityToShotMessage(shot);
+        simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() , shotMessage);
+        if (gameService.looserAlert(shotMessage.getDefenderId(), shotPostDTO.getGameId())) {
+            FinishMsg finishMsg = new FinishMsg(shotMessage.getAttackerId(), shotMessage.getDefenderId());
             simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() , finishMsg);
         }
 
-        return newshotGet;
+        return shotMessage;
     }
     @PostMapping("/ready")
     public void ready (@RequestBody ReadyPostDTO readyPostDTO){
@@ -68,30 +62,29 @@ public class GameController {
         Game game = gameService.startGame(gamePostDTO.getHostId(), gamePostDTO.getLobbyCode());
         StartGameMessage startGameMessage= new StartGameMessage(game.getId(), game.getPlayer1().getId(),
                 game.getPlayer2().getId(), game.getPlayer1().getUser().getUsername(), game.getPlayer2().getUser().getUsername());
-        simpMessagingTemplate.convertAndSend("/game/" + game.getId(), startGameMessage);
+        simpMessagingTemplate.convertAndSend("/startgame/" + game.getId(), startGameMessage);
         return DTOMapper.INSTANCE.convertEntityToGameGetDTO(game);
 
     }
-    // ToDo errors in game (only 2 channels needed
+
     @MessageExceptionHandler(EntityNotFoundExcep.class)
     public void handleEntityNotFoundExcep(EntityNotFoundExcep excep){
         //ErrorDTO errorDTO= new ErrorDTO(excep.getMessage());
         ErrorMsg errorMsg= new ErrorMsg(excep.getMessage());
         simpMessagingTemplate.convertAndSend("/game/" + excep.getGameId(), errorMsg);
-        System.out.println("..entity");
+
     }
     @MessageExceptionHandler(PositionExcep.class)
     public void handlePositionExcep(PositionExcep excep){
         //ErrorDTO errorDTO= new ErrorDTO(excep.getMessage());
         ErrorMsg errorMsg= new ErrorMsg(excep.getMessage());
         simpMessagingTemplate.convertAndSend("/game/" + excep.getGameId(), errorMsg);
-        System.out.println("..pos");
+
     }
     @MessageExceptionHandler(PlayerExcep.class)
     public void handlePlayerExcep(PlayerExcep excep){
         ErrorMsg errorMsg= new ErrorMsg(excep.getMessage());
         simpMessagingTemplate.convertAndSend("/game/" + excep.getGameId(), errorMsg);
-        System.out.println("..player");
     }
 }
 

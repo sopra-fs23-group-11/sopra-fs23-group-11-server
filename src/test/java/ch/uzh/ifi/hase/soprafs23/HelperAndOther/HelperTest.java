@@ -20,12 +20,14 @@ public class HelperTest {
     void testIsValidPosition_validPositions() {
         assertTrue(Helper.isValidPosition("A1", "A2"));
         assertTrue(Helper.isValidPosition("A1", "B1"));
+
     }
 
     @Test
     void testIsValidPosition_invalidPositions() {
         assertFalse(Helper.isValidPosition("A11", "A2"));
         assertFalse(Helper.isValidPosition("A1", "A22"));
+        assertFalse(Helper.isValidPosition("1A", "A2"));
 
     }
 
@@ -44,6 +46,14 @@ public class HelperTest {
         Position pos2 = new Position("B2");
         assertTrue(Helper.isValidAttackPosition(pos1));
         assertTrue(Helper.isValidAttackPosition(pos2));
+    }
+
+    @Test
+    void testIsValidAttackPosition_InvalidPositions() {
+        Position pos1 = new Position("A");
+        Position pos2 = new Position("B 2");
+        assertFalse(Helper.isValidAttackPosition(pos1));
+        assertFalse(Helper.isValidAttackPosition(pos2));
     }
 
     @Test
@@ -200,7 +210,7 @@ public class HelperTest {
         ShipPlayer shipPlayer =  new ShipPlayer();
         shipPlayer.setEndPosition("A10");
         shipPlayer.setStartPosition("A8");
-        assertTrue(Helper.shipIsWithinBoundary( shipPlayer));
+        assertFalse(Helper.shipIsWithinBoundary( shipPlayer));
     }
 }
 

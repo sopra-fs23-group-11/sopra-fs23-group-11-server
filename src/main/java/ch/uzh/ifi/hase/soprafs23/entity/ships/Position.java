@@ -25,8 +25,12 @@ public class Position {
     }
 
     public Position(String str) { // Position p = new Position("C2");
+        if (str.length()!=2){
+            this.x=99;
+            this.y=99;
+        } else{
         this.x = charToInt(str.substring(0, 1));
-        this.y = charToInt(str.substring(1, 2));
+        this.y = charToInt(str.substring(1, 2));}
     }
     
 

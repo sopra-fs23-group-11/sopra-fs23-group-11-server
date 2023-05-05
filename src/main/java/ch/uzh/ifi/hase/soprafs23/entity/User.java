@@ -46,16 +46,14 @@ public class User implements Serializable {
     @Column(nullable = false)
     private UserStatus status;
 
-    @Column
+    @Column(nullable = false)
     private String avatar;
 
-    public void setAvatar(String avatar){this.avatar = avatar;}
-
-    public String getAvatar(){return avatar;}
 
     public String getPassword() {
         return password;
     }
+
 
     public void setPassword(String password) {
         this.password = password;
@@ -115,5 +113,13 @@ public class User implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

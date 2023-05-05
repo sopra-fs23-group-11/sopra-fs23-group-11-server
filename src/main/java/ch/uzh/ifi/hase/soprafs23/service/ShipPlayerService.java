@@ -65,11 +65,11 @@ public class ShipPlayerService {
         return shipPlayerToSave;
     }
 
-
+//F4 gameId + Exception
     public List<ShipPlayer> getPlayersShip (long playerId){
         Optional<Player> playerOptional= playerRepository.findById(playerId);
         if (playerOptional.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("player not found"));
+            throw new EntityNotFoundExcep("player not found", "ID");
 
         Player player = playerOptional.get();
         List<ShipPlayer> shipPlayer = shipPlayerRepository.findAllByPlayer(player);

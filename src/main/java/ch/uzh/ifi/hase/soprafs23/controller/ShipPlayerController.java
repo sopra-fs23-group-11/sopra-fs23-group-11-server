@@ -5,7 +5,7 @@ import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import ch.uzh.ifi.hase.soprafs23.repository.PlayerRepository;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
-import ch.uzh.ifi.hase.soprafs23.service.PlayerService;
+//import ch.uzh.ifi.hase.soprafs23.service.PlayerService;
 import ch.uzh.ifi.hase.soprafs23.service.ShipPlayerService;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,12 +20,12 @@ import java.util.Optional;
 @RestController
 public class ShipPlayerController {
     private final ShipPlayerService shipPlayerService;
-    private final PlayerService playerService;
+   // private final PlayerService playerService;
 
-    ShipPlayerController(ShipPlayerService shipPlayerService,
-                         PlayerService playerService) {
+    ShipPlayerController(ShipPlayerService shipPlayerService){//,
+                         //PlayerService playerService) {
         this.shipPlayerService = shipPlayerService;
-        this.playerService = playerService;
+        //this.playerService = playerService;
     }
 
     @PostMapping("/ships")
@@ -48,9 +48,6 @@ public class ShipPlayerController {
     }
 
 
-
-
-    //ToDo fix it
     @GetMapping("/ships/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -58,5 +55,8 @@ public class ShipPlayerController {
         Player player = shipPlayerService.getPlayerById(id);
         return DTOMapper.INSTANCE.convertEntityToPlayerGetDTO(player);
     }
+
+
+
 }
 

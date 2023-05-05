@@ -20,17 +20,19 @@ public class GameService {
     private final ShipRepository shipRepository;
     private final LobbyRepository lobbyRepository;
     private final GameRepository gameRepository;
+    private final UserRepository userRepository;
     private final CellRepository cellRepository;
 
     @Autowired
-    public GameService(CellRepository cellRepository, PlayerRepository playerRepository, ShotRepository shotRepository, ShipPlayerRepository shipPlayerRepository, ShipRepository shipRepository, LobbyRepository lobbyRepository, GameRepository gameRepository) {
+    public GameService(CellRepository cellRepository,PlayerRepository playerRepository, ShotRepository shotRepository, ShipPlayerRepository shipPlayerRepository, ShipRepository shipRepository, LobbyRepository lobbyRepository, GameRepository gameRepository,  UserRepository userRepository) {
         this.playerRepository = playerRepository;
         this.shotRepository = shotRepository;
         this.shipPlayerRepository = shipPlayerRepository;
         this.shipRepository = shipRepository;
         this.lobbyRepository = lobbyRepository;
         this.gameRepository = gameRepository;
-        this.cellRepository = cellRepository;
+        this.userRepository= userRepository;
+        this.cellRepository= cellRepository;
     }
 
     public Shot attack(long attackerId, long defenderId, String posOfShot, String gameId) { //flush
@@ -65,6 +67,10 @@ public class GameService {
         shotPosition.setDefender(defender.get());
         shotPosition.setPosition(posOfShot);
         shotRepository.save(shotPosition);
+        if(looserAlert(defenderId, gameId)){
+            attacker.get().getUser().setTotalWins(attacker.get().getUser().getTotalWins() +1);
+            userRepository.save(attacker.get().getUser());
+        }
         return shotPosition;
     }
 

@@ -43,6 +43,8 @@ public class UserController {
         User userById = userService.findUserById(id);
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(userById);
     }
+    
+
 
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
@@ -50,8 +52,7 @@ public class UserController {
     public UserGetDTO createUser(@RequestBody UserPostDTO userPostDTO) {
         // convert API user to internal representation
         User userInput = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
-        System.out.println(userPostDTO.getUsername());
-        System.out.println(userPostDTO.getPassword());
+
 
         // create user
         User createdUser = userService.createUser(userInput);

@@ -240,9 +240,8 @@ public class UserControllerTest {
                 .andExpect(status().isConflict());
     }
 
-    //ToDO: test valid and Invalid logout (2Tests)
-//F2
-    @Ignore
+//F2 with/without user
+    @Test
     public void logoutTest() throws Exception {
         User user = new User();
         user.setUsername("Sara");
@@ -252,7 +251,10 @@ public class UserControllerTest {
         userPutDTO.setPassword("***");
         userPutDTO.setUsername("Sara");
 
-        //given(userService.logoutUser()).willThrow();
+        MockHttpServletRequestBuilder putRequest = put("/users/logout").contentType(MediaType.APPLICATION_JSON).content(asJsonString(userPutDTO));
+
+        mockMvc.perform(putRequest)
+                .andExpect(status().isOk());
 
     }
 

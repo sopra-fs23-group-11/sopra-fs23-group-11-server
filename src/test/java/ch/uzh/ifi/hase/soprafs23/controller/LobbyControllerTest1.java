@@ -1,6 +1,5 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
-import ch.uzh.ifi.hase.soprafs23.WebSockets.Message.JoinMessage;
 import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.Player;
@@ -15,44 +14,23 @@ import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
 import ch.uzh.ifi.hase.soprafs23.service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Ignore;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.messaging.simp.stomp.StompFrameHandler;
-import org.springframework.messaging.simp.stomp.StompHeaders;
-import org.springframework.messaging.simp.stomp.StompSession;
-import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.socket.client.standard.StandardWebSocketClient;
-import org.springframework.web.socket.messaging.WebSocketStompClient;
-import org.springframework.web.socket.sockjs.client.SockJsClient;
-import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 
-import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.put;
@@ -63,13 +41,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @RunWith(MockitoJUnitRunner.class)
+@SpringBootTest
 @AutoConfigureMockMvc
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class LobbyControllerTest {
-    WebSocketStompClient stompClient;
-    @Value("${local.server.port}")
-    private int port;
+public class LobbyControllerTest1 {
+
     @Autowired
     private MockMvc mockMvc;
     @MockBean
@@ -77,14 +52,6 @@ public class LobbyControllerTest {
     @MockBean
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @BeforeEach
-    void setup() {
-        stompClient = new WebSocketStompClient(new SockJsClient(
-                Collections.singletonList(new WebSocketTransport(new StandardWebSocketClient()))));
-        stompClient.setMessageConverter(new MappingJackson2MessageConverter());
-
-        //doReturn(true).when(lobbyController).checkSender(Mockito.nullable(String.class), Mockito.nullable(String.class));
-    }
     @Test
     public void hostValid() throws Exception {
         Lobby lobby = new Lobby();
@@ -161,57 +128,6 @@ public class LobbyControllerTest {
         lobbyPostDTO.setLobbyCode("**");
         lobbyPostDTO.setJoinerId(1L);
 
-        given(lobbyService.joinLobby(Mockito.anyString(), Mockito.anyLong())).willReturn(lobby);
-        MockHttpServletRequestBuilder putRequest = MockMvcRequestBuilders.put("/lobbies")
-                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyPostDTO));
-
-        mockMvc.perform(putRequest)
-                .andExpect(status().isOk());
-    }
-
-
-    @Ignore
-    public void validJoin2() throws Exception {
-        BlockingQueue<JoinMessage> bq = new LinkedBlockingDeque<>();
-        Lobby lobby = new Lobby();
-        lobby.setLobbyCode("**");
-        User joiner = new User();
-        User host = new User();
-        lobby.setJoiner(joiner);
-        lobby.setHost(host);
-        host.setId(1L);
-        joiner.setId(2L);
-        joiner.setLobbyForJoiner(lobby);
-        joiner.setTotalWins(0);
-        joiner.setPassword("mind your own business");
-        joiner.setToken("TryToFindItIfInterested");
-        joiner.setStatus(UserStatus.valueOf("ONLINE"));
-        joiner.setUsername("Sara");
-
-
-        StompSession session = stompClient
-                .connect("ws://localhost:" + port + "/ws", new StompSessionHandlerAdapter() {
-                })
-                .get(10, SECONDS);
-        System.out.println(port);
-        session.subscribe("/join/"+lobby.getLobbyCode(), new StompFrameHandler() {
-            @Override
-            public Type getPayloadType(StompHeaders headers) {
-                return JoinMessage.class;
-            }
-
-            @Override
-            public void handleFrame(StompHeaders headers, Object payload) {
-                Assertions.assertNotNull(payload);
-                System.out.println(payload);
-            }
-        });
-
-        LobbyPutDTO lobbyPostDTO = new LobbyPutDTO();
-        lobbyPostDTO.setLobbyCode("**");
-        lobbyPostDTO.setJoinerId(1L);
-
-        JoinMessage response = bq.poll(2, SECONDS);
         given(lobbyService.joinLobby(Mockito.anyString(), Mockito.anyLong())).willReturn(lobby);
         MockHttpServletRequestBuilder putRequest = MockMvcRequestBuilders.put("/lobbies")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyPostDTO));

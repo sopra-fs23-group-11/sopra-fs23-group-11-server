@@ -22,7 +22,7 @@ public class CellController {
         this.cellService = cellService;
     }
 
-    @GetMapping("/cells/{id}")
+    @GetMapping("/players/{id}/cells")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<CellGetDTO> getCellsFromPlayer(@PathVariable("id") long id) {

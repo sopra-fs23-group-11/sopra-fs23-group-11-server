@@ -170,7 +170,7 @@ public class LobbyControllerTest {
     }
 
 
-    @Ignore
+    @Test
     public void validJoin2() throws Exception {
         BlockingQueue<JoinMessage> bq = new LinkedBlockingDeque<>();
         Lobby lobby = new Lobby();

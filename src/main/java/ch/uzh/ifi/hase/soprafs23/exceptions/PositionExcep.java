@@ -11,7 +11,4 @@ public class PositionExcep extends RuntimeException{
         return gameId;
     }
 
-    public void setGameId(String gameId) {
-        this.gameId = gameId;
-    }
 }

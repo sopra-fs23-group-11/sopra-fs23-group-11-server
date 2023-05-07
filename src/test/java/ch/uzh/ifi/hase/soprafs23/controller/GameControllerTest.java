@@ -1,24 +1,38 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
 import ch.uzh.ifi.hase.soprafs23.WebSockets.Message.ShotMessage;
+import ch.uzh.ifi.hase.soprafs23.entity.Game;
+import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.Player;
 import ch.uzh.ifi.hase.soprafs23.entity.Shot;
+import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
+import ch.uzh.ifi.hase.soprafs23.exceptions.PlayerExcep;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.GamePostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.ShotPostDTO;
 import ch.uzh.ifi.hase.soprafs23.service.GameService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.web.server.ResponseStatusException;
+
+import static org.mockito.BDDMockito.given;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -36,7 +50,60 @@ public class GameControllerTest {
 
     @MockBean
     private SimpMessagingTemplate simpMessagingTemplate;
+//F8
+    @Ignore
+    public void testStartGame() throws Exception {
+        Game game = new Game();
+        game.setId("**");
+        Player player1 = new Player();
+        player1.setId(1L);
+        game.setPlayer1(player1);
+        Player player2 = new Player();
+        player1.setId(2L);
+        game.setPlayer2(player2);
 
+        GamePostDTO gamePostDTO = new GamePostDTO();
+        gamePostDTO.setHostId(1L);
+        gamePostDTO.setLobbyCode("**");
+
+
+        given(gameService.startGame(Mockito.anyLong(), Mockito.anyString())).willReturn(game);
+        MockHttpServletRequestBuilder postRequest = post("/startgame")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(gamePostDTO));
+
+        mockMvc.perform(postRequest)
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testStartGameEntityNotFound() throws Exception {
+
+        GamePostDTO gamePostDTO = new GamePostDTO();
+        gamePostDTO.setHostId(1L);
+        gamePostDTO.setLobbyCode("**");
+
+        given(gameService.startGame(Mockito.anyLong(), Mockito.anyString())).willThrow(new EntityNotFoundExcep("An Entity is missed", "ID"));
+        MockHttpServletRequestBuilder postRequest = post("/startgame")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(gamePostDTO));
+
+        mockMvc.perform(postRequest)
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testStartGamePlayerExcep() throws Exception {
+        GamePostDTO gamePostDTO = new GamePostDTO();
+        gamePostDTO.setHostId(1L);
+        gamePostDTO.setLobbyCode("**");
+
+        given(gameService.startGame(Mockito.anyLong(), Mockito.anyString())).willThrow(new PlayerExcep("host has to start", "ID"));
+        MockHttpServletRequestBuilder postRequest = post("/startgame")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(gamePostDTO));
+
+        mockMvc.perform(postRequest)
+                .andExpect(status().isNotAcceptable());
+    }
+/*
     @Test
     public void attackTestValidInput() throws Exception{
         ShotPostDTO shotPostDTO = new ShotPostDTO();
@@ -62,26 +129,7 @@ public class GameControllerTest {
 
     }
 
-
-/*
-    @Test
-    public void testStartGame() throws Exception {
-        Game game= new Game();
-        game.setId("1");
-        GamePostDTO gamePostDTO = new GamePostDTO();
-        gamePostDTO.setHostId(1L);
-        gamePostDTO.setLobbyCode("**");
-
-        given(gameService.startGame(Mockito.anyLong(), Mockito.anyString())).willReturn(game);
-        MockHttpServletRequestBuilder postRequest = post("/startgame")
-                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(gamePostDTO));
-
-        mockMvc.perform(postRequest)
-                .andExpect(status().isCreated());
-    }
-
  */
-
 
 
     private String asJsonString(final Object object) {

@@ -5,6 +5,7 @@ import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.repository.LobbyRepository;
 import ch.uzh.ifi.hase.soprafs23.repository.UserRepository;
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,8 @@ public class LobbyServiceIntegrationTest {
     private LobbyService lobbyService;
 
     private User testHost;
+    private User testJoiner;
+    private Lobby testLobby;
 
     @BeforeEach
     public void setup() {
@@ -46,16 +49,28 @@ public class LobbyServiceIntegrationTest {
         testHost = new User();
         testHost.setUsername("testUsername");
         testHost.setPassword("***");
-        testHost=userService.createUser(testHost);
+        testHost.setId(1l);
+        testHost.setAvatar("Luna");
+        testHost = userService.createUser(testHost);
+
+        testJoiner = new User();
+        testJoiner.setUsername("testJoiner");
+        testJoiner.setId(2L);
+        testJoiner.setPassword("***");
+        testJoiner.setAvatar("Luna");
+        testJoiner = userService.createUser(testJoiner);
+
+        testLobby = new Lobby();
+        testLobby.setLobbyCode("***");
+        testLobby.setHost(testHost);
+        //testLobby = lobbyRepository.save(testLobby);
+
     }
 
     @Test
     public void createLobby_validInputs_success() {
         // given
         assertNull(lobbyRepository.findByLobbyCode(""));
-
-
-
 
         // when
 
@@ -66,28 +81,20 @@ public class LobbyServiceIntegrationTest {
         assertEquals(createdLobby.getHost().getId(), testHost.getId());
 
     }
-/*
-  @Test
-  public void createUser_duplicateUsername_throwsException() {
-    assertNull(userRepository.findByUsername("testUsername"));
+    @Test
+    public void joinLobby_validInputs_success() {
+        assertNull(testJoiner.getLobbyForJoiner());
+        assertNull(testLobby.getJoiner());
 
-    User testUser = new User();
-    testUser.setUsername("testName");
-    testUser.setUsername("testUsername");
-    User createdUser = userService.createUser(testUser);
+        Lobby joinedLobby = lobbyService.createLobby(testHost.getId());
+        joinedLobby = lobbyService.joinLobby(joinedLobby.getLobbyCode(), testJoiner.getId());
 
-    // attempt to create second user with same username
-    User testUser2 = new User();
 
-    // change the name but forget about the username
-    testUser2.setUsername("testName2");
-    testUser2.setUsername("testUsername");
+        assertNotNull(joinedLobby.getJoiner());
+        assertEquals(joinedLobby.getJoiner().getId(), testJoiner.getId());
 
-    // check that an error is thrown
-    assertThrows(ResponseStatusException.class, () -> userService.createUser(testUser2));
-  }
 
- */
+    }
 
 }
 

@@ -9,11 +9,12 @@ import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
 import ch.uzh.ifi.hase.soprafs23.exceptions.PositionExcep;
 import ch.uzh.ifi.hase.soprafs23.repository.PlayerRepository;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.ShipPlayerGetDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.ShipPlayerPostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPutDTO;
 import ch.uzh.ifi.hase.soprafs23.service.GameService;
-import ch.uzh.ifi.hase.soprafs23.service.PlayerService;
+//import ch.uzh.ifi.hase.soprafs23.service.PlayerService;
 import ch.uzh.ifi.hase.soprafs23.service.ShipPlayerService;
 import ch.uzh.ifi.hase.soprafs23.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -45,12 +46,14 @@ import org.springframework.web.server.ResponseStatusException;
 import ch.uzh.ifi.hase.soprafs23.exceptions.UserExcep;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -72,25 +75,26 @@ public class ShipPlayerControllerTest {
     @MockBean
     private GameService gameService;
 
+
     @MockBean
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @MockBean
-    private PlayerService playerService;
+    //@MockBean
+    //private PlayerService playerService;
 
     @Test
-    public void placeShipsValidInput_thenShipsPlaced() throws Exception{
+    public void placeShipsValidInput_thenShipsPlaced() throws Exception {
         ShipPlayer shipPlayer = new ShipPlayer();
-        shipPlayer.setStartPosition("a");
-        shipPlayer.setEndPosition("b");
+        shipPlayer.setStartPosition("A1");
+        shipPlayer.setEndPosition("A2");
 
         ShipPlayerPostDTO shipPlayerPostDTO = new ShipPlayerPostDTO();
-        shipPlayerPostDTO.setStartPosition("a");
-        shipPlayerPostDTO.setEndPosition("b");
+        shipPlayerPostDTO.setStartPosition("A1");
+        shipPlayerPostDTO.setEndPosition("A2");
         shipPlayerPostDTO.setShipPlayerShipId(1);
         shipPlayerPostDTO.setShipPlayerPlayerId(1);
 
-        given(shipPlayerService.placeShip(Mockito.anyLong(),Mockito.anyLong(),Mockito.anyString(),Mockito.anyString(),
+        given(shipPlayerService.placeShip(Mockito.anyLong(), Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
                 Mockito.anyString())).willReturn(shipPlayer);
 
         // when/then -> do the request + validate the result
@@ -105,15 +109,15 @@ public class ShipPlayerControllerTest {
 
     @Test
     public void placeShipInvalidInput_PlayerOrShipNotFound() throws Exception {
-        ShipPlayerPostDTO dto=new ShipPlayerPostDTO();
+        ShipPlayerPostDTO dto = new ShipPlayerPostDTO();
         dto.setShipPlayerPlayerId(1L);
         dto.setShipPlayerShipId(2L);
         dto.setStartPosition("A1");
         dto.setEndPosition("A3");
-        dto.setGameId("AAAAA");
+        dto.setGameId("1");
 
-        given(shipPlayerService.placeShip(Mockito.anyLong(),Mockito.anyLong(),Mockito.anyString(),Mockito.anyString(),
-                Mockito.anyString())).willThrow(new EntityNotFoundExcep("player doesn't exist","1"));
+        given(shipPlayerService.placeShip(Mockito.anyLong(), Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
+                Mockito.anyString())).willThrow(new EntityNotFoundExcep("An Entity is missing", "1"));
         MockHttpServletRequestBuilder postRequest = post("/ships")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(dto));
@@ -123,15 +127,15 @@ public class ShipPlayerControllerTest {
 
     @Test
     public void placeShipInvalidInput_Position() throws Exception {
-        ShipPlayerPostDTO dto=new ShipPlayerPostDTO();
+        ShipPlayerPostDTO dto = new ShipPlayerPostDTO();
         dto.setShipPlayerPlayerId(1L);
         dto.setShipPlayerShipId(2L);
         dto.setStartPosition("A1");
         dto.setEndPosition("A3");
         dto.setGameId("AAAAA");
 
-        given(shipPlayerService.placeShip(Mockito.anyLong(),Mockito.anyLong(),Mockito.anyString(),Mockito.anyString(),
-                Mockito.anyString())).willThrow(new PositionExcep("ships are touching","1"));
+        given(shipPlayerService.placeShip(Mockito.anyLong(), Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
+                Mockito.anyString())).willThrow(new PositionExcep("ships are touching", "1"));
         MockHttpServletRequestBuilder postRequest = post("/ships")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(dto));
@@ -140,7 +144,53 @@ public class ShipPlayerControllerTest {
     }
 
     @Test
-    public void getShipValidInput_returnsShip() throws Exception{
+    public void getShipsOfPlayer() throws Exception {
+
+        Player player = new Player();
+        player.setId(1L);
+
+        Ship ship = new Ship();
+        ship.setId(1L);
+
+        List<ShipPlayer> shipPlayers = new ArrayList<>();
+        ShipPlayer shipPlayer = new ShipPlayer();
+        shipPlayer.setStartPosition("A1");
+        shipPlayer.setEndPosition("A2");
+        shipPlayer.setPlayer(player);
+        shipPlayer.setShip(ship);
+        shipPlayers.add(shipPlayer);
+
+        given(shipPlayerService.getPlayersShip(Mockito.anyLong())).willReturn(shipPlayers);
+//ToDo: see gets
+
+        MockHttpServletRequestBuilder getRequest = get("/shipPlayer/1");
+
+        mockMvc.perform(getRequest)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].shipId", is(shipPlayer.getShip().getId().intValue())))
+                .andExpect(jsonPath("$[0].startPosition", is(shipPlayer.getStartPosition())));
+
+
+    }
+
+
+    @Test
+    public void getShipsOfPlayerEntityNotFound() throws Exception {
+
+
+        given(shipPlayerService.getPlayersShip(Mockito.anyLong())).willThrow(new EntityNotFoundExcep
+                ("player not found", "ID"));
+
+
+        MockHttpServletRequestBuilder getRequest = get("/shipPlayer/1");
+
+        mockMvc.perform(getRequest)
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void getShipValidInput_returnsShip() throws Exception {
         Ship ship = new Ship();
         ship.setLength(2);
         ship.setType("HandsomeBoi");
@@ -161,7 +211,8 @@ public class ShipPlayerControllerTest {
         // return when getUsers() is called
         given(shipPlayerService.getPlayerById(1L)).willReturn(player);
         // when
-        MockHttpServletRequestBuilder getRequest = get("/ships/1").contentType(MediaType.APPLICATION_JSON);
+        MockHttpServletRequestBuilder getRequest = get("/ships/1")
+                .contentType(MediaType.APPLICATION_JSON);
 
         // then
         mockMvc.perform(getRequest).andExpect(status().isOk())
@@ -169,7 +220,7 @@ public class ShipPlayerControllerTest {
     }
 
     @Test
-    public void getShipsInvalidInput() throws Exception{
+    public void getShipsInvalidInput() throws Exception {
         given(shipPlayerService.getPlayerById(1L)).willThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
         MockHttpServletRequestBuilder getRequest = get("/ships/1").contentType(MediaType.APPLICATION_JSON);
         mockMvc.perform(getRequest).andExpect(status().isNotFound());
@@ -179,7 +230,8 @@ public class ShipPlayerControllerTest {
     private String asJsonString(final Object object) {
         try {
             return new ObjectMapper().writeValueAsString(object);
-        } catch (JsonProcessingException e) {
+        }
+        catch (JsonProcessingException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     String.format("The request body could not be created.%s", e.toString()));
         }

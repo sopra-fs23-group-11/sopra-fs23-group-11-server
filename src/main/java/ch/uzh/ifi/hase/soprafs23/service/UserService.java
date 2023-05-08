@@ -39,7 +39,11 @@ public class UserService {
     }
 
     public List<User> getUsers() {
-        return this.userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        if (users.isEmpty()) {
+            throw new UserExcep("No users found");
+        }
+        return users;
     }
 
     public User createUser(User newUser) {
@@ -67,9 +71,11 @@ public class UserService {
     }
 
     public void logoutUser(User user){
-        long id = user.getId();
-        User userById = userRepository.getOne(id);
-        userById.setStatus(UserStatus.OFFLINE);
+        User user1 = userRepository.findByUsername(user.getUsername());
+        if (user1==null)
+            throw new EntityNotFoundExcep("user not found", "");
+        user1.setStatus(UserStatus.OFFLINE);
+        userRepository.save(user1);
         userRepository.flush();
     }
 

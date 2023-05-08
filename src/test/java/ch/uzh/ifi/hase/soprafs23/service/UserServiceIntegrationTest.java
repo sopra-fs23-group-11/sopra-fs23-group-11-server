@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs23.service;
 
 import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
+import ch.uzh.ifi.hase.soprafs23.exceptions.UserExcep;
 import ch.uzh.ifi.hase.soprafs23.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,60 +25,63 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 public class UserServiceIntegrationTest {
 
-  @Qualifier("userRepository")
-  @Autowired
-  private UserRepository userRepository;
+    @Qualifier("userRepository")
+    @Autowired
+    private UserRepository userRepository;
 
-  @Autowired
-  private UserService userService;
+    @Autowired
+    private UserService userService;
 
-  @BeforeEach
-  public void setup() {
-    userRepository.deleteAll();
-  }
+    @BeforeEach
+    public void setup() {
+        userRepository.deleteAll();
+    }
 
-  @Test
-  public void createUser_validInputs_success() {
-    // given
-    assertNull(userRepository.findByUsername("testUsername"));
+    @Test
+    public void createUser_validInputs_success() {
+        // given
+        assertNull(userRepository.findByUsername("testUsername"));
 
-    User testUser = new User();
-    //testUser.setUsername("testName");
-    testUser.setUsername("testUsername");
-    testUser.setPassword("***");
+        User testUser = new User();
+        //testUser.setUsername("testName");
+        testUser.setUsername("testUsername");
+        testUser.setPassword("***");
+        testUser.setAvatar("Luna");
 
-    // when
-    User createdUser = userService.createUser(testUser);
+        // when
+        User createdUser = userService.createUser(testUser);
 
-    // then
-    assertEquals(testUser.getId(), createdUser.getId());
-    assertEquals(testUser.getUsername(), createdUser.getUsername());
-    assertEquals(testUser.getUsername(), createdUser.getUsername());
-    assertNotNull(createdUser.getToken());
-    assertEquals(UserStatus.ONLINE, createdUser.getStatus());
-  }
-/*
-  @Test
-  public void createUser_duplicateUsername_throwsException() {
-    assertNull(userRepository.findByUsername("testUsername"));
+        // then
+        assertEquals(testUser.getId(), createdUser.getId());
+        assertEquals(testUser.getUsername(), createdUser.getUsername());
+        assertEquals(testUser.getUsername(), createdUser.getUsername());
+        assertEquals(testUser.getAvatar(), createdUser.getAvatar());
+        assertNotNull(createdUser.getToken());
+        assertEquals(UserStatus.ONLINE, createdUser.getStatus());
+    }
 
-    User testUser = new User();
-    testUser.setUsername("testName");
-    testUser.setUsername("testUsername");
-    User createdUser = userService.createUser(testUser);
+    @Test
+    public void createUser_duplicateUsername_throwsException() {
+        assertNull(userRepository.findByUsername("testUsername"));
 
-    // attempt to create second user with same username
-    User testUser2 = new User();
+        User testUser = new User();
 
-    // change the name but forget about the username
-    testUser2.setUsername("testName2");
-    testUser2.setUsername("testUsername");
+        testUser.setUsername("testUsername");
+        testUser.setPassword("***");
+        testUser.setAvatar("Luna");
+        User createdUser = userService.createUser(testUser);
 
-    // check that an error is thrown
-    assertThrows(ResponseStatusException.class, () -> userService.createUser(testUser2));
-  }
+        // attempt to create second user with same username
+        User testUser2 = new User();
 
- */
+        // change the name but forget about the username
+        testUser2.setUsername("testUsername");
+        testUser2.setPassword("***");
+        testUser2.setAvatar("Luna");
+        // check that an error is thrown
+        assertThrows(UserExcep.class, () -> userService.createUser(testUser2));
+    }
+
 
 }
 

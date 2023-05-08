@@ -46,7 +46,7 @@ public class LobbyService {
         newLobby.setHost(host);
         String lobbyCode;
         do {
-            lobbyCode = UUID.randomUUID().toString().substring(0,5);
+            lobbyCode = UUID.randomUUID().toString().substring(0, 5);
         } while (lobbyRepository.findByLobbyCode(lobbyCode) != null);
         newLobby.setLobbyCode(lobbyCode);
         Lobby lobby = lobbyRepository.save(newLobby);
@@ -58,36 +58,33 @@ public class LobbyService {
     }
 
     public Lobby joinLobby(String lobbyCode, long userId) {
-        System.out.println("service1");
         Lobby lobby = lobbyRepository.findByLobbyCode(lobbyCode);
-        System.out.println("userId = " + userId);
         Optional<User> optionalUser = userRepository.findById(userId);
         if (lobby == null)
             throw new EntityNotFoundExcep("lobby not found", "");
         long hostId = lobby.getHost().getId();
-        System.out.println("service1.2");
         if (optionalUser.isEmpty())
             throw new EntityNotFoundExcep("joiner not found", lobbyCode);
-        System.out.println("service1.3");
         User user = optionalUser.get();
         if (hostId == user.getId())
             throw new PlayerExcep("players should differ", lobbyCode);
-        if (lobby.getJoiner()!=null)
+        if (lobby.getJoiner() != null)
             throw new UserExcep("lobby has a joiner");
         user.setLobbyForJoiner(lobby);
         User newuser = userRepository.save(user);
         lobby.setJoiner(newuser);
         lobbyRepository.save(lobby);
-        System.out.println("service2");
-        //createPlayerEntity(userId);
         return lobby;
 
     }
+
     public Lobby findByLobbyCode(String lobbyCode) {
-        if (lobbyRepository.findByLobbyCode(lobbyCode)==null)
+        Lobby lobby= lobbyRepository.findByLobbyCode(lobbyCode);
+        if (lobby == null)
             throw new EntityNotFoundExcep("lobby not found", lobbyCode);
-        return lobbyRepository.findByLobbyCode(lobbyCode);
+        return lobby;
     }
+
 /*
 
     private void createPlayerEntity(long userId) {

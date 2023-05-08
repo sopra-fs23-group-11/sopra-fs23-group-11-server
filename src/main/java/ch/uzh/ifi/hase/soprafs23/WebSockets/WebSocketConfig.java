@@ -1,4 +1,4 @@
-package ch.uzh.ifi.hase.soprafs23.config;
+package ch.uzh.ifi.hase.soprafs23.WebSockets;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -23,6 +23,5 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.enableSimpleBroker("/chatroom", "/shot", "/errors", "/shot-simple", "/game", "/join", "/startgame", "/ready");
 
     }
-
 
 }

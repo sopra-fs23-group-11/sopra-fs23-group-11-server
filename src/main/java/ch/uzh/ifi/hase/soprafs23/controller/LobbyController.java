@@ -34,17 +34,17 @@ public class LobbyController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public LobbyGetDTO join(@RequestBody LobbyPutDTO lobbyPutDTO) {
-        System.out.println("controller");
         Lobby createdLobby = lobbyService.joinLobby(lobbyPutDTO.getLobbyCode(), lobbyPutDTO.getJoinerId());
         JoinMessage joinMessage = new JoinMessage(createdLobby.getLobbyCode(), createdLobby.getJoiner().getId(), createdLobby.getJoiner().getUsername());
         simpMessagingTemplate.convertAndSend("/join/" + createdLobby.getLobbyCode(), joinMessage);
+        System.out.println(createdLobby.getJoiner().getId());
         return DTOMapper.INSTANCE.convertEntityToLobbyGetDTO(createdLobby);
     }
 
     @GetMapping("/lobbies/{lobbyCode}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public LobbyGetDTO getLobby(@PathVariable("lobbyCode") String lobbyCode){
+    public LobbyGetDTO getLobby(@PathVariable("lobbyCode") String lobbyCode) {
         Lobby foundLobby = lobbyService.findByLobbyCode(lobbyCode);
         return DTOMapper.INSTANCE.convertEntityToLobbyGetDTO(foundLobby);
     }

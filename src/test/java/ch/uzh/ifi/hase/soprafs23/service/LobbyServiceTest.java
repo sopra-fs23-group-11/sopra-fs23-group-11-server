@@ -4,6 +4,8 @@ import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
 import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
+import ch.uzh.ifi.hase.soprafs23.exceptions.PlayerExcep;
+import ch.uzh.ifi.hase.soprafs23.exceptions.UserExcep;
 import ch.uzh.ifi.hase.soprafs23.repository.LobbyRepository;
 import ch.uzh.ifi.hase.soprafs23.repository.UserRepository;
 import org.junit.Ignore;
@@ -41,7 +43,7 @@ public class LobbyServiceTest {
 
         // given
         testCreateLobby = new Lobby();
-        lobbyWithJoiner= new Lobby();
+        lobbyWithJoiner = new Lobby();
         testHost = new User();
         testJoiner = new User();
         testHost.setId(1L);
@@ -90,24 +92,98 @@ public class LobbyServiceTest {
 
     }
 
-    @Ignore
-    public void joinLobby_validInputs_success() {
-        System.out.println("sha3'lee");
-        if (testCreateLobby==null)
-            System.out.println("sha3'leh");
 
-        Lobby createdLobby = lobbyService.joinLobby(testCreateLobby.getLobbyCode(), testJoiner.getId());
+    @Test
+    public void joinLobby_validInputs_success() {
+
         Mockito.when(lobbyRepository.findByLobbyCode(Mockito.anyString())).thenReturn(testCreateLobby);
+        Lobby createdLobby = lobbyService.joinLobby(testCreateLobby.getLobbyCode(), testJoiner.getId());
 
         // then
         Mockito.when(lobbyRepository.save(Mockito.any())).thenReturn(lobbyWithJoiner);
 
         Mockito.verify(lobbyRepository, Mockito.times(1)).save(Mockito.any());
 
-
         assertNotNull(createdLobby.getLobbyCode());
         assertEquals(testHost.getId(), createdLobby.getHost().getId());
         assertEquals(testJoiner.getId(), lobbyWithJoiner.getJoiner().getId());
 
     }
+
+    @Test
+    public void joinLobby_InvalidInputs_LobbyNotFound() {
+        Lobby createdLobby = lobbyService.createLobby(testHost.getId());
+        Mockito.when(lobbyRepository.findByLobbyCode(Mockito.anyString())).thenReturn(null);
+
+        // then
+        Mockito.verify(lobbyRepository, Mockito.times(1)).save(Mockito.any());
+        assertThrows(EntityNotFoundExcep.class, () -> lobbyService.joinLobby(createdLobby.getLobbyCode(), testHost.getId()));
+    }
+
+    @Test
+    public void joinLobby_InvalidInputs_JoinerNotFound() {
+
+        Mockito.when(userRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+        Mockito.when(lobbyRepository.findByLobbyCode(Mockito.anyString())).thenReturn(testCreateLobby);
+
+        Mockito.verify(lobbyRepository, Mockito.never()).save(Mockito.any());
+        //Mockito.verify(lobbyRepository, Mockito.times(1)).save(Mockito.any());
+        assertThrows(EntityNotFoundExcep.class, () -> {
+            lobbyService.joinLobby(testCreateLobby.getLobbyCode(), Mockito.anyLong());
+        });
+
+    }
+
+    @Test
+    public void joinLobby_lobbyHasJoiner_throwsUserExcep() {
+
+        Mockito.when(userRepository.findById(Mockito.anyLong())).thenReturn(Optional.ofNullable(testJoiner));
+        Mockito.when(lobbyRepository.findByLobbyCode(Mockito.anyString())).thenReturn(lobbyWithJoiner);
+
+
+        Mockito.verify(lobbyRepository, Mockito.never()).save(Mockito.any());
+        assertThrows(UserExcep.class, () -> {
+            lobbyService.joinLobby(lobbyWithJoiner.getLobbyCode(), testJoiner.getId());
+        });
+    }
+
+    @Test
+    public void joinLobby_playersShouldDiffer_throwException() {
+        testJoiner.setId(1L);
+        testCreateLobby.setJoiner(null);
+        Mockito.when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(testHost));
+        Mockito.when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(testJoiner));
+        Mockito.when(lobbyRepository.findByLobbyCode(Mockito.anyString())).thenReturn(testCreateLobby);
+
+        Mockito.verify(lobbyRepository, Mockito.never()).save(Mockito.any());
+        assertThrows(PlayerExcep.class, () -> {
+            lobbyService.joinLobby(testCreateLobby.getLobbyCode(), testJoiner.getId());
+        });
+
+
+        //Mockito.verify(lobbyRepository, Mockito.never()).save(Mockito.any());
+    }
+
+    @Test
+    public void findLobbyByCode_ThrowException() {
+
+        Mockito.when(lobbyRepository.findByLobbyCode(Mockito.anyString())).thenReturn(null);
+
+        assertThrows(EntityNotFoundExcep.class, () -> {
+            lobbyService.findByLobbyCode(Mockito.anyString());
+        });
+    }
+
+
+    @Test
+    public void testFindByLobbyCode() {
+
+        Mockito.when(lobbyRepository.findByLobbyCode(Mockito.anyString())).thenReturn(testCreateLobby);
+
+        Lobby foundLobby = lobbyService.findByLobbyCode("***");
+
+        Mockito.verify(lobbyRepository, Mockito.times(1)).findByLobbyCode(Mockito.anyString());
+        assertEquals(foundLobby.getLobbyCode(), testCreateLobby.getLobbyCode());
+    }
+
 }

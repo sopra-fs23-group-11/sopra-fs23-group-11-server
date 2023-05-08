@@ -48,7 +48,6 @@ public class GlobalExceptionAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EntityNotFoundExcep.class)
     @ResponseBody
     public ErrorDTO handleEntityNotFoundException (EntityNotFoundExcep ex) {
-        System.out.println("handler");
         return new ErrorDTO(ex.getMessage());
     }
 

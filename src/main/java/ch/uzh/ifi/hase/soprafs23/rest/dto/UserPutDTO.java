@@ -12,3 +12,5 @@ public class UserPutDTO {
     public void setPassword(String password){this.password = password;}
 
 }
+
+

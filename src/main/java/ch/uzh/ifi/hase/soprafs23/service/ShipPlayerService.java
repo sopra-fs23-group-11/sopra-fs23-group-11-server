@@ -64,8 +64,25 @@ public class ShipPlayerService {
         playerRepository.flush();
         return shipPlayerToSave;
     }
+    public void deleteShip(long shipPlayerId, String gameId) {
+        Optional<ShipPlayer> shipPlayerOptional = shipPlayerRepository.findById(shipPlayerId);
+        if (shipPlayerOptional.isEmpty())
+            throw new EntityNotFoundExcep ("ship-player doesn't exist", gameId);
 
-//F4 gameId + Exception
+        ShipPlayer shipPlayer = shipPlayerOptional.get();
+        Player player = shipPlayer.getPlayer();
+        //Ship ship = shipPlayer.getShip();
+
+        player.getShipPlayers().remove(shipPlayer);
+        playerRepository.save(player);
+        shipPlayerRepository.delete(shipPlayer);
+        shipPlayerRepository.flush();
+        playerRepository.flush();
+        shipRepository.flush();
+    }
+
+
+    //F4 gameId + Exception
     public List<ShipPlayer> getPlayersShip (long playerId){
         Optional<Player> playerOptional= playerRepository.findById(playerId);
         if (playerOptional.isEmpty())

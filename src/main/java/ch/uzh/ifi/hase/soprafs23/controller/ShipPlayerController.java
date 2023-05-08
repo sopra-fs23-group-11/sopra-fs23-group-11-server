@@ -1,9 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
 import ch.uzh.ifi.hase.soprafs23.entity.Player;
-import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
-import ch.uzh.ifi.hase.soprafs23.repository.PlayerRepository;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 //import ch.uzh.ifi.hase.soprafs23.service.PlayerService;
 import ch.uzh.ifi.hase.soprafs23.service.ShipPlayerService;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class ShipPlayerController {
@@ -36,6 +33,13 @@ public class ShipPlayerController {
         shipPlayerService.placeShip(shipPlayerPostDTO.getShipPlayerPlayerId(), shipPlayerPostDTO.getShipPlayerShipId(),
                 shipPlayerPostDTO.getStartPosition(), shipPlayerPostDTO.getEndPosition(), shipPlayerPostDTO.getGameId());
     }
+
+    @PutMapping ("/ships")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseBody
+    public void deleteShip (@RequestBody ShipPlayerPutDTO shipPlayerPutDTO){
+        shipPlayerService.deleteShip(shipPlayerPutDTO.getShipPlayerId(), shipPlayerPutDTO.getGameId());
+    }
     @GetMapping("/shipPlayer/{playerId}")
     @ResponseStatus(HttpStatus.OK)
     public List<ShipPlayerGetDTO> getAllShipsPosition(@PathVariable("playerId") long playerId) {
@@ -46,7 +50,6 @@ public class ShipPlayerController {
         }
         return shipPlayerGetDTOS;
     }
-
 
     @GetMapping("/ships/{id}")
     @ResponseStatus(HttpStatus.OK)

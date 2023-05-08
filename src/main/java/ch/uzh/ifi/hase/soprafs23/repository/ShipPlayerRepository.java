@@ -9,5 +9,6 @@ import java.util.Optional;
 
 public interface ShipPlayerRepository extends JpaRepository<ShipPlayer, Long> {
     List<ShipPlayer> findAllByPlayer(Player player);
+    ShipPlayer findByShipIdAndPlayerId(Long shipId, Long playerId);
 
 }

@@ -86,14 +86,36 @@ public class GameService {
 
     public boolean looserAlert(long defenderId, String gameId){
         Optional<Player> optionalPlayer= playerRepository.findById(defenderId);
-        System.out.println("sha3'le -1");
         if (optionalPlayer.isEmpty())
             throw new EntityNotFoundExcep("player does not exist", gameId);
         Player defender= optionalPlayer.get();
-        System.out.println("defender = " + defender);
         return defender.getShipsRemaining()==0;
     }
 
+//    public boolean hasShipSunk(long defenderId, long shipId) {
+//        Optional<Player> optionalPlayer= playerRepository.findById(defenderId);
+//        if (optionalPlayer.isEmpty())
+//            throw new EntityNotFoundExcep("player does not exist","ID");
+//        Player defender= optionalPlayer.get();
+//        Optional<ShipPlayer> optionalShipPlayer= Optional.ofNullable(shipPlayerRepository.findByShipIdAndPlayerId(shipId, defenderId));
+//        if (optionalShipPlayer==null)
+//            throw new EntityNotFoundExcep("ship not found", "ID");
+//        return optionalShipPlayer.get().getHitParts()==optionalShipPlayer.get().getShip().getLength();
+//
+//    }
+
+    public boolean hasShipSunk(String position, long defenderId) {
+        Optional<Player> optionalPlayer= playerRepository.findById(defenderId);
+        if (optionalPlayer.isEmpty())
+            throw new EntityNotFoundExcep("player does not exist","ID");
+        Player defender= optionalPlayer.get();
+        for (ShipPlayer shipPlayer : defender.getShipPlayers()) {
+            if (Helper.isContained(position, shipPlayer)) {
+                return shipPlayer.getShip().getLength() == shipPlayer.getHitParts();
+            }
+        }
+        return false;
+    }
 
     private ShipPlayer waterORship(String position, Player defender) {
         for (ShipPlayer shipPlayer : defender.getShipPlayers()) {

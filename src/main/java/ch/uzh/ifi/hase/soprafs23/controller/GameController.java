@@ -42,6 +42,10 @@ public class GameController {
         Shot shot=gameService.attack(shotPostDTO.getAttackerId(), shotPostDTO.getDefenderId(), shotPostDTO.getPosOfShot(), shotPostDTO.getGameId());
         ShotMessage shotMessage= DTOMapper.INSTANCE.convertEntityToShotMessage(shot);
         simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() + "/" + shotPostDTO.getDefenderId(), shotMessage);
+        if (gameService.hasShipSunk(shotPostDTO.getPosOfShot(), shotPostDTO.getDefenderId())){
+            SunkMsg sunkMsg= new SunkMsg(shotMessage.getDefenderId());
+            simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() , sunkMsg);
+        }
         if (gameService.looserAlert(shotMessage.getDefenderId(), shotPostDTO.getGameId())) {
             FinishMsg finishMsg = new FinishMsg(shotMessage.getAttackerId(), shotMessage.getDefenderId());
             simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() , finishMsg);

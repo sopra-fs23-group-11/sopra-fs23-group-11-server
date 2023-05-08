@@ -55,10 +55,7 @@ public List<Cell> updateCells(Long ownerId) {
     if (player==null)
         throw new EntityNotFoundExcep("player not found", "ID");
     List<Cell> cells = cellRepository.findAllByOwnerId(ownerId);
-    for(Cell cell:cells){
-        System.out.println(cell.getOccupyingShip());
-        System.out.println(cell.getIsShotAt());
-    }
+
     List<ShipPlayer> ships = shipPlayerRepository.findAllByPlayer(player);
     Hashtable<String, Ship> positions= new Hashtable<>();
     for (ShipPlayer ship:ships){

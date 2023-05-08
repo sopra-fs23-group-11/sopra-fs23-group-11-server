@@ -139,8 +139,8 @@ public class GameService {
         Player player2 = new Player();
         player1.setUser(lobby.getHost());
         player2.setUser(lobby.getJoiner());
-        createCells(1L);
-        createCells(2L);
+        createCells(lobby.getHost().getId());
+        createCells(lobby.getJoiner().getId());
         player2.setGamePlayer2(game);
         player1.setGamePlayer1(game);
         player1.setShipsRemaining(5);

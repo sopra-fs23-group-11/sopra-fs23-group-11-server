@@ -46,6 +46,9 @@ public class CellService {
     public List<Cell> getCells() {
         return this.cellRepository.findAll();
     }
+    public List<Cell> getCellsById(Long id){
+        return this.cellRepository.findAllByOwnerId(id);
+    }
 //F5
 public List<Cell> updateCells(Long ownerId) {
     Player player = playerRepository.getOne(ownerId);

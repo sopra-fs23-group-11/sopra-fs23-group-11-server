@@ -27,7 +27,7 @@ public class CellController {
     @ResponseBody
     public List<CellGetDTO> getCellsFromPlayer(@PathVariable("id") long id) {
         cellService.updateCells(id);
-        List<Cell> cells = cellService.getCells();
+        List<Cell> cells = cellService.getCellsById(id);
         List<CellGetDTO> cellGetDTOs = new ArrayList<>();
 
         // convert each user to the API representation

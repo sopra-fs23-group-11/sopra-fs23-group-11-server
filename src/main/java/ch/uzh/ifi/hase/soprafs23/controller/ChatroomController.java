@@ -1,7 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
 import ch.uzh.ifi.hase.soprafs23.rest.dto.ShotDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.TextMessageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -9,6 +8,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+/*
 
 @Controller
 public class ChatroomController {
@@ -30,6 +30,7 @@ public class ChatroomController {
 
         return shotDTO;
     }
+*/
 
 //    @MessageMapping("/private-message")
 //    public TextMessageDTO recMessage(@Payload TextMessageDTO textMessageDTO) {
@@ -37,4 +38,4 @@ public class ChatroomController {
 //               System.out.println(textMessageDTO.toString());
 //               return textMessageDTO;
 //    }
-}
+//}

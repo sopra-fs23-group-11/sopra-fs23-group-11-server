@@ -1,7 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.rest.dto;
 
-import ch.uzh.ifi.hase.soprafs23.entity.Status;
-
+//import ch.uzh.ifi.hase.soprafs23.entity.Status;
+/*
 public class TextMessageDTO {
     private String message;
     private String receiverName;
@@ -42,3 +42,6 @@ public class TextMessageDTO {
     }
 
 }
+
+
+ */

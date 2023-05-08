@@ -114,7 +114,7 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/24 Display victory message
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/25 Display total wins
 
--Kalil Subaan
+- Kalil Subaan
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/72 Combine websocket connection within the lobby and game
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/32 Refactor setup so that input is done by click instead of text input
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/73 introduce React Context API to store relevant gamestates
@@ -122,3 +122,29 @@
 -Louis Zürcher
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/155 test UserController Class
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/156 test ShipPlayerController Class
+
+-- Contributions Week 5 / 4.5:
+- Qing Dai
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/79 Create a button for user to choose direction of the ships.
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/80 Update the ship positions in the board based on the state value of the "orientation" button
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/82 Remove the direction button when no ships left.
+
+- Kalil Subaan
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/38 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/40
+- Note: Both players are able to see their playing boards with their respective ships
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/19 shots are visible on both player screens
+
+- Nick Schlatter
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/52 Make Avatars selectable; Possible to generate new Avatars.
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/81 Create Profile Page and show selected Aavatar.
+
+-Louis Zürcher
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/171 Create cell class
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/172 Create Cellservice class
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/173 Create CellGetDTO
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/174 Create CellController
+
+-Nazek Olabi
+- [ ] create avatar representation
+- [ ] test lobbyService and and add some integration tests to that

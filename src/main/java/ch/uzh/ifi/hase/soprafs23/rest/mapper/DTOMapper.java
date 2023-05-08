@@ -110,5 +110,16 @@ public interface DTOMapper {
     PlayerGetDTO convertEntityToPlayerGetDTO(Player player);
 
 
+    default CellGetDTO convertEntityToCellGetDTO (Cell cell){
+        CellGetDTO cellGetDTO = new CellGetDTO();
+        cellGetDTO.setOccupyingShip(cell.getOccupyingShip());
+        cellGetDTO.setShotAt(cell.getIsShotAt());
+        cellGetDTO.setId(cell.getId());
+        cellGetDTO.setOwnerId(cell.getOwnerId());
+
+        return cellGetDTO;
+    }
+
+
 
 }

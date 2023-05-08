@@ -11,7 +11,5 @@ public class PlayerExcep extends RuntimeException{
         return gameId;
     }
 
-    public void setGameId(String gameId) {
-        this.gameId = gameId;
-    }
+
 }

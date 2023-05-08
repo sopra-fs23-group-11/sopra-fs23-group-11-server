@@ -41,7 +41,7 @@ public class GameController {
 
         Shot shot=gameService.attack(shotPostDTO.getAttackerId(), shotPostDTO.getDefenderId(), shotPostDTO.getPosOfShot(), shotPostDTO.getGameId());
         ShotMessage shotMessage= DTOMapper.INSTANCE.convertEntityToShotMessage(shot);
-        simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() , shotMessage);
+        simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() + "/" + shotPostDTO.getDefenderId(), shotMessage);
         if (gameService.looserAlert(shotMessage.getDefenderId(), shotPostDTO.getGameId())) {
             FinishMsg finishMsg = new FinishMsg(shotMessage.getAttackerId(), shotMessage.getDefenderId());
             simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() , finishMsg);
@@ -49,10 +49,10 @@ public class GameController {
 
         return shotMessage;
     }
-    @PostMapping("/ready")
-    public void ready (@RequestBody ReadyPostDTO readyPostDTO){
+    @MessageMapping("/ready")
+    public void ready (@Payload ReadyPostDTO readyPostDTO){
         ReadyMsg readyMsg = new ReadyMsg(readyPostDTO.getPlayerId(), readyPostDTO.getPlayerName());
-        simpMessagingTemplate.convertAndSend("/game/" + readyPostDTO.getGameId(), readyMsg);
+        simpMessagingTemplate.convertAndSend("/ready/" + readyPostDTO.getPlayerName(), readyMsg);
 
     }
 

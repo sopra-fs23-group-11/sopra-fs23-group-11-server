@@ -5,6 +5,10 @@ public class ReadyPostDTO {
     private long playerId;
     private String playerName;
 
+
+
+    private String playerBoard;
+
     public String getGameId() {
         return gameId;
     }
@@ -27,5 +31,13 @@ public class ReadyPostDTO {
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
+    }
+
+    public String getPlayerBoard() {
+        return playerBoard;
+    }
+
+    public void setPlayerBoard(String playerBoard) {
+        this.playerBoard = playerBoard;
     }
 }

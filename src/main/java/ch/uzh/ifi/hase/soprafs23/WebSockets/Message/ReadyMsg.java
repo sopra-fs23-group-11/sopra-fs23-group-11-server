@@ -5,9 +5,12 @@ public class ReadyMsg { // after placing ships
     private long playerId;
     private String playerName;
 
-    public ReadyMsg(long playerId, String playerName) {
+    private String playerBoard;
+
+    public ReadyMsg(long playerId, String playerName, String playerBoard) {
         this.playerId = playerId;
         this.playerName = playerName;
+        this.playerBoard = playerBoard;
     }
 
     public String getType() {
@@ -32,5 +35,13 @@ public class ReadyMsg { // after placing ships
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
+    }
+
+    public String getPlayerBoard() {
+        return playerBoard;
+    }
+
+    public void setPlayerBoard(String playerBoard) {
+        this.playerBoard = playerBoard;
     }
 }

@@ -148,3 +148,9 @@
 -Nazek Olabi
 - [ ] create avatar representation
 - [ ] test lobbyService and and add some integration tests to that
+
+-- Contributions Week 6 / 11.5:
+- Qing Dai
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/87 Add background image to each ship and adjust ship box length 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/84 Verify ship positions out of boundary 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/86 Convert console alert to non-interactive alert for ship placements 

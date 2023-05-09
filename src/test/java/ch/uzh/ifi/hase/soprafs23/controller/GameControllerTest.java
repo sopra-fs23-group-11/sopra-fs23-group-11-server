@@ -1,10 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.controller;
 
 import ch.uzh.ifi.hase.soprafs23.WebSockets.Message.ShotMessage;
-import ch.uzh.ifi.hase.soprafs23.entity.Game;
-import ch.uzh.ifi.hase.soprafs23.entity.Lobby;
-import ch.uzh.ifi.hase.soprafs23.entity.Player;
-import ch.uzh.ifi.hase.soprafs23.entity.Shot;
+import ch.uzh.ifi.hase.soprafs23.entity.*;
 import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
 import ch.uzh.ifi.hase.soprafs23.exceptions.PlayerExcep;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.GamePostDTO;
@@ -50,16 +47,22 @@ public class GameControllerTest {
 
     @MockBean
     private SimpMessagingTemplate simpMessagingTemplate;
-//F8
-    @Ignore
+    @Test
     public void testStartGame() throws Exception {
         Game game = new Game();
         game.setId("**");
         Player player1 = new Player();
         player1.setId(1L);
+        User user1=new User();
+        user1.setUsername("Sara");
+        player1.setUser(user1);
         game.setPlayer1(player1);
+
         Player player2 = new Player();
-        player1.setId(2L);
+        User user2=new User();
+        user2.setUsername("Sara2");
+        player2.setUser(user2);
+        player2.setId(2L);
         game.setPlayer2(player2);
 
         GamePostDTO gamePostDTO = new GamePostDTO();

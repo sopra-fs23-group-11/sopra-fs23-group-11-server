@@ -37,34 +37,34 @@ public class GameController {
 
 
     @MessageMapping("/game")
-    public ShotMessage attack(ShotPostDTO shotPostDTO){
+    public ShotMessage attack(ShotPostDTO shotPostDTO) {
 
-        Shot shot=gameService.attack(shotPostDTO.getAttackerId(), shotPostDTO.getDefenderId(), shotPostDTO.getPosOfShot(), shotPostDTO.getGameId());
-        ShotMessage shotMessage= DTOMapper.INSTANCE.convertEntityToShotMessage(shot);
+        Shot shot = gameService.attack(shotPostDTO.getAttackerId(), shotPostDTO.getDefenderId(), shotPostDTO.getPosOfShot(), shotPostDTO.getGameId());
+        ShotMessage shotMessage = DTOMapper.INSTANCE.convertEntityToShotMessage(shot);
         simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() + "/" + shotPostDTO.getDefenderId(), shotMessage);
-        if (gameService.hasShipSunk(shotPostDTO.getPosOfShot(), shotPostDTO.getDefenderId())){
-            SunkMsg sunkMsg= new SunkMsg(shotMessage.getDefenderId());
-            simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() , sunkMsg);
-        }
-        if (gameService.looserAlert(shotMessage.getDefenderId(), shotPostDTO.getGameId())) {
-            FinishMsg finishMsg = new FinishMsg(shotMessage.getAttackerId(), shotMessage.getDefenderId());
-            simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() , finishMsg);
-        }
+//        if (gameService.hasShipSunk(shotPostDTO.getPosOfShot(), shotPostDTO.getDefenderId())) {
+//            SunkMsg sunkMsg = new SunkMsg(shotMessage.getDefenderId());
+//            simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId(), sunkMsg);
+//        }
+//        if (gameService.looserAlert(shotMessage.getDefenderId(), shotPostDTO.getGameId())) {
+//            FinishMsg finishMsg = new FinishMsg(shotMessage.getAttackerId(), shotMessage.getDefenderId());
+//            simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId(), finishMsg);
+//        }
 
         return shotMessage;
     }
+
     @MessageMapping("/ready")
-    public void ready (@Payload ReadyPostDTO readyPostDTO){
+    public void ready(@Payload ReadyPostDTO readyPostDTO) {
         ReadyMsg readyMsg = new ReadyMsg(readyPostDTO.getPlayerId(), readyPostDTO.getPlayerName());
         simpMessagingTemplate.convertAndSend("/ready/" + readyPostDTO.getPlayerName(), readyMsg);
 
     }
 
     @PostMapping("/startgame")
-    public GameGetDTO startGame(@RequestBody GamePostDTO gamePostDTO){
-        System.out.println("gamePostDTO.getLobbyCode() = " + gamePostDTO.getLobbyCode());
+    public GameGetDTO startGame(@RequestBody GamePostDTO gamePostDTO) {
         Game game = gameService.startGame(gamePostDTO.getHostId(), gamePostDTO.getLobbyCode());
-        StartGameMessage startGameMessage= new StartGameMessage(game.getId(), game.getPlayer1().getId(),
+        StartGameMessage startGameMessage = new StartGameMessage(game.getId(), game.getPlayer1().getId(),
                 game.getPlayer2().getId(), game.getPlayer1().getUser().getUsername(), game.getPlayer2().getUser().getUsername());
         simpMessagingTemplate.convertAndSend("/startgame/" + game.getId(), startGameMessage);
         return DTOMapper.INSTANCE.convertEntityToGameGetDTO(game);
@@ -72,22 +72,24 @@ public class GameController {
     }
 
     @MessageExceptionHandler(EntityNotFoundExcep.class)
-    public void handleEntityNotFoundExcep(EntityNotFoundExcep excep){
+    public void handleEntityNotFoundExcep(EntityNotFoundExcep excep) {
         //ErrorDTO errorDTO= new ErrorDTO(excep.getMessage());
-        ErrorMsg errorMsg= new ErrorMsg(excep.getMessage());
+        ErrorMsg errorMsg = new ErrorMsg(excep.getMessage());
         simpMessagingTemplate.convertAndSend("/game/" + excep.getGameId(), errorMsg);
 
     }
+
     @MessageExceptionHandler(PositionExcep.class)
-    public void handlePositionExcep(PositionExcep excep){
+    public void handlePositionExcep(PositionExcep excep) {
         //ErrorDTO errorDTO= new ErrorDTO(excep.getMessage());
-        ErrorMsg errorMsg= new ErrorMsg(excep.getMessage());
+        ErrorMsg errorMsg = new ErrorMsg(excep.getMessage());
         simpMessagingTemplate.convertAndSend("/game/" + excep.getGameId(), errorMsg);
 
     }
+
     @MessageExceptionHandler(PlayerExcep.class)
-    public void handlePlayerExcep(PlayerExcep excep){
-        ErrorMsg errorMsg= new ErrorMsg(excep.getMessage());
+    public void handlePlayerExcep(PlayerExcep excep) {
+        ErrorMsg errorMsg = new ErrorMsg(excep.getMessage());
         simpMessagingTemplate.convertAndSend("/game/" + excep.getGameId(), errorMsg);
     }
 }

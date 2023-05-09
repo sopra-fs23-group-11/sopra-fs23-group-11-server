@@ -106,7 +106,6 @@ public class UserControllerTest {
 
     }
 
-    //F1 why is conflict / notfound
     @Test
     public void givenNoUsers_whenGetUsers_ThrowExcep() throws Exception {
 
@@ -240,15 +239,12 @@ public class UserControllerTest {
                 .andExpect(status().isConflict());
     }
 
-//F2 with/without user
+
     @Test
     public void logoutTest() throws Exception {
-        User user = new User();
-        user.setUsername("Sara");
-        user.setPassword("***");
 
         UserPutDTO userPutDTO = new UserPutDTO();
-        userPutDTO.setPassword("***");
+        //userPutDTO.setPassword("***");
         userPutDTO.setUsername("Sara");
 
         MockHttpServletRequestBuilder putRequest = put("/users/logout").contentType(MediaType.APPLICATION_JSON).content(asJsonString(userPutDTO));
@@ -259,38 +255,30 @@ public class UserControllerTest {
     }
 
     @Test
-    //F3
+
     public void AuthenticationTest() throws Exception {
-        User user = new User();
-        user.setUsername("Sara");
-        user.setPassword("***");
-        user.setToken("random");
+
 
         UserPutDTO userPutDTO = new UserPutDTO();
         userPutDTO.setPassword("***");
         userPutDTO.setUsername("Sara");
 
-        given(userService.checkAuth(user)).willReturn(true);
+        given(userService.checkAuth(Mockito.any())).willReturn(true);
         MockHttpServletRequestBuilder putRequest = put("/users/auth").contentType(MediaType.APPLICATION_JSON).content(asJsonString(userPutDTO));
 
         mockMvc.perform(putRequest)
-                .andExpect(status().isConflict()); //???
+                .andExpect(status().isAccepted());
 
     }
 
-    //F4
     @Test
     public void AuthenticationTestWithException() throws Exception {
-        User user = new User();
-        user.setUsername("Sara");
-        user.setPassword("***");
-        user.setToken("random");
 
         UserPutDTO userPutDTO = new UserPutDTO();
         userPutDTO.setPassword("***");
         userPutDTO.setUsername("Sara");
 
-        given(userService.checkAuth(user)).willThrow(new UserExcep("user cannot perform that"));
+        given(userService.checkAuth(Mockito.any())).willReturn(false);
         MockHttpServletRequestBuilder putRequest = put("/users/auth").contentType(MediaType.APPLICATION_JSON).content(asJsonString(userPutDTO));
 
         mockMvc.perform(putRequest)

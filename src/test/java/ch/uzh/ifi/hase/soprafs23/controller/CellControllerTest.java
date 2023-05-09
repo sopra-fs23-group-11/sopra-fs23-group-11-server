@@ -3,6 +3,7 @@ import ch.uzh.ifi.hase.soprafs23.entity.Cell;
 import ch.uzh.ifi.hase.soprafs23.entity.User;
 import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
 import ch.uzh.ifi.hase.soprafs23.rest.dto.CellGetDTO;
+import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.service.CellService;
 import ch.uzh.ifi.hase.soprafs23.service.GameService;
 import ch.uzh.ifi.hase.soprafs23.service.ShipPlayerService;
@@ -56,38 +57,32 @@ public class CellControllerTest {
 
 
 
-    //F6
+
     @Test
     public void getCellsTest_InValidInput() throws Exception {
-        List<Cell> cells= new ArrayList<>();
-        Cell cell= new Cell();
-        cell.setOccupyingShip(null);
-        cell.setId("A1");
-        cell.setIsShotAt(false);
-        cells.add(cell);
 
-        given(cellService.getCells()).willThrow(new EntityNotFoundExcep("Player not found","ID"));
+
+        given(cellService.getCellsById(anyLong())).willThrow(new EntityNotFoundExcep("Player not found","ID"));
         MockHttpServletRequestBuilder getRequest = get("/players/1/cells");
         mockMvc.perform(getRequest)
                 .andExpect(status().isNotFound());
     }
-//F7
+
     @Test
     public void getCellsTest_ValidInput() throws Exception {
         List<Cell> cells= new ArrayList<>();
         Cell cell= new Cell();
+        cell.setOwnerId(1L);
         cell.setOccupyingShip(null);
         cell.setId("A1");
         cell.setIsShotAt(false);
         cells.add(cell);
 
         List<CellGetDTO> cellGetDTOS=new ArrayList<>();
-        CellGetDTO cellGetDTO=new CellGetDTO();
-        cellGetDTO.setOwnerId(1L);
-        cellGetDTO.setShotAt(false);
-        cellGetDTO.setOccupyingShip(null);
+        CellGetDTO cellGetDTO= DTOMapper.INSTANCE.convertEntityToCellGetDTO(cell);
+        cellGetDTOS.add(cellGetDTO);
 
-        given(cellService.getCells()).willReturn(cells);
+        given(cellService.getCellsById(1L)).willReturn(cells);
 
         MockHttpServletRequestBuilder getRequest = get("/players/1/cells");
         mockMvc.perform(getRequest)

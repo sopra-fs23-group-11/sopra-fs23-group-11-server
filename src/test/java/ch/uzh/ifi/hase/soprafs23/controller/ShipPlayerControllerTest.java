@@ -9,10 +9,7 @@ import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
 import ch.uzh.ifi.hase.soprafs23.exceptions.PositionExcep;
 import ch.uzh.ifi.hase.soprafs23.repository.PlayerRepository;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.ShipPlayerGetDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.ShipPlayerPostDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPostDTO;
-import ch.uzh.ifi.hase.soprafs23.rest.dto.UserPutDTO;
+import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
 import ch.uzh.ifi.hase.soprafs23.service.GameService;
 //import ch.uzh.ifi.hase.soprafs23.service.PlayerService;
 import ch.uzh.ifi.hase.soprafs23.service.ShipPlayerService;
@@ -53,11 +50,9 @@ import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.mockito.Mockito.*;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -161,7 +156,7 @@ public class ShipPlayerControllerTest {
         shipPlayers.add(shipPlayer);
 
         given(shipPlayerService.getPlayersShip(Mockito.anyLong())).willReturn(shipPlayers);
-//ToDo: see gets
+
 
         MockHttpServletRequestBuilder getRequest = get("/shipPlayer/1");
 
@@ -174,6 +169,38 @@ public class ShipPlayerControllerTest {
 
     }
 
+    @Test
+    public void deleteShipTest() throws Exception {
+        ShipPlayerPutDTO shipPlayerPutDTO = new ShipPlayerPutDTO();
+        shipPlayerPutDTO.setShipPlayerId(1L);
+        shipPlayerPutDTO.setGameId("***");
+
+        MockHttpServletRequestBuilder deleteRequest = delete("/ships")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(shipPlayerPutDTO));
+
+        mockMvc.perform(deleteRequest)
+                .andExpect(status().isNoContent());
+
+        verify(shipPlayerService, times(1)).deleteShip(Mockito.anyLong(), Mockito.anyString());
+        //given(shipPlayerService.deleteShip(Mockito.anyLong(), Mockito.anyString())).willThrow(new EntityNotFoundExcep("player not found", "ID"));
+    }
+
+    @Test
+    public void deleteShipTestThrowException() throws Exception {
+        ShipPlayerPutDTO shipPlayerPutDTO = new ShipPlayerPutDTO();
+        shipPlayerPutDTO.setShipPlayerId(1L);
+        shipPlayerPutDTO.setGameId("***");
+
+        doThrow(new EntityNotFoundExcep("player not found", "ID")).when(shipPlayerService).deleteShip(Mockito.anyLong(), Mockito.anyString());
+        MockHttpServletRequestBuilder deleteRequest = delete("/ships")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(shipPlayerPutDTO));
+
+        mockMvc.perform(deleteRequest)
+                .andExpect(status().isNotFound());
+
+    }
 
     @Test
     public void getShipsOfPlayerEntityNotFound() throws Exception {
@@ -188,44 +215,6 @@ public class ShipPlayerControllerTest {
         mockMvc.perform(getRequest)
                 .andExpect(status().isNotFound());
     }
-
-    @Test
-    public void getShipValidInput_returnsShip() throws Exception {
-        Ship ship = new Ship();
-        ship.setLength(2);
-        ship.setType("HandsomeBoi");
-        ship.setId(1L);
-
-        Player player = new Player();
-        player.setId(1L);
-        player.setShipsRemaining(1);
-
-        ShipPlayer shipPlayer = new ShipPlayer();
-        shipPlayer.setStartPosition("a");
-        shipPlayer.setEndPosition("b");
-        shipPlayer.setPlayer(player);
-        shipPlayer.setShip(ship);
-
-
-        // this mocks the UserService -> we define above what the userService should
-        // return when getUsers() is called
-        given(shipPlayerService.getPlayerById(1L)).willReturn(player);
-        // when
-        MockHttpServletRequestBuilder getRequest = get("/ships/1")
-                .contentType(MediaType.APPLICATION_JSON);
-
-        // then
-        mockMvc.perform(getRequest).andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(1)));
-    }
-
-    @Test
-    public void getShipsInvalidInput() throws Exception {
-        given(shipPlayerService.getPlayerById(1L)).willThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
-        MockHttpServletRequestBuilder getRequest = get("/ships/1").contentType(MediaType.APPLICATION_JSON);
-        mockMvc.perform(getRequest).andExpect(status().isNotFound());
-    }
-
 
     private String asJsonString(final Object object) {
         try {

@@ -42,14 +42,14 @@ public class CellService {
         this.shotRepository = shotRepository;
         this.playerRepository = playerRepository;
     }
-
-    public List<Cell> getCells() {
-        return this.cellRepository.findAll();
-    }
+//
+//    public List<Cell> getCells() {
+//        return this.cellRepository.findAll();
+//    }
     public List<Cell> getCellsById(Long id){
         return this.cellRepository.findAllByOwnerId(id);
     }
-//F5
+
 public List<Cell> updateCells(Long ownerId) {
     Player player = playerRepository.getOne(ownerId);
     if (player==null)
@@ -99,7 +99,7 @@ public List<Cell> updateCells(Long ownerId) {
 
         cellRepository.flush();
     }
-    return getCells();
+    return getCellsById(ownerId);
 }
 
     public String getCharForNumber(int i) {

@@ -34,8 +34,8 @@ public class ShipPlayerController {
                 shipPlayerPostDTO.getStartPosition(), shipPlayerPostDTO.getEndPosition(), shipPlayerPostDTO.getGameId());
     }
 
-    @PutMapping ("/ships")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @DeleteMapping  ("/ships")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody
     public void deleteShip (@RequestBody ShipPlayerPutDTO shipPlayerPutDTO){
         shipPlayerService.deleteShip(shipPlayerPutDTO.getShipPlayerId(), shipPlayerPutDTO.getGameId());
@@ -50,14 +50,14 @@ public class ShipPlayerController {
         }
         return shipPlayerGetDTOS;
     }
-
-    @GetMapping("/ships/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public PlayerGetDTO playerShips(@PathVariable("id") long id){
-        Player player = shipPlayerService.getPlayerById(id);
-        return DTOMapper.INSTANCE.convertEntityToPlayerGetDTO(player);
-    }
+//
+//    @GetMapping("/ships/{id}")
+//    @ResponseStatus(HttpStatus.OK)
+//    @ResponseBody
+//    public PlayerGetDTO playerShips(@PathVariable("id") long id){
+//        Player player = shipPlayerService.getPlayerById(id);
+//        return DTOMapper.INSTANCE.convertEntityToPlayerGetDTO(player);
+//    }
 
 
 

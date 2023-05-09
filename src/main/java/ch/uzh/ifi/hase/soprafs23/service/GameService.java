@@ -1,5 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.service;
 
+import ch.uzh.ifi.hase.soprafs23.WebSockets.Message.FinishMsg;
+import ch.uzh.ifi.hase.soprafs23.WebSockets.Message.SunkMsg;
 import ch.uzh.ifi.hase.soprafs23.entity.*;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
@@ -7,6 +9,7 @@ import ch.uzh.ifi.hase.soprafs23.exceptions.PlayerExcep;
 import ch.uzh.ifi.hase.soprafs23.exceptions.PositionExcep;
 import ch.uzh.ifi.hase.soprafs23.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,9 +25,10 @@ public class GameService {
     private final GameRepository gameRepository;
     private final UserRepository userRepository;
     private final CellRepository cellRepository;
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
     @Autowired
-    public GameService(CellRepository cellRepository,PlayerRepository playerRepository, ShotRepository shotRepository, ShipPlayerRepository shipPlayerRepository, ShipRepository shipRepository, LobbyRepository lobbyRepository, GameRepository gameRepository,  UserRepository userRepository) {
+    public GameService(CellRepository cellRepository, PlayerRepository playerRepository, ShotRepository shotRepository, ShipPlayerRepository shipPlayerRepository, ShipRepository shipRepository, LobbyRepository lobbyRepository, GameRepository gameRepository, UserRepository userRepository, SimpMessagingTemplate simpMessagingTemplate) {
         this.playerRepository = playerRepository;
         this.shotRepository = shotRepository;
         this.shipPlayerRepository = shipPlayerRepository;
@@ -33,6 +37,7 @@ public class GameService {
         this.gameRepository = gameRepository;
         this.userRepository= userRepository;
         this.cellRepository= cellRepository;
+        this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
     public Shot attack(long attackerId, long defenderId, String posOfShot, String gameId) { //flush
@@ -54,6 +59,8 @@ public class GameService {
             ship_hit.setHitParts(ship_hit.getHitParts() + 1);
             if (ship_hit.getHitParts() == ship_hit.getShip().getLength()) {
                 ship_hit.setSunk(true);
+                SunkMsg sunkMsg = new SunkMsg(defenderId, ship_hit.getShip().getId(),ship_hit.getShip().getType());
+                simpMessagingTemplate.convertAndSend("/game/" + gameId, sunkMsg);
                 defender.get().setShipsRemaining(defender.get().getShipsRemaining() -1 );
                 playerRepository.save(defender.get());
             }
@@ -68,6 +75,8 @@ public class GameService {
         shotPosition.setPosition(posOfShot);
         shotRepository.save(shotPosition);
         if(looserAlert(defenderId, gameId)){
+            FinishMsg finishMsg = new FinishMsg(attackerId, defenderId);
+            simpMessagingTemplate.convertAndSend("/game/" + gameId, finishMsg);
             attacker.get().getUser().setTotalWins(attacker.get().getUser().getTotalWins() +1);
             userRepository.save(attacker.get().getUser());
         }
@@ -90,31 +99,6 @@ public class GameService {
             throw new EntityNotFoundExcep("player does not exist", gameId);
         Player defender= optionalPlayer.get();
         return defender.getShipsRemaining()==0;
-    }
-
-//    public boolean hasShipSunk(long defenderId, long shipId) {
-//        Optional<Player> optionalPlayer= playerRepository.findById(defenderId);
-//        if (optionalPlayer.isEmpty())
-//            throw new EntityNotFoundExcep("player does not exist","ID");
-//        Player defender= optionalPlayer.get();
-//        Optional<ShipPlayer> optionalShipPlayer= Optional.ofNullable(shipPlayerRepository.findByShipIdAndPlayerId(shipId, defenderId));
-//        if (optionalShipPlayer==null)
-//            throw new EntityNotFoundExcep("ship not found", "ID");
-//        return optionalShipPlayer.get().getHitParts()==optionalShipPlayer.get().getShip().getLength();
-//
-//    }
-
-    public boolean hasShipSunk(String position, long defenderId) {
-        Optional<Player> optionalPlayer= playerRepository.findById(defenderId);
-        if (optionalPlayer.isEmpty())
-            throw new EntityNotFoundExcep("player does not exist","ID");
-        Player defender= optionalPlayer.get();
-        for (ShipPlayer shipPlayer : defender.getShipPlayers()) {
-            if (Helper.isContained(position, shipPlayer)) {
-                return shipPlayer.getShip().getLength() == shipPlayer.getHitParts();
-            }
-        }
-        return false;
     }
 
     private ShipPlayer waterORship(String position, Player defender) {

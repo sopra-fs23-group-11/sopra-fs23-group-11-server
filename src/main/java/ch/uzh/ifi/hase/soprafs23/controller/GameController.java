@@ -44,7 +44,7 @@ public class GameController {
         simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() + "/" + shotPostDTO.getDefenderId(), shotMessage);
         if (gameService.hasShipSunk(shotPostDTO.getPosOfShot(), shotPostDTO.getDefenderId())){
             SunkMsg sunkMsg= new SunkMsg(shotMessage.getDefenderId());
-            simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() , sunkMsg);
+            simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() + "/sunk" , sunkMsg);
         }
         if (gameService.looserAlert(shotMessage.getDefenderId(), shotPostDTO.getGameId())) {
             FinishMsg finishMsg = new FinishMsg(shotMessage.getAttackerId(), shotMessage.getDefenderId());
@@ -55,7 +55,7 @@ public class GameController {
     }
     @MessageMapping("/ready")
     public void ready (@Payload ReadyPostDTO readyPostDTO){
-        ReadyMsg readyMsg = new ReadyMsg(readyPostDTO.getPlayerId(), readyPostDTO.getPlayerName());
+        ReadyMsg readyMsg = new ReadyMsg(readyPostDTO.getPlayerId(), readyPostDTO.getPlayerName(), readyPostDTO.getPlayerBoard());
         simpMessagingTemplate.convertAndSend("/ready/" + readyPostDTO.getPlayerName(), readyMsg);
 
     }

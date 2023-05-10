@@ -162,3 +162,7 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/155 add the missing rest-tests
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/182 cellControllerTest
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/183 startgametest
+
+- Louis Zürcher
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/85 Create Avatars with DiceBear API
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/88 Redirect players when all ships are sunk

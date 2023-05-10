@@ -166,3 +166,9 @@
 - Louis Zürcher
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/85 Create Avatars with DiceBear API
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/88 Redirect players when all ships are sunk
+
+Nick Schlatter
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/83 Added sound effect for placing ships
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/48 Added sound effect for hits
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/49 Added sound effect for misses
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/50 Added sound effect for sinking ships

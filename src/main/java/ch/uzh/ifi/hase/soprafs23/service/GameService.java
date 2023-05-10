@@ -76,7 +76,7 @@ public class GameService {
         shotRepository.save(shotPosition);
         if(looserAlert(defenderId, gameId)){
             FinishMsg finishMsg = new FinishMsg(attackerId, defenderId);
-            simpMessagingTemplate.convertAndSend("/game/" + gameId, finishMsg);
+            simpMessagingTemplate.convertAndSend("/game/" + gameId+"/finish", finishMsg);
             attacker.get().getUser().setTotalWins(attacker.get().getUser().getTotalWins() +1);
             userRepository.save(attacker.get().getUser());
         }

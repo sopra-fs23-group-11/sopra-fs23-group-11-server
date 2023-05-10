@@ -9,13 +9,9 @@ import ch.uzh.ifi.hase.soprafs23.exceptions.PositionExcep;
 import ch.uzh.ifi.hase.soprafs23.repository.PlayerRepository;
 import ch.uzh.ifi.hase.soprafs23.repository.ShipPlayerRepository;
 import ch.uzh.ifi.hase.soprafs23.repository.ShipRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +19,7 @@ import java.util.Optional;
 @Service
 @Transactional
 public class ShipPlayerService {
-    private final Logger log = LoggerFactory.getLogger(UserService.class);
+
     private final ShipPlayerRepository shipPlayerRepository;
     private final ShipRepository shipRepository;
     private final PlayerRepository playerRepository;
@@ -40,7 +36,6 @@ public class ShipPlayerService {
 
 
     public ShipPlayer placeShip(long playerId, long shipId, String startPosition, String endPosition, String gameId) {
-        String baseErrorMessage = "Ship can't be placed: %s";
         Optional<Ship> shipOptional = shipRepository.findById(shipId);
         Optional<Player> playerOptional = playerRepository.findById(playerId);
         if (shipOptional.isEmpty())

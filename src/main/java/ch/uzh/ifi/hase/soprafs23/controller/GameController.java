@@ -1,7 +1,6 @@
 
 package ch.uzh.ifi.hase.soprafs23.controller;
 
-
 import ch.uzh.ifi.hase.soprafs23.WebSockets.Message.*;
 import ch.uzh.ifi.hase.soprafs23.entity.Game;
 import ch.uzh.ifi.hase.soprafs23.entity.Shot;
@@ -12,15 +11,12 @@ import ch.uzh.ifi.hase.soprafs23.rest.dto.*;
 import ch.uzh.ifi.hase.soprafs23.rest.mapper.DTOMapper;
 import ch.uzh.ifi.hase.soprafs23.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
-import org.springframework.http.HttpStatus;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -42,14 +38,6 @@ public class GameController {
         Shot shot = gameService.attack(shotPostDTO.getAttackerId(), shotPostDTO.getDefenderId(), shotPostDTO.getPosOfShot(), shotPostDTO.getGameId());
         ShotMessage shotMessage = DTOMapper.INSTANCE.convertEntityToShotMessage(shot);
         simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId() + "/" + shotPostDTO.getDefenderId(), shotMessage);
-//        if (gameService.hasShipSunk(shotPostDTO.getPosOfShot(), shotPostDTO.getDefenderId())) {
-//            SunkMsg sunkMsg = new SunkMsg(shotMessage.getDefenderId());
-//            simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId(), sunkMsg);
-//        }
-//        if (gameService.looserAlert(shotMessage.getDefenderId(), shotPostDTO.getGameId())) {
-//            FinishMsg finishMsg = new FinishMsg(shotMessage.getAttackerId(), shotMessage.getDefenderId());
-//            simpMessagingTemplate.convertAndSend("/game/" + shotPostDTO.getGameId(), finishMsg);
-//        }
 
         return shotMessage;
     }
@@ -73,7 +61,6 @@ public class GameController {
 
     @MessageExceptionHandler(EntityNotFoundExcep.class)
     public void handleEntityNotFoundExcep(EntityNotFoundExcep excep) {
-        //ErrorDTO errorDTO= new ErrorDTO(excep.getMessage());
         ErrorMsg errorMsg = new ErrorMsg(excep.getMessage());
         simpMessagingTemplate.convertAndSend("/game/" + excep.getGameId(), errorMsg);
 
@@ -81,7 +68,6 @@ public class GameController {
 
     @MessageExceptionHandler(PositionExcep.class)
     public void handlePositionExcep(PositionExcep excep) {
-        //ErrorDTO errorDTO= new ErrorDTO(excep.getMessage());
         ErrorMsg errorMsg = new ErrorMsg(excep.getMessage());
         simpMessagingTemplate.convertAndSend("/game/" + excep.getGameId(), errorMsg);
 

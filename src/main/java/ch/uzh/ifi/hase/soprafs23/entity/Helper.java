@@ -1,11 +1,8 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
 import ch.uzh.ifi.hase.soprafs23.entity.ships.Position;
-import ch.uzh.ifi.hase.soprafs23.entity.ships.Ship;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
-import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
-
 import java.util.*;
 
 @Component
@@ -15,14 +12,13 @@ public class Helper {
 
     public static boolean isValidPosition(String start, String end) {
         if (start.length() > 2 || end.length() > 2) {
-            System.out.println("Invalid position format! Start&End length should be 2, like 'A2'");
             return false;
         }
         if (start.charAt(0) >= 'A' && start.charAt(0) <= 'Z' && end.charAt(0) >= 'A' && end.charAt(0) <= 'Z' &&
                 numbers.contains(start.charAt(1)) && numbers.contains(end.charAt(1))) {
             return true;
         }
-        System.out.println("Invalid position format! Start End should be correct!");
+
         return false;
     }
 
@@ -32,8 +28,8 @@ public class Helper {
     }
 
     public static boolean isValidAttackPosition(Position pos) {
-        if (pos.length() > 2 ) {
-            System.out.println("Limit the input length to 2, like 'A2'");
+        if (pos.length() > 2) {
+
             return false;
         }
         if (pos.getX() == 99 || pos.getY() == 99) {
@@ -48,15 +44,14 @@ public class Helper {
         Position end = new Position(shipPlayer.getEndPosition());
 
         int length = 0;
-        if (start.getX() == end.getX()) {// horizontal ship
+        if (start.getX() == end.getX()) {
             length = Math.abs(start.getY() - end.getY());
         }
-        else { // vertical ship
+        else {
             length = Math.abs(start.getX() - end.getX());
         }
 
         if (length != shipPlayer.getShip().getLength() - 1) {
-            System.out.println("Invalid positions for a " + shipPlayer.getShip().getType());
             return false;
         }
         return true;
@@ -93,7 +88,7 @@ public class Helper {
             return false;
         }
         for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) == ',' & i != 2) {
+            if (input.charAt(i) == ',' && i != 2) {
                 return false;
             }
         }

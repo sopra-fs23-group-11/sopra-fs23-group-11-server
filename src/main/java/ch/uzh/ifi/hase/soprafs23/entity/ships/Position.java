@@ -18,13 +18,13 @@ public class Position {
     public void setY(int y) {
         this.y = y;
     }
-
-    public Position(int x, int y) { // Position p = new Position(2,2);
+    // Position p = new Position(2,2);
+    public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }
-
-    public Position(String str) { // Position p = new Position("C2");
+    // Position p = new Position("C2");
+    public Position(String str) {
         if (str.length()!=2){
             this.x=99;
             this.y=99;

@@ -3,8 +3,7 @@ package ch.uzh.ifi.hase.soprafs23.entity.ships;
 import javax.persistence.*;
 import java.util.List;
 
-/*To avoid redundancy we will join the information of player & ships using ShipPlayer
- * The initial values of the ships will be created using data.sql*/
+
 @Entity
 @Table(name = "ships")
 public class Ship {
@@ -19,35 +18,22 @@ public class Ship {
     @OneToMany(mappedBy = "ship")
     private List<ShipPlayer> shipPlayers;
 
-    public Ship(){} // This is needed bcs of an caused error --> pls don't delete it.
+    public Ship() {
+    }
+
     public Ship(Long id, int length, String type) {
         this.id = id;
         this.length = length;
         this.type = type;
     }
 
-/*
-    private boolean isSunk;
-
-    @ManyToOne
-    public Player player;
-
-
-    public boolean isSunk() {
-        return isSunk;
-    }
-
-    public void setSunk(boolean sunk) {
-        isSunk = sunk;
-    }
-
-    } */
-
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id){this.id = id;}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getType() {
         return type;
@@ -72,34 +58,11 @@ public class Ship {
     public void setShipPlayers(List<ShipPlayer> shipPlayers) {
         this.shipPlayers = shipPlayers;
     }
-    /*
-    public Player getPlayer() {
-        return player;
-    }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public boolean hit(){
-        return false;
-    }
-    public boolean IsSunk(){
-        return false;
-    }*/
 
     public void decrementSize() {
         this.length -= 1;
     }
 
-    /*
-    public Position[] getPosition() {
-        return position;
-    }
 
-    public void setPosition(Position[] position) {
-        this.position = position;
-    }
-
-     */
 }

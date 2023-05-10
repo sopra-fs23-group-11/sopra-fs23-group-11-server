@@ -63,23 +63,12 @@ public class Player {
         this.user = user;
     }
 
-    /*
-    public Game getGamePlayer1() {
 
-        return gamePlayer1;
-    }
-
-     */
 
     public void setGamePlayer1(Game gamePlayer1) {
         this.gamePlayer1 = gamePlayer1;
     }
-/*
-    public Game getGamePlayer2() {
-        return gamePlayer2;
-    }
 
- */
     public Game getGame(){
         if (gamePlayer1!=null){
             return gamePlayer1;

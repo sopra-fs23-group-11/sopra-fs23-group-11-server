@@ -1,7 +1,7 @@
 package ch.uzh.ifi.hase.soprafs23.entity;
 
 import javax.persistence.*;
-import java.util.List;
+
 @Entity
 @Table(name = "Lobby")
 public class Lobby {

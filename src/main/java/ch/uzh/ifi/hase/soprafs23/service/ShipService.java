@@ -1,3 +1,5 @@
+
+/*
 package ch.uzh.ifi.hase.soprafs23.service;
 
 import ch.uzh.ifi.hase.soprafs23.repository.ShipRepository;
@@ -16,3 +18,5 @@ public class ShipService {
         this.shipRepository = shipRepository;
     }
 }
+
+ */

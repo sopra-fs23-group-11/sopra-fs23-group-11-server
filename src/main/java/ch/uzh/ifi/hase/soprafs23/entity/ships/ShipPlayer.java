@@ -33,7 +33,6 @@ public class ShipPlayer {
 
     @Column
     private int hitParts=0;
-
     public ShipPlayer(){}
 
     public Long getId() {

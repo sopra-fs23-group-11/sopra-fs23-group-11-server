@@ -23,21 +23,8 @@ import org.mapstruct.factory.Mappers;
 public interface DTOMapper {
 
     DTOMapper INSTANCE = Mappers.getMapper(DTOMapper.class);
-/*
-    @Mapping(source = "ship", target = "ship")
-    @Mapping(source = "player", target = "player")
-    @Mapping(source = "shipPlayerShipId", target = "shipPlayerShipId")
-    @Mapping(source = "shipPlayerPlayerId", target = "shipPlayerPlayerId")
-    @Mapping(source = "startPosition", target = "startPosition")
-    @Mapping(source = "endPosition", target = "endPosition")
-    ShipPlayer convertShipPlayerPostDTOtoEntity(ShipPlayerPostDTO shipPlayerPostDTO);
 
- */
 
-    //@Mapping(source = "ship", target = "ship")
-    //@Mapping(source = "player", target = "player")
-//    @Mapping(source = "startPosition", target = "startPosition")
-//    @Mapping(source = "endPosition", target = "endPosition")
     default ShipPlayerGetDTO convertEntityToShipPlayerGetDTO(ShipPlayer shipPlayer){
         ShipPlayerGetDTO shipPlayerGetDTO= new ShipPlayerGetDTO();
         shipPlayerGetDTO.setId(shipPlayer.getId());
@@ -81,8 +68,6 @@ public interface DTOMapper {
         return shotMessage;
     }
 
-    //@Mapping(source = "hostId", target = "hostId")
-    //Lobby convertLobbyPostDTOtoEntity(LobbyPostDTO lobbyPostDTO);
 
     @Mapping(source = "password", target = "password")
     @Mapping(source = "username", target = "username")

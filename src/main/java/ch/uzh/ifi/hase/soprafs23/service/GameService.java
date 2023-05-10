@@ -20,7 +20,6 @@ public class GameService {
     private final PlayerRepository playerRepository;
     private final ShotRepository shotRepository;
     private final ShipPlayerRepository shipPlayerRepository;
-    private final ShipRepository shipRepository;
     private final LobbyRepository lobbyRepository;
     private final GameRepository gameRepository;
     private final UserRepository userRepository;
@@ -28,11 +27,10 @@ public class GameService {
     private final SimpMessagingTemplate simpMessagingTemplate;
 
     @Autowired
-    public GameService(CellRepository cellRepository, PlayerRepository playerRepository, ShotRepository shotRepository, ShipPlayerRepository shipPlayerRepository, ShipRepository shipRepository, LobbyRepository lobbyRepository, GameRepository gameRepository, UserRepository userRepository, SimpMessagingTemplate simpMessagingTemplate) {
+    public GameService(CellRepository cellRepository, PlayerRepository playerRepository, ShotRepository shotRepository, ShipPlayerRepository shipPlayerRepository,  LobbyRepository lobbyRepository, GameRepository gameRepository, UserRepository userRepository, SimpMessagingTemplate simpMessagingTemplate) {
         this.playerRepository = playerRepository;
         this.shotRepository = shotRepository;
         this.shipPlayerRepository = shipPlayerRepository;
-        this.shipRepository = shipRepository;
         this.lobbyRepository = lobbyRepository;
         this.gameRepository = gameRepository;
         this.userRepository= userRepository;

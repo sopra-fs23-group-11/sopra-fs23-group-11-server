@@ -1,8 +1,5 @@
 package ch.uzh.ifi.hase.soprafs23.rest.dto;
-
 import ch.uzh.ifi.hase.soprafs23.constant.UserStatus;
-
-import java.util.Date;
 
 public class UserGetDTO {
 
@@ -16,7 +13,7 @@ public class UserGetDTO {
     public void setTotalWins(int totalWins){this.totalWins = totalWins;}
     public int getTotalWins(){return totalWins;}
 
-    public void setToken(String token){this.token = token;};
+    public void setToken(String token){this.token = token;}
 
     public String getToken(){return token;}
 

@@ -162,6 +162,9 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/155 add the missing rest-tests
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/182 cellControllerTest
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/183 startgametest
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/184 deleteShip
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/185 shipPlayerPutDTO
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/186 sunkmessage
 
 - Louis Zürcher
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/85 Create Avatars with DiceBear API

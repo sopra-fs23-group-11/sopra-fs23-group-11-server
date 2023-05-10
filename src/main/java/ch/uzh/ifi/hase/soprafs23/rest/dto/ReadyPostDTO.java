@@ -5,8 +5,6 @@ public class ReadyPostDTO {
     private long playerId;
     private String playerName;
 
-
-
     private String playerBoard;
 
     public String getGameId() {

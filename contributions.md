@@ -146,7 +146,9 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/174 Create CellController
 
 -Nazek Olabi
-- [ ] create avatar representation
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/179 create avatar representation
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/168 (continue testing it)
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/180 
 - [ ] test lobbyService and and add some integration tests to that
 
 -- Contributions Week 6 / 11.5:
@@ -154,3 +156,9 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/87 Add background image to each ship and adjust ship box length 
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/84 Verify ship positions out of boundary 
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/86 Convert console alert to non-interactive alert for ship placements 
+
+- Nazek Olabi
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/181 cell-mapper
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/155 add the missing rest-tests
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/182 cellControllerTest
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/183 startgametest

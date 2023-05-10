@@ -60,7 +60,7 @@ public class GameService {
             if (ship_hit.getHitParts() == ship_hit.getShip().getLength()) {
                 ship_hit.setSunk(true);
                 SunkMsg sunkMsg = new SunkMsg(defenderId, ship_hit.getShip().getId(),ship_hit.getShip().getType());
-                simpMessagingTemplate.convertAndSend("/game/" + gameId, sunkMsg);
+                simpMessagingTemplate.convertAndSend("/game/" + gameId + "/sunk", sunkMsg);
                 defender.get().setShipsRemaining(defender.get().getShipsRemaining() -1 );
                 playerRepository.save(defender.get());
             }

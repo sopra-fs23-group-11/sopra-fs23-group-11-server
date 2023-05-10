@@ -146,7 +146,9 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/174 Create CellController
 
 -Nazek Olabi
-- [ ] create avatar representation
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/179 create avatar representation
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/168 (continue testing it)
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/180 
 - [ ] test lobbyService and and add some integration tests to that
 
 -- Contributions Week 6 / 11.5:

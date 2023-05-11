@@ -10,4 +10,4 @@ automatic_scaling:
 runtime_config:
   operating_system: "ubuntu22"
   runtime_version: "17"
-instance_class: F2
+

@@ -49,17 +49,17 @@ public class UserService {
         return newUser;
     }
 
-    public User setNewName(User user){
-        User nUser = userRepository.getOne(user.getId());
-        User userByUsername = userRepository.findByUsername(user.getUsername());
-        if (userByUsername!=null){
-            throw new UserExcep("Username already taken");
-        }else{
-            nUser.setUsername(user.getUsername());
-            userRepository.flush();
-            return nUser;
-        }
-    }
+//    public User setNewName(User user){
+//        User nUser = userRepository.getOne(user.getId());
+//        User userByUsername = userRepository.findByUsername(user.getUsername());
+//        if (userByUsername!=null){
+//            throw new UserExcep("Username already taken");
+//        }else{
+//            nUser.setUsername(user.getUsername());
+//            userRepository.flush();
+//            return nUser;
+//        }
+//    }
 
     public void logoutUser(User user){
         User user1 = userRepository.findByUsername(user.getUsername());
@@ -88,19 +88,8 @@ public class UserService {
         }
     }
 
-    /**
-     * This is a helper method that will check the uniqueness criteria of the
-     * username and the name
-     * defined in the User entity. The method will do nothing if the input is unique
-     * and throw an error otherwise.
-     *
-     * @param userToBeCreated
-     * @throws org.springframework.web.server.ResponseStatusException
-     * @see User
-     */
     private void checkIfUserExists(User userToBeCreated) {
         User userByUsername = userRepository.findByUsername(userToBeCreated.getUsername());
-
         if (userByUsername != null ) {
             throw new UserExcep("this username is not unique");
         }
@@ -119,12 +108,12 @@ public class UserService {
         }
     }
 
-    public User getUserByUsername(String username){
-        User user = userRepository.findByUsername(username);
-        user.setToken(UUID.randomUUID().toString());
-        user.setStatus(UserStatus.ONLINE);
-        return userRepository.findByUsername(username);
-    }
+//    public User getUserByUsername(String username){
+//        User user = userRepository.findByUsername(username);
+//        user.setToken(UUID.randomUUID().toString());
+//        user.setStatus(UserStatus.ONLINE);
+//        return userRepository.findByUsername(username);
+//    }
 
 
 }

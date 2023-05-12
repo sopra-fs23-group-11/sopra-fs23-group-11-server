@@ -170,7 +170,7 @@
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/85 Create Avatars with DiceBear API
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/88 Redirect players when all ships are sunk
 
-Nick Schlatter
+- Nick Schlatter
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/83 Added sound effect for placing ships
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/48 Added sound effect for hits
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/49 Added sound effect for misses
@@ -184,3 +184,7 @@ Nick Schlatter
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/44 Render sunken ships for enemy
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/36
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/89 Taking turns functionality
+
+-- Contributions Week 7 / 18.5:
+- Nazek Olabi 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/187

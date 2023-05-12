@@ -117,7 +117,7 @@ public class HelperTest {
 
 
     @Test
-    public void testShipsNotTouching_true() {
+    public void testShipsNotOverlapping_true() {
         Player player= new Player();
         Ship ship= new Ship();
         ship.setId(1L); ship.setType("BattleShip"); ship.setLength(4);
@@ -130,12 +130,12 @@ public class HelperTest {
         shipPlayerList.add(shipPlayer);
         player.setShipPlayers(shipPlayerList);
 
-        boolean result = Helper.shipsNotTouching(player, "C1", "C6");
+        boolean result = Helper.shipsNotOverlapping(player, "C1", "C6");
         assertTrue(result);
     }
 
     @Test
-    public void testShipsNotTouching_false() {
+    public void testShipsNotOverlapping_false() {
         Player player= new Player();
         Ship ship= new Ship();
         ship.setId(1L); ship.setType("BattleShip"); ship.setLength(4);
@@ -148,7 +148,7 @@ public class HelperTest {
         shipPlayerList.add(shipPlayer);
         player.setShipPlayers(shipPlayerList);
 
-        boolean result = Helper.shipsNotTouching(player, "B1", "B6");
+        boolean result = Helper.shipsNotOverlapping(player, "A1", "C1");
         assertFalse(result);
     }
 

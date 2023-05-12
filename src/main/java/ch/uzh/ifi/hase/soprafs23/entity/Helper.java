@@ -3,6 +3,7 @@ package ch.uzh.ifi.hase.soprafs23.entity;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.Position;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import org.springframework.stereotype.Component;
+
 import java.util.*;
 
 @Component
@@ -121,63 +122,88 @@ public class Helper {
         return false;
     }
 
-    public static boolean shipsNotTouching(Player player, String startpos, String endPos) {
+    public static boolean shipsNotOverlapping(Player player, String startPos, String endPos) {
         List<ShipPlayer> ships = player.getShipPlayers();
-        List<String> nonoSquare = new ArrayList<>();
-        if (!ships.isEmpty()) {
-            for (ShipPlayer ship : ships) {
-                Position start = new Position(ship.getStartPosition());
-                Position end = new Position(ship.getEndPosition());
-                int xStartBoundary = start.getX();
-                int yStartBoundary = start.getY();
-                int xEndBoundary = end.getX();
-                int yEndBoundary = end.getY();
-                // don't check the boundaries. Othercase you would check boundaries not touching
-                for (int x = xStartBoundary; x <= xEndBoundary; x++) {
-                    for (int y = yStartBoundary; y <= yEndBoundary; y++) {
-                        String pos = String.format("%d%d", x, y);
-                        if (nonoSquare.contains(pos)) {
-                            return false;
-                        }
-                        else {
-                            nonoSquare.add(pos);
-                        }
-                    }
-                }
-            }
-
-            Position start = new Position(startpos);
-            Position end = new Position(endPos);
-            int xStartBoundary = start.getX();
-            int yStartBoundary = start.getY();
-            int xEndBoundary = end.getX();
-            int yEndBoundary = end.getY();
-            if (xStartBoundary != 0) {
-                xStartBoundary--;
-            }
-            if (yStartBoundary != 0) {
-                yStartBoundary--;
-            }
-            if (xEndBoundary != 9) {
-                xEndBoundary++;
-            }
-            if (yEndBoundary != 9) {
-                yEndBoundary++;
-            }
-
-            for (int x = xStartBoundary; x <= xEndBoundary; x++) {
-                for (int y = yStartBoundary; y <= yEndBoundary; y++) {
-                    String pos = String.format("%d%d", x, y);
-                    if (nonoSquare.contains(pos)) {
-                        return false;
-                    }
-                    else {
-                        nonoSquare.add(pos);
-                    }
-                }
+        List<String> positions = new ArrayList<>();
+        int startX = startPos.charAt(0) - 'A';
+        int startY = Integer.parseInt(startPos.substring(1));
+        int endX = endPos.charAt(0) - 'A';
+        int endY = Integer.parseInt(endPos.substring(1));
+        for (int x = Math.min(startX, endX); x <= Math.max(startX, endX); x++) {
+            for (int y = Math.min(startY, endY); y <= Math.max(startY, endY); y++) {
+                positions.add(String.format("%c%d", x + 'A', y));
             }
         }
-        return true;
+
+        if (!ships.isEmpty()) {
+            for (String pos : positions) {
+                for (ShipPlayer ship : ships) {
+                    if (isContained(pos, ship)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+
+        }
+        else {
+            return true;
+        }
+//        List<String> nonoSquare = new ArrayList<>();
+//        if (!ships.isEmpty()) {
+//            for (ShipPlayer ship : ships) {
+//                Position start = new Position(ship.getStartPosition());
+//                Position end = new Position(ship.getEndPosition());
+//                int xStartBoundary = start.getX();
+//                int yStartBoundary = start.getY();
+//                int xEndBoundary = end.getX();
+//                int yEndBoundary = end.getY();
+//                // don't check the boundaries. Othercase you would check boundaries not touching
+//                for (int x = xStartBoundary; x <= xEndBoundary; x++) {
+//                    for (int y = yStartBoundary; y <= yEndBoundary; y++) {
+//                        String pos = String.format("%d%d", x, y);
+//                        if (nonoSquare.contains(pos)) {
+//                            return false;
+//                        }
+//                        else {
+//                            nonoSquare.add(pos);
+//                        }
+//                    }
+//                }
+//            }
+//
+//            Position start = new Position(startpos);
+//            Position end = new Position(endPos);
+//            int xStartBoundary = start.getX();
+//            int yStartBoundary = start.getY();
+//            int xEndBoundary = end.getX();
+//            int yEndBoundary = end.getY();
+//            if (xStartBoundary != 0) {
+//                xStartBoundary--;
+//            }
+//            if (yStartBoundary != 0) {
+//                yStartBoundary--;
+//            }
+//            if (xEndBoundary != 9) {
+//                xEndBoundary++;
+//            }
+//            if (yEndBoundary != 9) {
+//                yEndBoundary++;
+//            }
+//
+//            for (int x = xStartBoundary; x <= xEndBoundary; x++) {
+//                for (int y = yStartBoundary; y <= yEndBoundary; y++) {
+//                    String pos = String.format("%d%d", x, y);
+//                    if (nonoSquare.contains(pos)) {
+//                        return false;
+//                    }
+//                    else {
+//                        nonoSquare.add(pos);
+//                    }
+//                }
+//            }
+//        }
+//        return true;
     }
 
 }

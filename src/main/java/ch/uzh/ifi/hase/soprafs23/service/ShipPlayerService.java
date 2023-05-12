@@ -42,8 +42,8 @@ public class ShipPlayerService {
             throw new EntityNotFoundExcep ("ship doesn't exist", gameId);
         if (playerOptional.isEmpty())
             throw new EntityNotFoundExcep ("player doesn't exist", gameId);
-        if(!helper.shipsNotTouching(playerOptional.get(), startPosition, endPosition))
-            throw new PositionExcep("ships are touching", gameId);
+        if(!helper.shipsNotOverlapping(playerOptional.get(), startPosition, endPosition))
+            throw new PositionExcep("ships are overlapping", gameId);
 
         Ship ship = shipOptional.get();
         Player player = playerOptional.get();

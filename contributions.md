@@ -175,3 +175,12 @@ Nick Schlatter
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/48 Added sound effect for hits
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/49 Added sound effect for misses
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/50 Added sound effect for sinking ships
+
+- Kalil Subaan
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/21 Render Hits
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/22 Render Misses
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/23 Render out sunken ships for player
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/39 Hide enemy ships with white background
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/44 Render sunken ships for enemy
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/36
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/89 Taking turns functionality

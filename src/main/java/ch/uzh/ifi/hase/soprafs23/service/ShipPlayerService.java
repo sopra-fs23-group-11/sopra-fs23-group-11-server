@@ -85,7 +85,7 @@ public class ShipPlayerService {
         return shipPlayer;
     }
 
-    public Player getPlayerById(Long id) {
-        return playerRepository.getOne(id);
-    }
+//    public Player getPlayerById(Long id) {
+//        return playerRepository.getOne(id);
+//    }
 }

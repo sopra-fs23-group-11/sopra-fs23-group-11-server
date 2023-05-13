@@ -44,7 +44,7 @@ public class UserServiceTest {
         Mockito.when(userRepository.save(Mockito.any())).thenReturn(testUser);
     }
 
-    @Test //
+    @Test
     public void createUser_validInputs_success() {
 
         User createdUser = userService.createUser(testUser);

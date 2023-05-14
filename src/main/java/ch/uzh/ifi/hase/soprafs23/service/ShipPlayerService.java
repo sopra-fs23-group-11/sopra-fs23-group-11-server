@@ -74,7 +74,6 @@ public class ShipPlayerService {
         playerRepository.flush();
     }
 
-
     public List<ShipPlayer> getPlayersShip (long playerId){
         Optional<Player> playerOptional= playerRepository.findById(playerId);
         if (playerOptional.isEmpty())

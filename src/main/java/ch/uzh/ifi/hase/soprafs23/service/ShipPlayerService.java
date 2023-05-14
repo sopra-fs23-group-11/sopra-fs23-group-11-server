@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ public class ShipPlayerService {
     private final ShipPlayerRepository shipPlayerRepository;
     private final ShipRepository shipRepository;
     private final PlayerRepository playerRepository;
-    private  final Helper helper;
+    private final Helper helper;
 
 
     @Autowired
@@ -39,30 +40,33 @@ public class ShipPlayerService {
         Optional<Ship> shipOptional = shipRepository.findById(shipId);
         Optional<Player> playerOptional = playerRepository.findById(playerId);
         if (shipOptional.isEmpty())
-            throw new EntityNotFoundExcep ("ship doesn't exist", gameId);
+            throw new EntityNotFoundExcep("ship doesn't exist", gameId);
         if (playerOptional.isEmpty())
-            throw new EntityNotFoundExcep ("player doesn't exist", gameId);
-        if(!helper.shipsNotOverlapping(playerOptional.get(), startPosition, endPosition))
+            throw new EntityNotFoundExcep("player doesn't exist", gameId);
+        if (!Helper.shipsNotOverlapping(playerOptional.get(), startPosition, endPosition))
             throw new PositionExcep("ships are overlapping", gameId);
 
         Ship ship = shipOptional.get();
         Player player = playerOptional.get();
-        ShipPlayer shipPlayer= new ShipPlayer();
+        ShipPlayer shipPlayer = new ShipPlayer();
         shipPlayer.setStartPosition(startPosition);
         shipPlayer.setEndPosition(endPosition);
         shipPlayer.setShip(ship);
         shipPlayer.setPlayer(player);
         player.getShipPlayers().add(shipPlayer);
         playerRepository.save(player);
-        ShipPlayer shipPlayerToSave = shipPlayerRepository.save(shipPlayer);
+        //ShipPlayer shipPlayerToSave = shipPlayerRepository.save(shipPlayer);
+        shipPlayerRepository.save(shipPlayer);
         shipPlayerRepository.flush();
         playerRepository.flush();
-        return shipPlayerToSave;
+        //return shipPlayerToSave;
+        return shipPlayer;
     }
+
     public void deleteShip(long shipPlayerId, String gameId) {
         Optional<ShipPlayer> shipPlayerOptional = shipPlayerRepository.findById(shipPlayerId);
         if (shipPlayerOptional.isEmpty())
-            throw new EntityNotFoundExcep ("ship-player doesn't exist", gameId);
+            throw new EntityNotFoundExcep("ship-player doesn't exist", gameId);
 
         ShipPlayer shipPlayer = shipPlayerOptional.get();
         Player player = shipPlayer.getPlayer();
@@ -74,8 +78,8 @@ public class ShipPlayerService {
         playerRepository.flush();
     }
 
-    public List<ShipPlayer> getPlayersShip (long playerId){
-        Optional<Player> playerOptional= playerRepository.findById(playerId);
+    public List<ShipPlayer> getPlayersShip(long playerId) {
+        Optional<Player> playerOptional = playerRepository.findById(playerId);
         if (playerOptional.isEmpty())
             throw new EntityNotFoundExcep("player not found", "ID");
 
@@ -84,7 +88,9 @@ public class ShipPlayerService {
         return shipPlayer;
     }
 
+
 //    public Player getPlayerById(Long id) {
 //        return playerRepository.getOne(id);
 //    }
 }
+

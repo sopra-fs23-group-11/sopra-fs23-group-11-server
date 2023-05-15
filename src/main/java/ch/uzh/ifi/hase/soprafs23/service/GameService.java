@@ -82,7 +82,7 @@ public class GameService {
     }
 
 
-    private boolean isValidShot(String shotPosition, Player defender) {
+    protected boolean isValidShot(String shotPosition, Player defender) {
         Shot shot = shotRepository.findByPositionAndDefender(shotPosition, defender);
         if (shot != null)
             throw new PositionExcep("This field was shot at before",defender.getGame().getId());
@@ -99,7 +99,7 @@ public class GameService {
         return defender.getShipsRemaining()==0;
     }
 
-    private ShipPlayer waterORship(String position, Player defender) {
+    protected ShipPlayer waterORship(String position, Player defender) {
         for (ShipPlayer shipPlayer : defender.getShipPlayers()) {
             if (Helper.isContained(position, shipPlayer)) {
                 return shipPlayer;
@@ -107,7 +107,7 @@ public class GameService {
         }
         return null;
     }
-///////////////////////////////////
+
     public List<Shot> getAttackersShot(long attackerId, String gameId) {
         Optional<Player> player = playerRepository.findById(attackerId);
         if (player.isEmpty())

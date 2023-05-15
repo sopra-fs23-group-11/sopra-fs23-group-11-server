@@ -5,6 +5,7 @@ import ch.uzh.ifi.hase.soprafs23.entity.ships.Ship;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import ch.uzh.ifi.hase.soprafs23.exceptions.EntityNotFoundExcep;
 import ch.uzh.ifi.hase.soprafs23.exceptions.PlayerExcep;
+import ch.uzh.ifi.hase.soprafs23.exceptions.PositionExcep;
 import ch.uzh.ifi.hase.soprafs23.repository.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +16,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +56,75 @@ public class GameServiceTest {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    public void isValidShotTest(){
+        Player defender = new Player();
+        Game game= new Game();
+        game.setId("***");
+        defender.setGamePlayer1(game);
+        Mockito.when(shotRepository.findByPositionAndDefender(Mockito.anyString(), Mockito.any())).thenReturn(null);
+        boolean result= gameService.isValidShot("A1", defender);
+        assertEquals(true, result);
+    }
+
+    @Test
+    public void isValidShotTestNotValid(){
+        Player defender = new Player();
+        Game game= new Game();
+        game.setId("***");
+        defender.setGamePlayer1(game);
+        Mockito.when(shotRepository.findByPositionAndDefender(Mockito.anyString(), Mockito.any())).thenReturn(null);
+        assertThrows(PositionExcep.class, () -> gameService.isValidShot("1A", defender));
+    }
+
+    @Test
+    public void isValidShotTestNotValid2() {
+        Shot shot = new Shot();
+        shot.setPosition("A1");
+        Player defender = new Player();
+        shot.setDefender(defender);
+        Game game= new Game();
+        game.setId("***");
+        defender.setGamePlayer1(game);
+        Mockito.when(shotRepository.findByPositionAndDefender(Mockito.anyString(), Mockito.any())).thenReturn(shot);
+        Mockito.when(gameRepository.findById(Mockito.anyString())).thenReturn(Optional.of(game));
+        assertThrows(PositionExcep.class, () -> gameService.isValidShot("A1", defender));
+    }
+    @Test
+    public void looserAlertTest() {
+        Player player = new Player();
+        player.setId(1L);
+        player.setShipsRemaining(0);
+        Mockito.when(playerRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(player));
+        boolean result = gameService.looserAlert(1L, "***");
+        assertTrue(result);
+        player.setShipsRemaining(3);
+        result = gameService.looserAlert(1L, "***");
+        assertFalse(result);
+    }
+
+    @Test
+    public void looserAlertTestNoPlayer(){
+        Mockito.when(playerRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+        assertThrows(EntityNotFoundExcep.class, () -> gameService.looserAlert(1L, "***"));
+    }
+    @Test
+    public void waterORShipTest() {
+
+        Player defender = new Player();
+        defender.setId(1L);
+        ShipPlayer shipPlayer1 = new ShipPlayer();
+        shipPlayer1.setStartPosition("A1"); shipPlayer1.setEndPosition("A2");
+        ShipPlayer shipPlayer2 = new ShipPlayer();
+        shipPlayer2.setStartPosition("B1"); shipPlayer2.setEndPosition("E1");
+        defender.setShipPlayers(Arrays.asList(shipPlayer1, shipPlayer2));
+        ShipPlayer result = gameService.waterORship("C1", defender);
+        ShipPlayer result2 = gameService.waterORship("B2", defender);
+
+        assertEquals(shipPlayer2, result);
+        assertEquals(null, result2);
     }
 
     @Test

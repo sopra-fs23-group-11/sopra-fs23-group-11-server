@@ -64,7 +64,7 @@ public class UserService {
     public void logoutUser(User user){
         User user1 = userRepository.findByUsername(user.getUsername());
         if (user1==null)
-            throw new EntityNotFoundExcep("user not found", "");
+            throw new EntityNotFoundExcep("User not found", "");
         user1.setStatus(UserStatus.OFFLINE);
         userRepository.save(user1);
         userRepository.flush();
@@ -84,27 +84,27 @@ public class UserService {
             logUser.setStatus(UserStatus.ONLINE);
             userRepository.flush();
             return logUser;}
-        else{throw new UserExcep("wrong password");
+        else{throw new UserExcep("Wrong password");
         }
     }
 
     private void checkIfUserExists(User userToBeCreated) {
         User userByUsername = userRepository.findByUsername(userToBeCreated.getUsername());
         if (userByUsername != null ) {
-            throw new UserExcep("this username is not unique");
+            throw new UserExcep("This username is not unique");
         }
     }
 
     public User findUserById(long id) {
         User userById = userRepository.getOne(id);
         if (userById != null) {return userById;}
-        else {throw new EntityNotFoundExcep("user doesn't exist", "");}
+        else {throw new EntityNotFoundExcep("User doesn't exist", "");}
     }
 
     private void checkIfUserExistsLogin(User userToBeCreated) {
         User userByUsername = userRepository.findByUsername(userToBeCreated.getUsername());
         if (userByUsername == null) {
-            throw new EntityNotFoundExcep("user cannot be found by the provided name", "");
+            throw new EntityNotFoundExcep("User cannot be found by the provided name", "");
         }
     }
 

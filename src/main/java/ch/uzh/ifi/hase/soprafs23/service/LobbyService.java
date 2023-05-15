@@ -49,15 +49,15 @@ public class LobbyService {
         Lobby lobby = lobbyRepository.findByLobbyCode(lobbyCode);
         Optional<User> optionalUser = userRepository.findById(userId);
         if (lobby == null)
-            throw new EntityNotFoundExcep("lobby not found", "");
+            throw new EntityNotFoundExcep("Lobby not found", "");
         long hostId = lobby.getHost().getId();
         if (optionalUser.isEmpty())
-            throw new EntityNotFoundExcep("joiner not found", lobbyCode);
+            throw new EntityNotFoundExcep("Joiner not found", lobbyCode);
         User user = optionalUser.get();
         if (hostId == user.getId())
-            throw new PlayerExcep("players should differ", lobbyCode);
+            throw new PlayerExcep("Players should differ", lobbyCode);
         if (lobby.getJoiner() != null)
-            throw new UserExcep("lobby has a joiner");
+            throw new UserExcep("Lobby has a joiner");
         user.setLobbyForJoiner(lobby);
         User newuser = userRepository.save(user);
         lobby.setJoiner(newuser);
@@ -69,7 +69,7 @@ public class LobbyService {
     public Lobby findByLobbyCode(String lobbyCode) {
         Lobby lobby= lobbyRepository.findByLobbyCode(lobbyCode);
         if (lobby == null)
-            throw new EntityNotFoundExcep("lobby not found", lobbyCode);
+            throw new EntityNotFoundExcep("Lobby not found", lobbyCode);
         return lobby;
     }
 

@@ -38,7 +38,7 @@ public class CellService {
     public List<Cell> updateCells(Long ownerId) {
         Player player = playerRepository.getOne(ownerId);
         if (player == null)
-            throw new EntityNotFoundExcep("player not found", "ID");
+            throw new EntityNotFoundExcep("Player not found", "ID");
         List<Cell> cells = cellRepository.findAllByOwnerId(ownerId);
 
         List<ShipPlayer> ships = shipPlayerRepository.findAllByPlayer(player);

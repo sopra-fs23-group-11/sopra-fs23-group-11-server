@@ -40,11 +40,11 @@ public class ShipPlayerService {
         Optional<Ship> shipOptional = shipRepository.findById(shipId);
         Optional<Player> playerOptional = playerRepository.findById(playerId);
         if (shipOptional.isEmpty())
-            throw new EntityNotFoundExcep("ship doesn't exist", gameId);
+            throw new EntityNotFoundExcep("Ship doesn't exist", gameId);
         if (playerOptional.isEmpty())
-            throw new EntityNotFoundExcep("player doesn't exist", gameId);
+            throw new EntityNotFoundExcep("Player doesn't exist", gameId);
         if (!Helper.shipsNotOverlapping(playerOptional.get(), startPosition, endPosition))
-            throw new PositionExcep("ships are overlapping", gameId);
+            throw new PositionExcep("Ships are overlapping", gameId);
 
         Ship ship = shipOptional.get();
         Player player = playerOptional.get();
@@ -66,7 +66,7 @@ public class ShipPlayerService {
     public void deleteShip(long shipPlayerId, String gameId) {
         Optional<ShipPlayer> shipPlayerOptional = shipPlayerRepository.findById(shipPlayerId);
         if (shipPlayerOptional.isEmpty())
-            throw new EntityNotFoundExcep("ship-player doesn't exist", gameId);
+            throw new EntityNotFoundExcep("Ship-player doesn't exist", gameId);
 
         ShipPlayer shipPlayer = shipPlayerOptional.get();
         Player player = shipPlayer.getPlayer();
@@ -81,7 +81,7 @@ public class ShipPlayerService {
     public List<ShipPlayer> getPlayersShip(long playerId) {
         Optional<Player> playerOptional = playerRepository.findById(playerId);
         if (playerOptional.isEmpty())
-            throw new EntityNotFoundExcep("player not found", "ID");
+            throw new EntityNotFoundExcep("Player not found", "ID");
 
         Player player = playerOptional.get();
         List<ShipPlayer> shipPlayer = shipPlayerRepository.findAllByPlayer(player);

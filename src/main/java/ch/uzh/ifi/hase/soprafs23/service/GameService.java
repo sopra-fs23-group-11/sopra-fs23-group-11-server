@@ -94,7 +94,7 @@ public class GameService {
     public boolean looserAlert(long defenderId, String gameId){
         Optional<Player> optionalPlayer= playerRepository.findById(defenderId);
         if (optionalPlayer.isEmpty())
-            throw new EntityNotFoundExcep("player does not exist", gameId);
+            throw new EntityNotFoundExcep("Player does not exist", gameId);
         Player defender= optionalPlayer.get();
         return defender.getShipsRemaining()==0;
     }

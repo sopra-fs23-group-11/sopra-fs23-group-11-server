@@ -3,6 +3,7 @@ package ch.uzh.ifi.hase.soprafs23.entity;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.Position;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 

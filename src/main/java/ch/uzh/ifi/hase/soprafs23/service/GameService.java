@@ -107,7 +107,7 @@ public class GameService {
         }
         return null;
     }
-
+///////////////////////////////////
     public List<Shot> getAttackersShot(long attackerId, String gameId) {
         Optional<Player> player = playerRepository.findById(attackerId);
         if (player.isEmpty())

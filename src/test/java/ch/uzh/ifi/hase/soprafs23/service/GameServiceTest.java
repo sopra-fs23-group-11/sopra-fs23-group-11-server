@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,6 +43,9 @@ public class GameServiceTest {
     @Mock
     private GameRepository gameRepository;
 
+    @Mock
+    private SimpMessagingTemplate simpMessagingTemplate;
+
     @InjectMocks
     private CellService cellService;
     @InjectMocks
@@ -56,6 +60,114 @@ public class GameServiceTest {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    public void attackTest(){
+        User user1= new User(); user1.setId(1L); User user2= new User(); user2.setId(2L);
+        Player player1= new Player();player1.setId(1L); player1.setUser(user1);
+        Player player2= new Player();player2.setId(2L); player2.setUser(user2);
+
+        Game game= new Game();game.setId("***");
+        player1.setGamePlayer1(game);
+        player2.setGamePlayer2(game);
+
+        Shot shot= new Shot(); shot.setPosition("A1"); shot.setAttacker(player2);
+        List<Shot> shots = new ArrayList<>(); shots.add(shot);
+
+        Ship ship= new Ship(); ship.setType("Destroyer"); ship.setLength(2);
+        ShipPlayer shipPlayer=new ShipPlayer(); shipPlayer.setPlayer(player1); shipPlayer.setShip(ship);
+        shipPlayer.setEndPosition("A2"); shipPlayer.setStartPosition("A1");
+        List<ShipPlayer> shipPlayers= new ArrayList<>();
+        shipPlayers.add(shipPlayer);
+        player1.setShipPlayers(shipPlayers);
+
+        Mockito.when(playerRepository.findById(2L)).thenReturn(Optional.of(player2));
+        Mockito.when(playerRepository.findById(1L)).thenReturn(Optional.of(player1));
+
+        Mockito.when(gameRepository.findById(Mockito.anyString())).thenReturn(Optional.of(game));
+        Mockito.when(shipPlayerRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(shipPlayer));
+        Mockito.when(shotRepository.findByPositionAndDefender(Mockito.anyString(), Mockito.any())).thenReturn(null);
+        //Mockito.when(gameService.looserAlert(player1.getId(), "***")).thenReturn(false);
+
+        Shot shot2 = gameService.attack(2L, 1L, "A1", "***");
+        assertEquals(true, shot2.isHit());
+
+    }
+
+    @Test
+    public void attackTestShipIsSunk(){
+        User user1= new User(); user1.setId(1L); User user2= new User(); user2.setId(2L);
+        Player player1= new Player();player1.setId(1L); player1.setUser(user1);
+        Player player2= new Player();player2.setId(2L); player2.setUser(user2);
+
+        Game game= new Game();game.setId("***");
+        player1.setGamePlayer1(game);
+        player2.setGamePlayer2(game);
+
+        Shot shot= new Shot(); shot.setPosition("A1"); shot.setAttacker(player2);
+        List<Shot> shots = new ArrayList<>(); shots.add(shot);
+
+        Ship ship= new Ship(); ship.setType("Destroyer"); ship.setLength(2); ship.setId(1L);
+        ShipPlayer shipPlayer=new ShipPlayer(); shipPlayer.setPlayer(player1); shipPlayer.setShip(ship); shipPlayer.setHitParts(1);
+        shipPlayer.setEndPosition("A2"); shipPlayer.setStartPosition("A1");
+        List<ShipPlayer> shipPlayers= new ArrayList<>();
+        shipPlayers.add(shipPlayer);
+        player1.setShipPlayers(shipPlayers);
+
+        Mockito.when(playerRepository.findById(2L)).thenReturn(Optional.of(player2));
+        Mockito.when(playerRepository.findById(1L)).thenReturn(Optional.of(player1));
+
+        Mockito.when(gameRepository.findById(Mockito.anyString())).thenReturn(Optional.of(game));
+        Mockito.when(shipPlayerRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(shipPlayer));
+        Mockito.when(shotRepository.findByPositionAndDefender(Mockito.anyString(), Mockito.any())).thenReturn(null);
+
+        Shot shot2 = gameService.attack(2L, 1L, "A1", "***");
+        assertEquals(true, shot2.isHit());
+        assertEquals(true, shot2.getDefender().getShipPlayers().get(0).isSunk());
+
+    }
+    @Test
+    public void attackTestNoPlayer(){
+        Mockito.when(playerRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+        assertThrows(EntityNotFoundExcep.class, () -> gameService.attack(1L, 2L, "A1", "***"));
+    }
+    @Test
+    public void attackTestAttackerEqualsDefender(){
+        Player player= new Player();
+        player.setId(1L);
+        Mockito.when(playerRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(player));
+        assertThrows(PlayerExcep.class, () -> gameService.attack(1L, 1L, "A1", "***"));
+    }
+
+    @Test
+    public void attackTestPositionIsNotValid(){
+        Player player1= new Player();player1.setId(1L);
+        Player player2= new Player();player2.setId(2L);
+
+        Game game= new Game();game.setId("***");
+        player1.setGamePlayer1(game);
+        player2.setGamePlayer2(game);
+
+        Shot shot= new Shot(); shot.setPosition("A1");
+        Mockito.when(playerRepository.findById(1L)).thenReturn(Optional.of(player1));
+        Mockito.when(playerRepository.findById(2L)).thenReturn(Optional.of(player2));
+        Mockito.when(shotRepository.findByPositionAndDefender(Mockito.anyString(), Mockito.any())).thenReturn(shot);
+        assertThrows(PositionExcep.class, () -> gameService.attack(1L, 2L, "A1", "***"));
+    }
+    @Test
+    public void attackTestPositionIsNotValid2(){
+        Player player1= new Player();player1.setId(1L);
+        Player player2= new Player();player2.setId(2L);
+
+        Game game= new Game();game.setId("***");
+        player1.setGamePlayer1(game);
+        player2.setGamePlayer2(game);
+
+        Mockito.when(playerRepository.findById(1L)).thenReturn(Optional.of(player1));
+        Mockito.when(playerRepository.findById(2L)).thenReturn(Optional.of(player2));
+        Mockito.when(shotRepository.findByPositionAndDefender(Mockito.anyString(), Mockito.any())).thenReturn(null);
+        assertThrows(PositionExcep.class, () -> gameService.attack(1L, 2L, "1A", "***"));
     }
 
     @Test

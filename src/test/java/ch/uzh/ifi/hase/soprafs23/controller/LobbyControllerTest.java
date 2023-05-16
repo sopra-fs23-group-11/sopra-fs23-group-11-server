@@ -33,15 +33,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.messaging.simp.stomp.StompFrameHandler;
-import org.springframework.messaging.simp.stomp.StompHeaders;
-import org.springframework.messaging.simp.stomp.StompSession;
-import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
+import org.springframework.messaging.simp.stomp.*;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.socket.client.WebSocketClient;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
 import org.springframework.web.socket.sockjs.client.SockJsClient;
@@ -83,7 +81,6 @@ public class LobbyControllerTest {
                 Collections.singletonList(new WebSocketTransport(new StandardWebSocketClient()))));
         stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 
-        //doReturn(true).when(lobbyController).checkSender(Mockito.nullable(String.class), Mockito.nullable(String.class));
     }
     @Test
     public void hostValid() throws Exception {
@@ -169,7 +166,6 @@ public class LobbyControllerTest {
                 .andExpect(status().isOk());
     }
 
-
     @Test
     public void validJoin2() throws Exception {
         BlockingQueue<JoinMessage> bq = new LinkedBlockingDeque<>();
@@ -194,14 +190,18 @@ public class LobbyControllerTest {
                 })
                 .get(10, SECONDS);
         System.out.println(port);
-        session.subscribe("/join/"+lobby.getLobbyCode(), new StompFrameHandler() {
+        session.subscribe("/join/" +lobby.getLobbyCode(), new StompFrameHandler() {
+
             @Override
             public Type getPayloadType(StompHeaders headers) {
+                System.out.println("...............");
+
                 return JoinMessage.class;
             }
 
             @Override
             public void handleFrame(StompHeaders headers, Object payload) {
+                System.out.println("::::::::::::");
                 Assertions.assertNotNull(payload);
                 System.out.println(payload);
             }
@@ -212,6 +212,7 @@ public class LobbyControllerTest {
         lobbyPostDTO.setJoinerId(1L);
 
         JoinMessage response = bq.poll(2, SECONDS);
+        System.out.println(response);
         given(lobbyService.joinLobby(Mockito.anyString(), Mockito.anyLong())).willReturn(lobby);
         MockHttpServletRequestBuilder putRequest = MockMvcRequestBuilders.put("/lobbies")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(lobbyPostDTO));

@@ -49,6 +49,11 @@ public class GameController {
 
     }
 
+    @MessageMapping("/leave")
+    public void leave(@Payload LeaveMsgDTO leaveMsgDTO) {
+        simpMessagingTemplate.convertAndSend("/game/" + leaveMsgDTO.getLobbyCode() + "/leave", leaveMsgDTO);
+    }
+
     @PostMapping("/startgame")
     public GameGetDTO startGame(@RequestBody GamePostDTO gamePostDTO) {
         Game game = gameService.startGame(gamePostDTO.getHostId(), gamePostDTO.getLobbyCode());

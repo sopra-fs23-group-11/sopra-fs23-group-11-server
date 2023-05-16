@@ -20,7 +20,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.setApplicationDestinationPrefixes("/app");
-        registry.enableSimpleBroker("/chatroom", "/shot", "/errors", "/shot-simple", "/game", "/join", "/startgame", "/ready");
+        registry.enableSimpleBroker("/chatroom", "/shot", "/errors", "/game", "/join", "/startgame", "/ready", "/leave ");
 
     }
 

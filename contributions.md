@@ -193,3 +193,12 @@
 - Louis Zürcher
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/191 Create Chat Functionality
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/97 Create Chat
+
+- Qing Dai 
+- https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/98  Add "Revenge" button in the endScreen
+- https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/94  Polish "copy lobbyCode" function
+- https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/93  Polish login 
+- https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/92  Polish register
+- https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/91  Polish board & ships in setup 
+- https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/90  Fix the bug of playing sound on invalid ship placement 
+- https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/99  Add "back to lobby" button in "host" and "join"

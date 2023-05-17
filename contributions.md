@@ -189,3 +189,7 @@
 -- Contributions Week 7 / 18.5:
 - Nazek Olabi 
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/187
+
+- Louis Zürcher
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/191 Create Chat Functionality
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/97 Create Chat

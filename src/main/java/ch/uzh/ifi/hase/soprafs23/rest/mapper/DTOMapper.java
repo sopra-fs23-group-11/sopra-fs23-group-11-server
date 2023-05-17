@@ -1,5 +1,6 @@
 package ch.uzh.ifi.hase.soprafs23.rest.mapper;
 
+import ch.uzh.ifi.hase.soprafs23.WebSockets.Message.ChatMessage;
 import ch.uzh.ifi.hase.soprafs23.WebSockets.Message.ShotMessage;
 import ch.uzh.ifi.hase.soprafs23.entity.*;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
@@ -81,10 +82,16 @@ public interface DTOMapper {
     @Mapping(source = "avatar", target = "avatar")
     UserGetDTO convertEntityToUserGetDTO(User user);
 
+    @Mapping(source = "lobbyCode", target = "lobbyCode")
+    @Mapping(source = "content", target = "content")
+    ChatMessage convertChatMessageDTOtoEntitiy(ChatMessageDTO chatMessage);
+
 
     @Mapping(source = "username", target = "username")
     @Mapping(source = "password", target = "password")
     User convertUserPutDTOtoEntity(UserPutDTO userPutDTO);
+
+
 
 
     @Mapping(source = "id", target = "id")

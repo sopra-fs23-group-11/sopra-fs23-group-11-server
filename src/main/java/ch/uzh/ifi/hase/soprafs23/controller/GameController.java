@@ -64,6 +64,13 @@ public class GameController {
 
     }
 
+    @MessageMapping("/chat")
+    public ChatMessage chat(@Payload ChatMessageDTO chatMessageDTO) {
+        ChatMessage chatMessage = DTOMapper.INSTANCE.convertChatMessageDTOtoEntity(chatMessageDTO);
+        simpMessagingTemplate.convertAndSend("/chatroom/" + chatMessage.getLobbyCode(), chatMessage);
+        return DTOMapper.INSTANCE.convertChatMessageDTOtoEntity(chatMessageDTO);
+    }
+
     @MessageExceptionHandler(EntityNotFoundExcep.class)
     public void handleEntityNotFoundExcep(EntityNotFoundExcep excep) {
         ErrorMsg errorMsg = new ErrorMsg(excep.getMessage());

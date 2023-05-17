@@ -84,7 +84,8 @@ public interface DTOMapper {
 
     @Mapping(source = "lobbyCode", target = "lobbyCode")
     @Mapping(source = "content", target = "content")
-    ChatMessage convertChatMessageDTOtoEntitiy(ChatMessageDTO chatMessage);
+    ChatMessage convertChatMessageDTOtoEntity(ChatMessageDTO chatMessage);
+
 
 
     @Mapping(source = "username", target = "username")

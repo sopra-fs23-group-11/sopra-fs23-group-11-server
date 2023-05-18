@@ -188,6 +188,9 @@
 
 -- Contributions Week 7 / 18.5:
 - Nazek Olabi 
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/190
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/189
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/188
 - [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/issues/187
 
 - Louis Zürcher

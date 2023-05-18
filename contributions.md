@@ -202,3 +202,8 @@
 - https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/91  Polish board & ships in setup 
 - https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/90  Fix the bug of playing sound on invalid ship placement 
 - https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/99  Add "back to lobby" button in "host" and "join"
+
+- Nick Schlatter
+- https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/95 Create Hints and Rules for better user experience
+- https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/26 Make new Game button in the endScreen
+- https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/96 Polish endScreen; make images show on google

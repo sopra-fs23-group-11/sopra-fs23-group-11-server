@@ -210,3 +210,10 @@
 - https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/95 Create Hints and Rules for better user experience
 - https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/26 Make new Game button in the endScreen
 - https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/96 Polish endScreen; make images show on google
+
+- Kalil Subaan
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/104 Display modal when player leaves midgame
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/103 Add background animation and style buttons
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/102 page transition animations
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/101 Ship shadow on hover
+- [ ] https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/issues/100 display custom error page instead of default white screen

@@ -44,7 +44,7 @@ public class GameController {
 
     @MessageMapping("/ready")
     public void ready(@Payload ReadyPostDTO readyPostDTO) {
-        ReadyMsg readyMsg = new ReadyMsg(readyPostDTO.getPlayerId(), readyPostDTO.getPlayerName(), readyPostDTO.getPlayerBoard());
+        ReadyMsg readyMsg = new ReadyMsg(readyPostDTO.getPlayerId(), readyPostDTO.getPlayerName(), readyPostDTO.getPlayerBoard(), readyPostDTO.getPlayerAvatar());
         simpMessagingTemplate.convertAndSend("/ready/" + readyPostDTO.getPlayerName(), readyMsg);
 
     }
@@ -62,6 +62,11 @@ public class GameController {
         simpMessagingTemplate.convertAndSend("/startgame/" + game.getId(), startGameMessage);
         return DTOMapper.INSTANCE.convertEntityToGameGetDTO(game);
 
+    }
+
+    @MessageMapping("/newgame")
+    public void newGame(@Payload NewGameDTO newGameDTO) {
+        simpMessagingTemplate.convertAndSend("/game/" + newGameDTO.getLobbyCode()  + "/" + newGameDTO.getEnemyId() + "/newgame", newGameDTO);
     }
 
     @MessageMapping("/chat")

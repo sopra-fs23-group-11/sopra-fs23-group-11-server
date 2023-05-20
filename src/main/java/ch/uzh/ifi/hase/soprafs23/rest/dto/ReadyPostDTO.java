@@ -4,6 +4,7 @@ public class ReadyPostDTO {
     private String gameId;
     private long playerId;
     private String playerName;
+    private String playerAvatar;
 
     private String playerBoard;
 
@@ -37,5 +38,11 @@ public class ReadyPostDTO {
 
     public void setPlayerBoard(String playerBoard) {
         this.playerBoard = playerBoard;
+    }
+
+    public String getPlayerAvatar(){return playerAvatar; }
+
+    public void setPlayerAvatar(String playerAvatar) {
+        this.playerAvatar = playerAvatar;
     }
 }

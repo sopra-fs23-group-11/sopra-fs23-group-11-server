@@ -44,8 +44,9 @@ public class LobbyServiceIntegrationTest {
 
     @BeforeEach
     public void setup() {
+
+        //lobbyRepository.deleteAll();
         userRepository.deleteAll();
-        lobbyRepository.deleteAll();
         testHost = new User();
         testHost.setUsername("testUsername");
         testHost.setPassword("***");

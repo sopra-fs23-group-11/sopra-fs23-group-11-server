@@ -5,7 +5,8 @@ import ch.uzh.ifi.hase.soprafs23.entity.ships.Ship;
 import ch.uzh.ifi.hase.soprafs23.entity.ships.ShipPlayer;
 import ch.uzh.ifi.hase.soprafs23.exceptions.PositionExcep;
 import ch.uzh.ifi.hase.soprafs23.repository.*;
-import org.junit.Ignore;
+import org.junit.*;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,16 +82,26 @@ public class GameIntegrationTest {
 
     private Shot testShot;
 
+    @AfterEach
+    public  void finish(){
+        shotRepository.deleteAll();
+        shipPlayerRepository.deleteAll();
+        gameRepository.deleteAll();
+        shipRepository.deleteAll();
+        playerRepository.deleteAll();
+        userRepository.deleteAll();
+    }
+
     @BeforeEach
     public void setup() {
-        userRepository.deleteAll();
-        playerRepository.deleteAll();
-        gameRepository.deleteAll();
-        cellRepository.deleteAll();
-        lobbyRepository.deleteAll();
-        shipRepository.deleteAll();
-        shipPlayerRepository.deleteAll();
+
         shotRepository.deleteAll();
+        shipPlayerRepository.deleteAll();
+        gameRepository.deleteAll();
+        shipRepository.deleteAll();
+        playerRepository.deleteAll();
+        //lobbyRepository.deleteAll();
+        userRepository.deleteAll();
 
         testHost = new User();testHost.setUsername("testUsername");testHost.setPassword("***");
         testHost.setId(1l);testHost.setAvatar("Luna");testHost = userService.createUser(testHost);
@@ -106,18 +117,30 @@ public class GameIntegrationTest {
         lobby= new Lobby(); lobby= lobbyService.joinLobby(testLobby.getLobbyCode(), testJoiner.getId());
 
 
-        testAttacker= new Player(); testAttacker.setUser(testHost); testAttacker.setId(1L);
-        testDefender= new Player(); testDefender.setUser(testJoiner); testDefender.setId(2L);
+//        testAttacker= new Player(); testAttacker.setUser(testHost); testAttacker.setId(1L);
+//        testDefender= new Player(); testDefender.setUser(testJoiner); testDefender.setId(2L);
 
         testGame= new Game();
         game = new Game();game=gameService.startGame(lobby.getHost().getId(), lobby.getLobbyCode());
+        testAttacker= game.getPlayer1(); testDefender=game.getPlayer2();
 
         testShip1= new Ship(); testShip1.setId(1L); testShip1.setLength(2); testShip1.setType("Destroyer");
         testShip1 = shipRepository.save(testShip1);
+
         testShipPlayer1= new ShipPlayer();testShipPlayer= new ShipPlayer();
         testShipPlayer= shipPlayerService.placeShip(game.getPlayer2().getId(), testShip1.getId(), "A1", "A2", game.getId());
 
         testShot =new Shot();
+
+    }
+
+
+    @Test
+    public void placeShipTest(){
+        assertNull(testShipPlayer1.getShip());
+        testShipPlayer1= shipPlayerService.placeShip(game.getPlayer2().getId(), testShip1.getId(), "B1", "B2", game.getId());
+        assertEquals(2, testShipPlayer1.getShip().getLength());
+        assertEquals(false, testShipPlayer1.isSunk());
 
     }
     @Test
@@ -133,11 +156,13 @@ public class GameIntegrationTest {
     }
 
     @Test
-    public void placeShipTest(){
+    public void placeShipOverlappingTest(){
         assertNull(testShipPlayer1.getShip());
-        testShipPlayer1= shipPlayerService.placeShip(game.getPlayer2().getId(), testShip1.getId(), "A1", "A2", game.getId());
+        testShipPlayer1= shipPlayerService.placeShip(game.getPlayer2().getId(), testShip1.getId(), "B1", "B2", game.getId());
         assertEquals(2, testShipPlayer1.getShip().getLength());
         assertEquals(false, testShipPlayer1.isSunk());
+       assertThrows(PositionExcep.class, () -> {shipPlayerService.placeShip(game.getPlayer2().getId(), testShip1.getId(), "B1", "B2", game.getId());});
+
 
     }
 
@@ -166,12 +191,12 @@ public class GameIntegrationTest {
         assertEquals(4, testShot3.getDefender().getShipsRemaining());
     }
 
-    @Ignore
+    @Test
     public void attackTestWithLooserNotification(){
         assertNull(testShot.getDefender());
         testShot = gameService.attack(game.getPlayer1().getId(), game.getPlayer2().getId(), "A1", game.getId());
         testShot.getDefender().setShipsRemaining(1);
-        shotRepository.save(testShot);
+        playerRepository.save(testShot.getDefender());
         testShot = gameService.attack(game.getPlayer1().getId(), game.getPlayer2().getId(), "A2", game.getId());
 
         assertEquals( true, testShot.isHit());
@@ -179,8 +204,6 @@ public class GameIntegrationTest {
         assertEquals(0, testShot.getDefender().getShipsRemaining());
 
     }
-
-
 
     @Test
     public void playGameTest() {

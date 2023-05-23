@@ -55,7 +55,7 @@ public class LobbyService {
             throw new EntityNotFoundExcep("Joiner not found", lobbyCode);
         User user = optionalUser.get();
         if (hostId == user.getId())
-            throw new PlayerExcep("Players should differ", lobbyCode);
+            throw new PlayerExcep("A player cannot be the host and the joiner at the same time", lobbyCode);
         if (lobby.getJoiner() != null)
             throw new UserExcep("Lobby has a joiner");
         user.setLobbyForJoiner(lobby);

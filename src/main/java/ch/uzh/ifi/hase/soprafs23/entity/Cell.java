@@ -47,5 +47,5 @@ public class Cell implements Serializable {
     public void setId(String id){this.id = id;}
     public String getId(){return id;}
 
-    public Long getUniqueId(){return uniqueId;}
+   // public Long getUniqueId(){return uniqueId;}
 }

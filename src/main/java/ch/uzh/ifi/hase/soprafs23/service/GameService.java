@@ -162,7 +162,7 @@ public class GameService {
             for (int j = 1; j < 11; j++){
                 Cell newCell = new Cell();
                 String id = getCharForNumber(j) + String.valueOf(i);
-                newCell.setId(id);
+                //newCell.setId(id);
                 newCell.setOwnerId(ownerId);
                 newCell.setOccupyingShip(null);
                 newCell.setIsShotAt(false);

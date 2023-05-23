@@ -70,9 +70,9 @@ public class User implements Serializable {
         return id;
     }
 
-    public Lobby getLobbyForHost() {
-        return lobbyForHost;
-    }
+//    public Lobby getLobbyForHost() {
+//        return lobbyForHost;
+//    }
 
     public void setLobbyForHost(Lobby lobbyForHost) {
         this.lobbyForHost = lobbyForHost;

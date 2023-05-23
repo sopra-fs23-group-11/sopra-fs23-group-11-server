@@ -84,17 +84,17 @@ public class Player {
         return shotsAttack;
     }
 
-    public void setShotsAttack(List<Shot> shotsAttack) {
-        this.shotsAttack = shotsAttack;
-    }
+//    public void setShotsAttack(List<Shot> shotsAttack) {
+//        this.shotsAttack = shotsAttack;
+//    }
 
     public List<Shot> getShotsDefend() {
         return shotsDefend;
     }
 
-    public void setShotsDefend(List<Shot> shotsDefend) {
-        this.shotsDefend = shotsDefend;
-    }
+//    public void setShotsDefend(List<Shot> shotsDefend) {
+//        this.shotsDefend = shotsDefend;
+//    }
 
 
 }

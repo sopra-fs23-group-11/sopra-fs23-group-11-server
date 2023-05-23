@@ -57,7 +57,7 @@ public class LobbyService {
         if (hostId == user.getId())
             throw new PlayerExcep("A player cannot be the host and the joiner at the same time", lobbyCode);
         if (lobby.getJoiner() != null)
-            throw new UserExcep("Lobby has a joiner");
+            throw new UserExcep("Lobby is already full");
         user.setLobbyForJoiner(lobby);
         User newuser = userRepository.save(user);
         lobby.setJoiner(newuser);

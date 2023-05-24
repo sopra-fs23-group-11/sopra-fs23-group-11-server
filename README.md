@@ -57,45 +57,7 @@ The [Shot](https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/blo
 * **Qing Dai** - [qing-dai](https://github.com/qing-dai)
 * **Nick Schlatter** - [Nickschlaedde](https://github.com/Nickschlaedde)
 
+
+
 ## License
-This project is licensed under the Apache License 2.0 - see the [LICENSE](https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/blob/main/LICENSE) file for details.
-
-## Building with Gradle
-You can use the local Gradle Wrapper to build the application.
--   macOS: `./gradlew`
--   Linux: `./gradlew`
--   Windows: `./gradlew.bat`
-
-More Information about [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) and [Gradle](https://gradle.org/docs/).
-
-### Build
-
-```bash
-./gradlew build
-```
-
-### Run
-
-```bash
-./gradlew bootRun
-```
-
-You can verify that the server is running by visiting `localhost:8080` in your browser.
-
-### Test
-
-```bash
-./gradlew test
-```
-
-## Debugging
-If something is not working and/or you don't know what is going on. We recommend using a debugger and step-through the process step-by-step.
-
-To configure a debugger for SpringBoot's Tomcat servlet (i.e. the process you start with `./gradlew bootRun` command), do the following:
-
-1. Open Tab: **Run**/Edit Configurations
-2. Add a new Remote Configuration and name it properly
-3. Start the Server in Debug mode: `./gradlew bootRun --debug-jvm`
-4. Press `Shift + F9` or the use **Run**/Debug "Name of your task"
-5. Set breakpoints in the application where you need it
-6. Step through the process one step at a time
+This project is licensed under the Apache License 2.0 - see the [LICENSE](https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/blob/main/LICENSE) file for details.

@@ -22,7 +22,14 @@ The [ShipPlayer](https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-serv
  ### Shot
 The [Shot](https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/blob/main/src/main/java/ch/uzh/ifi/hase/soprafs23/entity/Shot.java) is a major component for managing and tracking shots in the game. It establishes relationships between players, records shot positions and hit status, and provides the necessary structure to implement shot-related operations and logic within the game.
 
-## Launch & Deployment
+## Launch
+
+#### Clone Repository
+Clone the client-repository onto your local machine with the help of [Git](https://git-scm.com/downloads).
+
+```bash 
+git clone https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server.git
+```
 
 ### Build
 
@@ -42,6 +49,13 @@ The [Shot](https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/blo
 ./gradlew test
 ```
 
+## Deployment
+- the main branch is automatically mirrored onto Google Cloud App Engine via GitHub workflow
+
+### Create Releases
+- [follow GitHub documentation](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
+- database is reset during a release with the current settings!
+
 ## Roadmap
 - Make Ships drag and drop at setup
 - Different Game modes
@@ -57,7 +71,8 @@ The [Shot](https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/blo
 * **Qing Dai** - [qing-dai](https://github.com/qing-dai)
 * **Nick Schlatter** - [Nickschlaedde](https://github.com/Nickschlaedde)
 
-
+### Acknowledgments
+We would like to thank our TA [Isabella](https://github.com/bellachesney) and the whole team of the course Software Engineering Lab from the University of Zurich.
 
 ## License
 This project is licensed under the Apache License 2.0 - see the [LICENSE](https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/blob/main/LICENSE) file for details.

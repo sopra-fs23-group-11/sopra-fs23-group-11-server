@@ -34,8 +34,6 @@ public class Position {
     }
     
 
-
-
     private int charToInt(String str) {
         return switch (str) {
             case "A", "0" -> 0;

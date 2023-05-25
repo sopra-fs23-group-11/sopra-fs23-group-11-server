@@ -22,7 +22,7 @@ This project aims to provide an enjoyable gaming experience while showcasing the
 
 
 ## Technologies Used
-* <img src="https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/blob/main/src/ReadMePics/Spring.JPG" width="16" height="16" /> [Spring](https://spring.io/projects/spring-framework) - Framework that enables running JVM
+* <img src="https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/blob/main/src/ReadMePics/Spring.JPG" width="16" height="16" /> [Spring](https://spring.io/projects/spring-framework) - Framework that enables running JVM and JPA
 * <img src="https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/blob/main/src/ReadMePics/Gradle.JPG" width="16" height="16" /> [Gradle](https://gradle.org/) - Build automation tool
 * <img src="https://user-images.githubusercontent.com/91155454/170843632-39007803-3026-4e48-bb78-93836a3ea771.png" width="16" height="16" /> [STOMP](https://stomp-js.github.io/stomp-websocket/) - Used for Websockets
 * <img src="https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-client/blob/main/src/ReadMePics/DicebearAPI.JPG" width="16" height="16" /> [Dicebear API](https://www.dicebear.com/) - For creating Avatars
@@ -79,6 +79,7 @@ The main branch is automatically mirrored onto Google Cloud App Engine via GitHu
 - Database is reset during a release with the current settings!
 
 ## Roadmap
+- Add secure connection (https instead of http)
 - Different Game modes
 - Different shot types (salvo, grenade, atomic bomb)
 - Make game responsive for mobile screens

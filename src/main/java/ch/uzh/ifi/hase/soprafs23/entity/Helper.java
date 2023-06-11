@@ -10,6 +10,7 @@ import java.util.*;
 @Component
 public class Helper {
 
+
     static Set<Character> numbers = new HashSet<>(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'));
 
     public static boolean isValidPosition(String start, String end) {

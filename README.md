@@ -94,7 +94,7 @@ The main branch is automatically mirrored onto Google Cloud App Engine via GitHu
 * **Nick Schlatter** - [Nickschlaedde](https://github.com/Nickschlaedde)
 
 ### Acknowledgments
-We would like to thank our TA [Isabella](https://github.com/bellachesney) and the whole team of the course Software Engineering Lab from the University of Zurich.
+We  would like to thank our TA [Isabella](https://github.com/bellachesney) and the whole team of the course Software Engineering Lab from the University of Zurich.
 
 ## License
 This project is licensed under the Apache License 2.0 - see the [LICENSE](https://github.com/sopra-fs23-group-11/sopra-fs23-group-11-server/blob/main/LICENSE) file for details.

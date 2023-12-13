@@ -31,7 +31,7 @@ public class GameController {
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
-
+//
     @MessageMapping("/game")
     public ShotMessage attack(ShotPostDTO shotPostDTO) {
 

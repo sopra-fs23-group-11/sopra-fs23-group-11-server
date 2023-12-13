@@ -21,7 +21,8 @@ public class LobbyController {
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
-    //Create lobby
+    //Create lobby this is a test line
+
     @PostMapping("/lobbies")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
